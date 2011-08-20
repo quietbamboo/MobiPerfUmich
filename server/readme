@@ -1,0 +1,7 @@
+complete .jar
++ bash compile.sh
+the end of compile.sh should upload jars to falcon
+
+
+At the beginning of 3GTest client, post to report.php to update user/device info including name and other user info
+For both Android/iPhone
