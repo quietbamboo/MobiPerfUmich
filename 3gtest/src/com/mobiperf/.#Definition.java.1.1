@@ -1,0 +1,65 @@
+/****************************
+*
+* @Date: Mar 23, 2011
+* @Time: 3:04:02 PM
+* @Author: Junxian Huang
+*
+****************************/
+package eecs.umich.threegtest;
+
+
+
+public class Definition {
+	
+	//port definitions
+	public static final int PORT_DNS_UDP = 53;
+	
+	public static final int PORT_CONTROL = 5004;
+	public static final int PORT_THRU_UP = 5002;
+    public static final int PORT_THRU_DOWN = 5001;
+    public static final int PORT_WHOAMI = 5000;
+    
+    public static final int PORT_BT = 6881;
+    public static final int PORT_BT_RAND = 5005;
+    public static final int PORT_HTTP = 80;
+
+    
+	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for throughput tests
+	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
+	
+	public static final int IP_HEADER_LENGTH = 20;
+	public static final int TCP_HEADER_LENGTH = 32;
+	public static final int UDP_HEADER_LENGTH = 8;
+	
+	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
+	
+	
+	public static void reset(){
+		RUN_ID = null;
+		DEVICE_ID = null;
+		PREFIX = null;
+	}
+	
+	
+	private static String RUN_ID = null; //global runid
+	public static String getRunId(){
+		if(RUN_ID == null) //initiate for the first time
+			RUN_ID = ("" + System.currentTimeMillis()).substring(0, 10); // runID in seconds
+		return RUN_ID;
+	}
+	
+	private static String DEVICE_ID = null;
+	public static String getDeviceID () {
+		if (DEVICE_ID == null)
+			DEVICE_ID = Threegtest_Service.tester.telephonyManager.getDeviceId();
+		return DEVICE_ID;
+	}
+	
+	private static String PREFIX = null;
+	public static String getPrefix(){
+    	if(PREFIX == null)
+    		PREFIX = "<android><" + Definition.getDeviceID() + "><" + Definition.getRunId() + ">";
+    	return PREFIX;
+    }
+
+}

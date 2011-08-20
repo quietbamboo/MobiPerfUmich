@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.mobiperf" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:versionName="1.4.8" android:versionCode="38">
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+
+		<activity android:name=".Main" android:launchMode="singleTask"
+			android:screenOrientation="portrait" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".History" android:launchMode="singleTask"
+			android:screenOrientation="portrait"></activity>
+		<activity android:name=".LastRunResult" android:launchMode="singleTask"
+			android:screenOrientation="portrait"></activity>
+
+		<service android:name="MainService" />
+		<service android:name="MainServicePeriodic" />
+
+		<receiver android:name=".Periodic" />
+		<receiver android:name="com.mobiperf.Reregister">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+				<category android:name="android.intent.category.HOME" />
+			</intent-filter>
+		</receiver>
+		<activity android:name=".ui.Basic"></activity>
+		<activity android:name=".ui.Policy"></activity>
+		<activity android:name=".ui.Performance"></activity>
+		<activity android:name=".ui.Display" android:label="@string/app_name"></activity>
+		<activity android:name="ui.PastList"></activity>
+		<activity android:name=".ui.Preferences"></activity>
+		<activity android:name="com.mobiperf.ui.About"></activity>
+		<activity android:name=".ui.Vote"></activity>
+		<activity android:name=".ui.HistoricalList"></activity>
+		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
+			android:name=".PerfNearMe.Buttons">
+
+		</activity>
+		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
+			android:name=".PerfNearMe.MapApp">
+
+			<intent-filter>
+				<action android:name="com.mobiperf.PerfNearMe.MAPAPP" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
+			android:name=".PerfNearMe.InputLocation">
+			<intent-filter>
+				<action android:name="com.mobiperf.PerfNearMe.INPUTLOCATION" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
+			android:name=".PerfNearMe.InputLocMap">
+			<intent-filter>
+				<action android:name="com.mobiperf.PerfNearMe.INPUTMAP" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		
+		<uses-library android:name="com.google.android.maps" />
+		<activity android:name=".pushNotify.PushActivity"></activity>
+		<service android:name=".pushNotify.PushService"></service>
+
+	</application>
+	<uses-sdk android:minSdkVersion="4" />
+	<uses-library android:name="com.google.android.maps" />
+</manifest> 

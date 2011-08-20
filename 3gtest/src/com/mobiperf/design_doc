@@ -1,0 +1,48 @@
+This document outlines the components of different part from the server perspective. It also works for the client part as each component of the server corresponds to one component on the client, e.g., both the server and the client include the component of uplink.
+
+1. WHOAMI
+
+This program answers the client request - "WHO:WHOAMI?" so that a client can get this global IP. Once “WHO:WHOAMI?” arrives, the server will reply with "xxx.xxx.xxx.xxx" immediately to the client.
+
+Port: 5000
+
+
+2. HTTP
+
+This program runs on the server in communication with the application by HTTP traffic. The first task is to emulate HTTP traffic, call the external script to calculate RTT, loss rate and throughput at the end of the traffic emulation.
+
+How to emulate the HTTP traffic? Since we can extract the payload from tcpdump trace, it is able to send exact the same bytes using send() as the trace. Therefore, we collect a sample HTTP trace using TCPDUMP, and then split the bytes into the client side and the server side.
+
+
+Port: 80
+
+
+3. BT
+
+This program communicates with the application by BT traffic to detect the BitTorrent differentiation. The server will replay the a real BT traffic and keep the state information. There are 5 states: handshake, bitfield, interested, unchoke, piece. If BT traffic is blocked, then packet receiving must return error in one of the state of handshake, bitfield, interested, unchoke, piece. Otherwise, the differentiation should show up in performance like RTT and loss rate. Therefore, if no error returns by recv() function, then this program will call external script to calculate RTT and loss rate,.
+
+Port: 6881
+
+
+4. Uplink
+
+This program keeps receiving the incoming TCP packet from the client until the client close the socket. At the end, the server will call external script to get RTT, loss rate, and throughput.
+
+Port: 5002
+
+
+5. Downlink
+
+This program feeds the client with TCP packet in the length of 1024, This traffic lasts for 2 minutes. At the end, the server will call external script to get RTT, loss rate, and throughput.
+
+Port: 5001
+
+
+7. Collector
+
+This program collects the final test results which come from the application.
+
+Port: 5004
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <ListView android:id="@+id/last_run_result"
+		android:paddingTop="10px"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="5"
+		android:choiceMode="none"
+		android:drawSelectorOnTop="false"
+		android:layout_marginTop="2px"
+		android:focusable="false"
+		android:focusableInTouchMode="false"
+		android:clickable="false"
+		android:listSelector="@android:color/transparent"
+		android:cacheColorHint="#00000000"
+		android:scrollbarAlwaysDrawVerticalTrack="true"
+		android:scrollbarStyle="insideInset"
+		android:smoothScrollbar="true" 
+	/> 
+    
+    
+</LinearLayout>
+
