@@ -1,0 +1,27 @@
+MobiPerf Server Deployment Guide
+
+Step 1:
+Change IP address
+
+Step 2:
+Compile server
+Run "bash compile.sh" in the current directory
+
+Step 3:
+Upload the whole "run" directory into your server
+
+Step 4:
+run "bash restart.sh" from "run" directory
+make sure 21 25 53 110 135 139 143 161 445 465 585 587 993 995 5060 6881 5223 5228 8080 ports are able to be bind for TCP/UDP, and 80, 22, 443 for UDP
+
+Following is a list of commands help for unbinding already occupied ports (warning: service provided on these ports by your server will be affected)
+#for smtp
+#sudo /etc/init.d/postfix stop
+#sudo lsof -i | grep "LISTEN" | grep "smtp"
+ 
+#for smb/netbios
+#sudo /etc/init.d/smbd stop
+
+#for 8080
+#sudo lsof -i :8080
+#sudo lsof -i | grep "LISTEN" | grep "netbios"
