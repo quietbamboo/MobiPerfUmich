@@ -179,11 +179,11 @@ public class CollectorWorker extends BaseTcpWorker{
 			//here can we do something for control commands
 			//such as starting tcpdump for uplink/downlink experiments early
 			if(report.startsWith("COMMAND:")){
-				String tcpdump_init = "sudo bash " + Definition.TCPDUMP_DIR + "tcpdump_init.sh " + 
+				String tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " ";
-				String tcpdump_init_reach = "sudo bash " + Definition.TCPDUMP_DIR + "tcp_reach_init.sh " + 
+				String tcpdump_init_reach = "sudo bash " + Definition.ROOT_DIR + "tcp_reach_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " ";
@@ -206,7 +206,7 @@ public class CollectorWorker extends BaseTcpWorker{
 					return;//return here, don't need to write command into output
 					
 				}else if(report.startsWith(Definition.COMMAND_REACH_STOP)){
-					String tcpdump_end = "sudo bash " + Definition.TCPDUMP_DIR + "tcpdump_end.sh " + 
+					String tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 					type_string + " " + 
 					id_string + " " + 
 					rid_string + " " + 

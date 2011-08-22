@@ -65,13 +65,13 @@ public class UplinkWorker extends BaseTcpWorker {
 				return;
 			
 
-			tcpdump_init = "sudo bash " + Definition.TCPDUMP_DIR + "tcpdump_init.sh " + 
+			tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
 				Definition.PORT_UP_THRU + " " +
 				client.getInetAddress().getHostAddress();
-			tcpdump_end = "sudo bash " + Definition.TCPDUMP_DIR + "tcpdump_end.sh " + 
+			tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 

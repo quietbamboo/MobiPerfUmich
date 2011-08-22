@@ -1,14 +1,14 @@
 MobiPerf Server Deployment Guide
 
 Step 1:
-Change IP address
+Change the definition of the ROOT_DIR in src/common/Definition.java (read the comments above ROOT_DIR definition for more details)
 
 Step 2:
 Compile server
 Run "bash compile.sh" in the current directory
 
 Step 3:
-Upload the whole "run" directory into your server
+Upload the whole "run" directory into your server (you don't need to include "run" directory itself)
 
 Step 4:
 run "bash restart.sh" from "run" directory

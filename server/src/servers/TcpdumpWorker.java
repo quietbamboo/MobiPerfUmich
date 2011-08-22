@@ -69,7 +69,7 @@ public class TcpdumpWorker extends BaseTcpWorker {
 
 
 			//prepare file writer
-			fos = new FileOutputStream(Definition.DATA_ROOT + type_string + "/" + id_string + "/" + rid_string + ".pcap");
+			fos = new FileOutputStream(Definition.DATA_DIR + type_string + "/" + id_string + "/" + rid_string + ".pcap");
 			
 			while((bytes_read = in.read(buffer)) > -1){
 				//System.out.println("<Thread " + id + "> received " + bytes_read + " bytes");

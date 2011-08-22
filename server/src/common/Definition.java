@@ -12,6 +12,14 @@ package common;
  */
 public class Definition {
 	
+	//Change this to be the directory path where you will put MobiPerf server suit on your server.
+	//For example, restart.sh is located here in your server: /foo/bar/restart.sh
+	//ROOT_DIR = "/foo/bar/", make sure the include the last "/"
+	public static final String ROOT_DIR = "/home/hjx/3gtest/";
+	
+	//DON'T CHANGE BELOW
+	public static final String DATA_DIR = ROOT_DIR + "data/";
+	
 	public static final String VERSION = "4.1.3";
 	
 	public static final int IP_HEADER_LENGTH = 20;
@@ -60,8 +68,6 @@ public class Definition {
 	public static final int[] PORTS = new int[]{21, 22, 25, 53, 80, 110, 135, 139, 143, 161,
 		443, 445, 465, 585, 587, 993, 995, 5060, 6881, 5223, 5228, 8080};
 
-	public static final String TCPDUMP_DIR = "/home/hjx/3gtest/";
-	public static final String DATA_ROOT = "/home/hjx/3gtest/data/";
 	
 	//command 
 	public static final String COMMAND_TCP_UPLINK = "COMMAND:TCP:UPLINK";
