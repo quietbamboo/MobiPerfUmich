@@ -2,6 +2,8 @@
 #bash *.sh type device_id run_id port ip
 
 #cd /home/hjx/3gtest
+#working directory is server/*/
+cd ../..
 
 cd data
 sudo mkdir $1

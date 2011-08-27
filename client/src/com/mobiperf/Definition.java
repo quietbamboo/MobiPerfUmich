@@ -29,6 +29,10 @@ package com.mobiperf;
  */
 public class Definition {
 	
+	//change this to be the server you will connect to, either IP or domain name is fine
+	public static final String SERVER_NAME = "koala.eecs.umich.edu";
+	
+	//DON'T CHANGE BELOW
 	//port definitions
 	public static final int PORT_WHOAMI = 5000;
 	public static final int PORT_THRU_DOWN = 5001;
@@ -54,7 +58,7 @@ public class Definition {
 	
 	public static final int GPS_UPDATE_WAITING_TIME = 10000; //wait for 10 seconds for GPS to updated
 	
-	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
+	
 	public static final String TYPE = "android";
 	public static final String RESULT_DELIMITER = "-_hjx-_";
 

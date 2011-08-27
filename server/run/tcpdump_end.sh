@@ -1,6 +1,9 @@
 #!/bin/bash
 #bash *.sh type device_id run_id port ip
 
+#working directory is server/*/
+cd ../..
+
 for ps in $(ps aux | grep tcpdump$2 | awk '{print $2}')
 do
 	echo $ps

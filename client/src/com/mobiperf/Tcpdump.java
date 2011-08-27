@@ -7,14 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import com.mobiperf.ui.Preferences;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import java.lang.Object;
 
 public class Tcpdump {
 	public static final String PATH = "/data/data/com.mobiperf/";
