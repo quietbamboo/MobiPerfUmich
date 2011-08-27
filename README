@@ -1,1 +1,11 @@
-To do
+MobiPerf Project
+
+Mobile Network Measurement Platform
+
+Contact: 3gtest@umich.edu
+
+Website: http://mobiperf.com
+
+This package includes MobiPerf client and server source code. The backend database and analysis tool is not included.
+Please give us feedback if you have any suggestions or questions.
+
