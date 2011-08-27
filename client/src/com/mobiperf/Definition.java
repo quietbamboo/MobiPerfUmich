@@ -30,7 +30,7 @@ package com.mobiperf;
 public class Definition {
 	
 	//change this to be the server you will connect to, either IP or domain name is fine
-	public static final String SERVER_NAME = "koala.eecs.umich.edu";
+	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
 	
 	//DON'T CHANGE BELOW
 	//port definitions

@@ -15,8 +15,7 @@ public class Definition {
 	//Change this to be the directory path where you will put MobiPerf server suit on your server.
 	//For example, restart.sh is located here in your server: /foo/bar/restart.sh
 	//ROOT_DIR = "/foo/bar/", make sure the include the last "/"
-	//public static final String ROOT_DIR = "/home/hjx/3gtest/";
-	public static final String ROOT_DIR = "/home/hjx/test/";
+	public static final String ROOT_DIR = "/home/hjx/3gtest/";
 	
 	//DON'T CHANGE BELOW
 	public static final String DATA_DIR = ROOT_DIR + "data/";
