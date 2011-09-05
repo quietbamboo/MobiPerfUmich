@@ -49,10 +49,17 @@ public class TestCenter{
 		//For MSP experiments
 		/*if(fore){
 			//TimeoutClient.start(310, 311, 10);
-			while(true)
+			while(true){
+				Log.v("MobiPerf", "Start traceroute");
 				Traceroute.start();
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			//if(true)return;
-		}*/
+		}//*/
 		
 		
 
