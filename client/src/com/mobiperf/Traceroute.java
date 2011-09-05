@@ -20,7 +20,7 @@ class Traceroute  {
         
 		String tracerouteresult = "TRACEROUTE";
 		
-		String res = Utilities.executeCmd("traceroute -lv -w 1 mobiperf.com");
+		String res = Utilities.executeCmd("traceroute -lv -w 1 mobiperf.com", true);
 		
 		tracerouteresult += ":<" + res + ">;";
         
