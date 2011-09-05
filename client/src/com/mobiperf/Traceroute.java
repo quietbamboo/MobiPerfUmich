@@ -15,29 +15,17 @@
 package com.mobiperf;
 
 class Traceroute  {
-	public static int traceroute(String serverName, int start, int end) {
+	
+	public static void start() {
         
 		String tracerouteresult = "TRACEROUTE";
 		
-/*TODO
-        for ( int i = start; i < end; i++ ) {
-
-            String[] res = Utilities.pingS( serverName, i + 1, 0, 0, 2000 );
-
-                tracerouteresult += ":<" + ( i + 1 ) + ":" + serverName + ":" + k + ">;";
-                break;
-            }
-
-            if ( k != -1 ) {
-                tracerouteresult += ":<" + ( i + 1 ) + ":" + Utilities.signalServers + ":" + k + ">";
-            }
-            else {
-                tracerouteresult += ":<" + ( i + 1 ) + "::0.00>";
-            }
-        }
-        	(new Report()).sendReport(tracerouteresult);
-//*/
-        return 2;
+		String res = Utilities.executeCmd("traceroute -lv -w 1 mobiperf.com");
+		
+		tracerouteresult += ":<" + res + ">;";
+        
+		(new Report()).sendReport(tracerouteresult);
+		
     }
 
 	public static long[] latencyServers = new long[ 2 ];

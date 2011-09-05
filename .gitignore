@@ -42,3 +42,4 @@ server/run/server/Collector/Collector.jar
 server/.README2.swp
 
 client/bin
+client/src/com/mobiperf/test/
