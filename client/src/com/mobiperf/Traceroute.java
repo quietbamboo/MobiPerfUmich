@@ -22,7 +22,7 @@ class Traceroute  {
 		
 		String res = Utilities.executeCmd("traceroute -lv -w 1 mobiperf.com", true);
 		
-		tracerouteresult += ":<" + res + ">;";
+		tracerouteresult += ":<timestamp:" + System.currentTimeMillis() + "><" + res + ">;";
         
 		(new Report()).sendReport(tracerouteresult);
 		
