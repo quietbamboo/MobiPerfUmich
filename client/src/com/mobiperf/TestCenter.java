@@ -15,6 +15,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.mobiperf.test.TimeoutClient;
 import com.mobiperf.ui.Display;
 
 public class TestCenter{
@@ -44,6 +45,16 @@ public class TestCenter{
 
 	
 	public synchronized void RunTest(){
+		
+		//For MSP experiments
+		/*if(fore){
+			//TimeoutClient.start(310, 311, 10);
+			while(true)
+				Traceroute.start();
+			//if(true)return;
+		}*/
+		
+		
 
 		if(!fore){
 			Log.w("MobiPerf", "Periodic running " + System.currentTimeMillis());
