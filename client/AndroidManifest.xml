@@ -12,13 +12,15 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
-
-		<activity android:name=".Main" android:launchMode="singleTask"
+		<activity android:name=".ui.Home" android:launchMode="singleTask"
 			android:screenOrientation="portrait" android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
+		</activity>
+		<activity android:name=".Main" android:launchMode="singleTask"
+			android:screenOrientation="portrait" android:label="@string/app_name">
 		</activity>
 		<activity android:name=".History" android:launchMode="singleTask"
 			android:screenOrientation="portrait"></activity>
@@ -63,7 +65,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		
+
 		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
 			android:name=".PerfNearMe.InputLocMap">
 			<intent-filter>
@@ -71,7 +73,7 @@
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		
+
 		<uses-library android:name="com.google.android.maps" />
 		<activity android:name=".pushNotify.PushActivity"></activity>
 		<service android:name=".pushNotify.PushService"></service>
