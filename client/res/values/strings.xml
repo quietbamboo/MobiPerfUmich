@@ -6,4 +6,5 @@
 <string name="start_service">Start Push service</string>
 <string name="about">www.mobiperf.com</string>
 <string name="btn_network_test">Test Network\n Performance</string>
+<string name="btn_connection_monitor">Tcp Connection</string>
 </resources>

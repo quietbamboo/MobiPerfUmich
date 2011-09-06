@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.mobiperf.Main;
 import com.mobiperf.R;
+import com.mobiperf.TrafficMonitor;
 
 public class Home extends Activity {
 
@@ -16,12 +17,19 @@ public class Home extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 
-		this.findViewById(R.id.home_btn_networktest).setOnClickListener(new View.OnClickListener()
+		findViewById(R.id.home_btn_networktest).setOnClickListener(new View.OnClickListener()
 		{
-			
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getActivity(), Main.class));
+			}
+		});
+		
+		findViewById(R.id.home_btn_connectionmonitor).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getActivity(), ConnectionMonitorActivity.class));
 			}
 		});
 	}

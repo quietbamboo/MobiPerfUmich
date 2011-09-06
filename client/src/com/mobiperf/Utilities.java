@@ -36,12 +36,70 @@ import java.util.List;
 import java.util.TimeZone;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 
 
 public class Utilities  {
+	
+	/**
+	 * @author Yunxing Dai
+	 * get application info from android system
+	 */
+	private static ApplicationInfo getAppInfo(Context c, String name) throws NameNotFoundException
+	{
+		PackageManager pm = c.getPackageManager();
+		return pm.getApplicationInfo(name, PackageManager.GET_UNINSTALLED_PACKAGES);
+	}
+	
+	/**
+	 * @author Yunxing Dai
+	 * get application's icon based on uid given
+	 */
+	public static Drawable getAppIcon(Context c, int uid)
+	{
+		PackageManager pm = c.getPackageManager();
+		Drawable icon = null;
+		try {
+
+			String name = pm.getPackagesForUid(uid)[0];
+			icon = (Drawable) getAppInfo(c,name).loadIcon(pm);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e)
+		{
+			icon = null;
+		}
+		return icon;
+	}
+	
+	/**
+	 * @author Yunxing Dai
+	 * get application's user friendly label based on context and uid
+	 */
+	public static String getAppLabel(Context c, int uid) {
+		PackageManager pm = c.getPackageManager();
+		String label = null;
+		try {
+
+			String name = pm.getPackagesForUid(uid)[0];
+			label = (String) pm.getApplicationLabel(getAppInfo(c,name));
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e)
+		{
+			label = "unknown(uid=" + uid + ")";
+		}
+		return label;
+	}
+	
 	/*
 	public static int setProgressStatus (int hardCodedValue) {
     	int val = (int) (time() % 3) + hardCodedValue - 1;
