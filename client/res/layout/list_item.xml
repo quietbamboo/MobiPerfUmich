@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="500dip"
+
+	android:padding="6dip">
+	<ImageView android:id="@+id/app_icon" android:layout_width="60dip"
+		android:layout_height="80dip" android:layout_marginRight="6dip" />
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="0dip" android:layout_weight="1"
+		android:layout_height="wrap_content">
+		<TextView android:id="@+id/app_title" android:layout_width="fill_parent"
+			android:layout_height="50dip" android:textSize="25px"
+			android:gravity="center_vertical"/>
+		<TextView android:background="@drawable/whiteline"
+			android:layout_width="fill_parent" android:layout_height="2dip" />
+		<TextView android:id="@+id/app_status" android:layout_width="fill_parent"
+			android:layout_height="50dip" android:textSize="25px"
+			android:gravity="center_vertical" />
+	</LinearLayout>
+</LinearLayout>
