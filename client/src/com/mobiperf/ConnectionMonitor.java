@@ -12,11 +12,11 @@ public class ConnectionMonitor {
 	public static final String mTcp6File = "/proc/net/tcp6";
 	public static final String mTcpFile = "/proc/net/tcp";
 	private Context mContext;
-	
+
 	public ConnectionMonitor(Context c) {
 		mContext = c;
 	}
-	
+
 	public List<ConnectionInfo> getConnectionInfo(String netWorkFile) {
 		int offset = 0;
 		if (netWorkFile.equals(mTcp6File))
@@ -42,7 +42,7 @@ public class ConnectionMonitor {
 					if (i != 0)
 						convertAddress += ".";
 				}
-				
+
 				// now parsing the port
 				convertAddress += ":";
 				convertAddress += Integer.valueOf(
@@ -52,7 +52,16 @@ public class ConnectionMonitor {
 
 				// now get the application's name
 				int uid = Integer.parseInt(all[8]);
-				results.add(new ConnectionInfo(Utilities.getAppLabel(mContext,uid), convertAddress, Utilities.getAppIcon(mContext,uid)));
+				try
+				{
+				results.add(new ConnectionInfo(Utilities.getAppPkg(mContext,
+						uid), Utilities.getAppLabel(mContext, uid),
+						convertAddress, Utilities.getAppIcon(mContext, uid)));
+				}
+				catch (NullPointerException e)
+				{
+					continue;
+				}
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

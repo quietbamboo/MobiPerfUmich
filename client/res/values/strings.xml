@@ -7,4 +7,6 @@
 <string name="about">www.mobiperf.com</string>
 <string name="btn_network_test">Test Network\n Performance</string>
 <string name="btn_connection_monitor">Tcp Connection</string>
+<string name="menu_uninstall">Uninstall</string>
+<string name="menu_kill">Force Stop</string>
 </resources>

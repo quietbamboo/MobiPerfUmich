@@ -23,7 +23,10 @@ public class ConnectionStatusAdapter extends ArrayAdapter<ConnectionInfo>  {
         this.mItems = items; 
         mContext = context;
     }
-
+	public String getPkgName(int position)
+	{
+		return mItems.get(position).getmPackageName();
+	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;

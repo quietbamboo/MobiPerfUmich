@@ -47,6 +47,12 @@ import android.util.Log;
 
 public class Utilities  {
 	
+	public static String getAppPkg(Context c, int uid) throws NullPointerException
+	{
+		PackageManager pm = c.getPackageManager();
+		String name = pm.getPackagesForUid(uid)[0];
+		return name;
+	}
 	/**
 	 * @author Yunxing Dai
 	 * get application info from android system
@@ -811,7 +817,7 @@ public class Utilities  {
 	            catch ( Exception e1 ) {
 	                e1.printStackTrace();
 	            }
-	        }
-		 return null;
+		}
+		return null;
 	}
 }
