@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.mobiperf.Main;
 import com.mobiperf.R;
-import com.mobiperf.TrafficMonitor;
 
 public class Home extends Activity {
 
