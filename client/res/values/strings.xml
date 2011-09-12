@@ -11,6 +11,7 @@
 	<string name="menu_uninstall">Uninstall</string>
 	<string name="menu_kill">Force Stop</string>
 	<string name="btn_refresh">refresh</string>
+	<string name="btn_total">sort by total</string>
 	<string name="btn_total_rx">sort by recv</string>
 	<string name="btn_total_tx">sort by sent</string>
 
