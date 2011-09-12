@@ -2,7 +2,6 @@
 <com.mobiperf.ui.widget.DashboardLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
-
 	<Button android:id="@+id/home_btn_networktest" 
 		style="@style/DashboardButton"
 		android:text="@string/btn_network_test"
@@ -15,7 +14,7 @@
 		
 	<Button android:id="@+id/home_btn_trafficmonitor" 
 		style="@style/DashboardButton"
-		android:text="@string/btn_connection_monitor" 
+		android:text="@string/btn_traffic_monitor" 
 		android:drawableTop="@drawable/home_btn_networktest" />
 		
 	<Button android:id="@+id/home_btn_networktest" 

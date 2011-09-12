@@ -1,50 +1,70 @@
 package com.mobiperf;
 
+import android.graphics.drawable.Drawable;
+
 public class TrafficInfo {
 	private String mAppName;
-	private int mUid;
-	public int getmUid() {
-		return mUid;
-	}
-	public void setmUid(int mUid) {
-		this.mUid = mUid;
-	}
-	private long mSentBytes;
-	public long getmSentBytes() {
-		return mSentBytes;
-	}
-	public void setmSentBytes(long mSentBytes) {
-		this.mSentBytes = mSentBytes;
-	}
-	private long mRecvBytes;
-	private long mTotalBytes;
+	private String mPackageName;
+	private Drawable mIcon;
+	private long total_sent;
+	private long total_recv;
+	private long tcp_sent;
+	private long tcp_recv;
+	private long udp_sent;
+	private long udp_recv;
 	public String getmAppName() {
 		return mAppName;
 	}
 	public void setmAppName(String mAppName) {
 		this.mAppName = mAppName;
 	}
-	public long getmRecvBytes() {
-		return mRecvBytes;
+	public String getmPackageName() {
+		return mPackageName;
 	}
-	public void setmRecvBytes(long mRecvBytes) {
-		this.mRecvBytes = mRecvBytes;
+	public void setmPackageName(String mPackageName) {
+		this.mPackageName = mPackageName;
 	}
-	public long getmTotalBytes() {
-		return mTotalBytes;
+	public Drawable getIcon() {
+		return mIcon;
 	}
-	public void setmTotalBytes(long mTotalBytes) {
-		this.mTotalBytes = mTotalBytes;
+	public void setIcon(Drawable mIcon) {
+		this.mIcon = mIcon;
 	}
-	public TrafficInfo(String mAppName, int mUid, long mSentBytes,
-			long mRecvBytes, long mTotalBytes) {
-		super();
-		this.mAppName = mAppName;
-		this.mUid = mUid;
-		this.mSentBytes = mSentBytes;
-		this.mRecvBytes = mRecvBytes;
-		this.mTotalBytes = mTotalBytes;
+	public long getTotal_sent() {
+		return total_sent;
 	}
-
-
+	public void setTotal_sent(long total_sent) {
+		this.total_sent = total_sent;
+	}
+	public long getTotal_recv() {
+		return total_recv;
+	}
+	public void setTotal_recv(long total_recv) {
+		this.total_recv = total_recv;
+	}
+	public long getTcp_sent() {
+		return tcp_sent;
+	}
+	public void setTcp_sent(long tcp_sent) {
+		this.tcp_sent = tcp_sent;
+	}
+	public long getTcp_recv() {
+		return tcp_recv;
+	}
+	public void setTcp_recv(long tcp_recv) {
+		this.tcp_recv = tcp_recv;
+	}
+	public long getUdp_sent() {
+		return udp_sent;
+	}
+	public void setUdp_sent(long udp_sent) {
+		this.udp_sent = udp_sent;
+	}
+	public long getUdp_recv() {
+		return udp_recv;
+	}
+	public void setUdp_recv(long udp_recv) {
+		this.udp_recv = udp_recv;
+	}
+	
 }

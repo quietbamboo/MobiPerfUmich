@@ -31,6 +31,14 @@ public class Home extends Activity {
 				startActivity(new Intent(getActivity(), ConnectionMonitorActivity.class));
 			}
 		});
+		
+		findViewById(R.id.home_btn_trafficmonitor).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getActivity(), TrafficMonitorActivity.class));
+			}
+		});
 	}
 	protected Activity getActivity()
 	{

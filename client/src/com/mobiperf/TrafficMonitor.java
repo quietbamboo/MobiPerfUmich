@@ -41,11 +41,16 @@ public class TrafficMonitor {
 
 			// remove those application which do not sent and recv data
 			if (recv > 0 || sent > 0)
-				result.add(new TrafficInfo((String) mPm
-						.getApplicationLabel(info), uid, recv, sent, recv
-						+ sent));
+			{
+				TrafficInfo ti = new TrafficInfo();
+				ti.setmAppName(Utilities.getAppLabel(mContext, uid));
+				ti.setmPackageName(Utilities.getAppPkg(mContext,uid));
+				ti.setIcon(Utilities.getAppIcon(mContext, uid));
+				ti.setTotal_recv(TrafficStats.getUidRxBytes(uid));
+				ti.setTotal_sent(TrafficStats.getUidTxBytes(uid));
+				result.add(ti);
+			}
 		}
-
 		return result;
 	}
 }
