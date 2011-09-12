@@ -39,6 +39,13 @@ public class Home extends Activity {
 				startActivity(new Intent(getActivity(), TrafficMonitorActivity.class));
 			}
 		});
+		findViewById(R.id.home_btn_performance).setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getActivity(), com.mobiperf.PerfNearMe.Buttons.class));
+			}
+		});
 	}
 	protected Activity getActivity()
 	{
