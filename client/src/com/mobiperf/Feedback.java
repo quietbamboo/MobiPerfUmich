@@ -1,4 +1,4 @@
-/****************************
+/**************************
  * This file is part of the MobiPerf project (http://mobiperf.com). 
  * We make it open source to help the research community share our efforts.
  * If you want to use all or part of this project, please give us credit and cite MobiPerf's official website (mobiperf.com).

@@ -53,8 +53,4 @@
    		        android:textSize = "18px"
 		        android:text="http://mobiperf.com"/>
     </LinearLayout>
-    
-      
-            
-
 </LinearLayout>
