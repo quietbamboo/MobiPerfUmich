@@ -15,7 +15,6 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.mobiperf.test.TimeoutClient;
 import com.mobiperf.ui.Display;
 
 public class TestCenter{
