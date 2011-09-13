@@ -536,20 +536,28 @@ public class Utilities  {
     /**
      * 
      * @param cmd
-     * @return output cancated to one line
+     * @return output
      */
-    public static String executeCmd(String cmd){
+    public static String executeCmd(String cmd, boolean sudo){
 		try {
-			Process p = Runtime.getRuntime().exec(cmd);
+			
+			Process p;
+			if(!sudo)
+				p= Runtime.getRuntime().exec(cmd);
+			else{
+				p= Runtime.getRuntime().exec(new String[]{"su", "-c", cmd});
+			}
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			//BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 			String s;
 			String res = "";
 			while ((s = stdInput.readLine()) != null) {
 				res += s + "\n";
 			}
+			//p.waitFor();
 			p.destroy();
 			return res;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "";
@@ -566,7 +574,7 @@ public class Utilities  {
             if ( tl == 0 ) {
                 try {
                     start = System.currentTimeMillis();
-                    line = Utilities.executeCmd("ping -c 1 -t " + ttl + " " + serverIP);
+                    line = Utilities.executeCmd("ping -c 1 -t " + ttl + " " + serverIP, false);
                 }
                 catch ( Exception e1 ) {
                     e1.printStackTrace();
@@ -576,7 +584,7 @@ public class Utilities  {
             if ( tl == 1 ) {
                 try {
                     start = System.currentTimeMillis();
-                    line = Utilities.executeCmd("ping -c 1 " + serverIP);
+                    line = Utilities.executeCmd("ping -c 1 " + serverIP, false);
                     }
                 catch ( Exception e ) {
                     e.printStackTrace();

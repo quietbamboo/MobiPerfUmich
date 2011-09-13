@@ -20,9 +20,12 @@ class Traceroute  {
         
 		String tracerouteresult = "TRACEROUTE";
 		
-		String res = Utilities.executeCmd("traceroute -lv -w 1 mobiperf.com");
+		//why it always fails for the first time??
+		String res = Utilities.executeCmd("traceroute -lv -w 3 mobiperf.com", true);
 		
-		tracerouteresult += ":<" + res + ">;";
+		String[] networkType = InformationCenter.getTypeNameAndId();
+		tracerouteresult += ":<Type:" + networkType[0] + "><TypeID:" + networkType[1] + ">" +
+				"<timestamp:" + System.currentTimeMillis() + "><" + res + ">;";
         
 		(new Report()).sendReport(tracerouteresult);
 		

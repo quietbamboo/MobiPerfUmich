@@ -45,13 +45,6 @@ public class TestCenter{
 	
 	public synchronized void RunTest(){
 		
-		//For MSP experiments
-		/*if(fore){
-			//TimeoutClient.start(310, 311, 10);
-			while(true)
-				Traceroute.start();
-			//if(true)return;
-		}*/
 		
 		
 
@@ -89,7 +82,9 @@ public class TestCenter{
 		WifiManager wm = ( WifiManager ) service.getSystemService( Context.WIFI_SERVICE );
 		wlw = wm.createWifiLock( "WIFI LOCK TAG" );
 		wlw.acquire();
-
+		
+		
+		
 		//catch any exception here
 		try{
 
@@ -113,6 +108,21 @@ public class TestCenter{
 			}
 
 			//network connection is available, start tests
+			
+			//MSP test
+			if(fore){
+				//TimeoutClient.start(310, 311, 10);
+				while(true){
+					Log.v("MobiPerf", "Start traceroute");
+					Traceroute.start();
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+				//if(true)return;
+			}//*/
 
 			//MobiOpen test
 			/*service.updateTextView3("MobiPerf local experiments");
