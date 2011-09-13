@@ -536,7 +536,7 @@ public class Utilities  {
     /**
      * 
      * @param cmd
-     * @return output cancated to one line
+     * @return output
      */
     public static String executeCmd(String cmd, boolean sudo){
 		try {
