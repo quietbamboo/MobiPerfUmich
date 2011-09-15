@@ -57,7 +57,7 @@ public class ConnectionMonitorActivity extends Activity {
 		Button refreshBtn = (Button)this.findViewById(R.id.btn_refresh);
 		refreshBtn.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
+			//@Override
 			public void onClick(View v) {
 				refresh();
 				

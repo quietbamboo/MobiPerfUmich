@@ -43,3 +43,5 @@ server/.README2.swp
 
 client/bin
 client/src/com/mobiperf/test/
+
+client/gen/com/mobiperf/R.java

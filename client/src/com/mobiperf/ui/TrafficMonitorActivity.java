@@ -45,7 +45,7 @@ public class TrafficMonitorActivity extends Activity {
 		this.setContentView(R.layout.traffic_monitor);
 		Button refreshBtn = (Button) this.findViewById(R.id.btn_refresh);
 		refreshBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
+			//@Override
 			public void onClick(View v) {
 				refresh();
 			}
@@ -53,7 +53,7 @@ public class TrafficMonitorActivity extends Activity {
 		
 		Button nameBtn = (Button) this.findViewById(R.id.btn_name);
 		nameBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
+			//@Override
 			public void onClick(View v) {
 				status = STATUS_NAME;
 				refresh();
@@ -62,7 +62,7 @@ public class TrafficMonitorActivity extends Activity {
 		
 		Button totalBtn = (Button) this.findViewById(R.id.btn_total);
 		totalBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
+			//@Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL;
 				refresh();
@@ -70,7 +70,7 @@ public class TrafficMonitorActivity extends Activity {
 		});
 		Button totalSentBtn = (Button) this.findViewById(R.id.btn_total_tx);
 		totalSentBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
+			//@Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL_SENT;
 				refresh();
@@ -78,7 +78,7 @@ public class TrafficMonitorActivity extends Activity {
 		});
 		Button totalRecvBtn = (Button) this.findViewById(R.id.btn_total_rx);
 		totalRecvBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
+			//@Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL_RECV;
 				refresh();
