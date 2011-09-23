@@ -30,6 +30,13 @@ class Traceroute  {
 		(new Report()).sendReport(tracerouteresult);
 		
     }
+	
+	//For Haoyu
+	public static void tr_ping(){
+		//implement traceroute with ping refer to the following code
+		//Utilities.pingS( Utilities.signalServers, 1, 1, 0, 2000 );
+		
+	}
 
 	public static long[] latencyServers = new long[ 2 ];
     public static int[] lossRateServers = new int[ 2 ];
