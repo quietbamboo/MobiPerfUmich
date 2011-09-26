@@ -16,7 +16,6 @@ import com.mobiperf.TrafficInfo;
 
 public class TrafficStatusAdapter extends ArrayAdapter<TrafficInfo> {
 
-
 	private List<TrafficInfo> mItems;
 	private Context mContext;
 
@@ -26,8 +25,6 @@ public class TrafficStatusAdapter extends ArrayAdapter<TrafficInfo> {
 		this.mItems = items;
 		mContext = context;
 	}
-
-
 
 	public String getPkgName(int position) {
 		return mItems.get(position).getmPackageName();
@@ -47,10 +44,30 @@ public class TrafficStatusAdapter extends ArrayAdapter<TrafficInfo> {
 		if (ci != null) {
 			TextView title = (TextView) view.findViewById(R.id.app_title);
 			title.setText(ci.getmAppName());
+			String unit_sent = "byte";
+			long sent = ci.getTotal_sent();
+			if (sent > 1024) {
+				sent /= 1024;
+				unit_sent = "KB";
+			}
+			if (sent > 1024) {
+				sent /= 1024;
+				unit_sent = "MB";
+			}
+			String unit_recv = "byte";
+			long recv = ci.getTotal_recv();
+			if (recv > 1024) {
+				recv /= 1024;
+				unit_recv = "KB";
+			}
+			if (recv > 1024) {
+				recv /= 1024;
+				unit_recv = "MB";
+			}
 
 			TextView remoteAddr = (TextView) view.findViewById(R.id.app_status);
-			remoteAddr.setText("sent: " + ci.getTotal_sent() + "\nrecv: "
-					+ ci.getTotal_recv());
+			remoteAddr.setText("sent: " + sent + unit_sent + "\nrecv: " + recv
+					+ unit_recv);
 
 			ImageView imageView = (ImageView) view.findViewById(R.id.app_icon);
 			imageView.setImageDrawable(ci.getIcon());

@@ -300,7 +300,7 @@ public class Main extends Activity {
 	        menu.add(0, PAST_RECORD, 0, "View past record");
 	        menu.add(0, MENU_EMAIL, 0, "About us");
 	        //menu.add(0, VOTE, 0, "Vote for us");
-	        menu.add(0, PERF_ME, 0, "Performance Near Me");
+	        //menu.add(0, PERF_ME, 0, "Performance Near Me");
 	        return true;
 	}
 	@Override

@@ -34,7 +34,7 @@ public class TrafficMonitorActivity extends Activity {
 	public static final int STATUS_TOTAL_RECV = FIRST_STATUS + 1;
 	public static final int STATUS_TOTAL = FIRST_STATUS + 2;
 	public static final int STATUS_NAME = FIRST_STATUS + 3;
-	
+
 	private int status = STATUS_NAME;
 	private TrafficStatusAdapter mAdapter = null;
 
@@ -45,24 +45,24 @@ public class TrafficMonitorActivity extends Activity {
 		this.setContentView(R.layout.traffic_monitor);
 		Button refreshBtn = (Button) this.findViewById(R.id.btn_refresh);
 		refreshBtn.setOnClickListener(new View.OnClickListener() {
-			//@Override
+			// @Override
 			public void onClick(View v) {
 				refresh();
 			}
 		});
-		
+
 		Button nameBtn = (Button) this.findViewById(R.id.btn_name);
 		nameBtn.setOnClickListener(new View.OnClickListener() {
-			//@Override
+			// @Override
 			public void onClick(View v) {
 				status = STATUS_NAME;
 				refresh();
 			}
 		});
-		
+
 		Button totalBtn = (Button) this.findViewById(R.id.btn_total);
 		totalBtn.setOnClickListener(new View.OnClickListener() {
-			//@Override
+			// @Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL;
 				refresh();
@@ -70,7 +70,7 @@ public class TrafficMonitorActivity extends Activity {
 		});
 		Button totalSentBtn = (Button) this.findViewById(R.id.btn_total_tx);
 		totalSentBtn.setOnClickListener(new View.OnClickListener() {
-			//@Override
+			// @Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL_SENT;
 				refresh();
@@ -78,7 +78,7 @@ public class TrafficMonitorActivity extends Activity {
 		});
 		Button totalRecvBtn = (Button) this.findViewById(R.id.btn_total_rx);
 		totalRecvBtn.setOnClickListener(new View.OnClickListener() {
-			//@Override
+			// @Override
 			public void onClick(View v) {
 				status = STATUS_TOTAL_RECV;
 				refresh();
@@ -86,6 +86,11 @@ public class TrafficMonitorActivity extends Activity {
 		});
 		refresh();
 
+	}
+
+	protected void onResume() {
+		super.onResume();
+		refresh();
 	}
 
 	@Override
@@ -138,12 +143,12 @@ public class TrafficMonitorActivity extends Activity {
 		case STATUS_NAME:
 			Collections.sort(result, new Comparator<TrafficInfo>() {
 				public int compare(TrafficInfo arg0, TrafficInfo arg1) {
-					return (int) (arg0.getmAppName().compareTo(arg1.getmAppName()));
+					return (int) (arg0.getmAppName().compareTo(arg1
+							.getmAppName()));
 				}
 			});
 			break;
 
-	
 		case STATUS_TOTAL:
 			Collections.sort(result, new Comparator<TrafficInfo>() {
 				public int compare(TrafficInfo arg0, TrafficInfo arg1) {

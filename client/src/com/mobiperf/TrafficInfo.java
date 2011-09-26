@@ -12,6 +12,7 @@ public class TrafficInfo {
 	private long tcp_recv;
 	private long udp_sent;
 	private long udp_recv;
+
 	public String getmAppName() {
 		return mAppName;
 	}
