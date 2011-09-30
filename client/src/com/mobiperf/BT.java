@@ -13,17 +13,6 @@
  ****************************/
 
 package com.mobiperf;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.UnknownHostException;
-
-import android.content.Context;
 
 //Commented by Junxian temporarily since old BT files are removed
 /*
