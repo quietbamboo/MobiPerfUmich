@@ -110,7 +110,7 @@ public class TestCenter{
 			//network connection is available, start tests
 			
 			//MSP test
-			if(fore){
+			/*if(fore){
 				//TimeoutClient.start(310, 311, 10);
 				while(true){
 					Log.v("MobiPerf", "Start traceroute");
