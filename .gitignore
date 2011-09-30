@@ -39,11 +39,13 @@ server/run/server/Downlink/Downlink.jar
 
 server/run/server/Collector/Collector.jar
 
-server/.README2.swp
-
 client/bin
 client/src/com/mobiperf/test/
 
 client/gen/com/mobiperf/R.java
 
 client/apk
+
+.gitignore
+
+.gitignore
