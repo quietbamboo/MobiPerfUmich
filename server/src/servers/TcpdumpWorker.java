@@ -76,13 +76,11 @@ public class TcpdumpWorker extends BaseTcpWorker {
 				fos.write(buffer, 0, bytes_read);
 			}
 			
-
 			in.close();
 			out.close();
 			fos.close();
 			client.close();
 			
-
 			log("ends");
 
 		} catch (IOException e) {

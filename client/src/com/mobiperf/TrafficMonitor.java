@@ -1,8 +1,5 @@
 package com.mobiperf;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +8,6 @@ import java.util.TreeSet;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.TrafficStats;
 
 public class TrafficMonitor {
