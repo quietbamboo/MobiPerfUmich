@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">MobiPerf</string>
+	<string name="target">Your Device Target:</string>
+	<string name="stop_service">Stop Push Service</string>
+	<string name="start_service">Start Push service</string>
+	<string name="about">www.mobiperf.com</string>
+	<string name="btn_network_test">Test Network\n Performance</string>
+	<string name="btn_connection_monitor">Tcp Connection</string>
+	<string name="btn_traffic_monitor">Traffic\nMonitor</string>
+	<string name="menu_uninstall">Uninstall</string>
+	<string name="menu_kill">Force Stop</string>
+	<string name="btn_refresh">refresh</string>
+	<string name="btn_name">sort by name</string>
+	<string name="btn_total">sort by total</string>
+	<string name="btn_total_rx">sort by recv</string>
+	<string name="btn_total_tx">sort by sent</string>
+	<string name="btn_about">About Us</string>
+</resources>

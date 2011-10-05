@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+	<TextView
+	android:id="@+id/textview1"
+	android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+		android:layout_centerInParent="true"
+		android:layout_marginTop="10px"/>
+
+        
+    <ProgressBar 
+	android:id="@+id/progress_bar"
+	android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:indeterminateOnly="false" 
+    android:progressDrawable="@android:drawable/progress_horizontal" 
+    android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal" 
+    android:minHeight="15dip" 
+    android:maxHeight="15dip"
+    android:layout_marginTop="2px" 
+    android:layout_marginLeft="10px"
+    android:layout_marginRight="10px"/>
+    
+    
+	<TextView
+	android:id="@+id/textview2"
+	android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+		android:layout_centerInParent="true"
+		android:layout_marginTop="2px"/>
+    
+	<TextView
+	android:id="@+id/textview3"
+	android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+	android:layout_centerInParent="true"
+	android:layout_marginTop="2px"/>
+    
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="120px"
+        android:textSize="16px"
+        android:paddingTop="2px"
+        android:layout_height="36px"
+        android:layout_gravity="center_horizontal"
+		android:layout_centerInParent="true"
+        android:layout_marginTop="2px"
+    />
+    
+    
+    
+    
+
+    
+    <ListView android:id="@+id/list"
+		android:paddingTop="10px"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="5"
+		android:choiceMode="none"
+		android:drawSelectorOnTop="false"
+		android:layout_marginTop="2px"
+		android:focusable="false"
+		android:focusableInTouchMode="false"
+		android:clickable="false"
+		android:listSelector="@android:color/transparent"
+		android:cacheColorHint="#00000000"
+		android:transcriptMode="alwaysScroll"
+		android:stackFromBottom="true"
+		android:scrollbarAlwaysDrawVerticalTrack="true"
+		android:scrollbarStyle="insideInset"
+		android:smoothScrollbar="true"
+	/> 
+	<Button
+        android:id="@+id/button_tab_view"
+        android:layout_width="120px"
+        android:textSize="14px"
+        android:paddingTop="2px"
+        android:layout_height="36px"
+        android:layout_gravity="center_horizontal"
+		android:layout_centerInParent="true"
+        android:layout_marginTop="2px"
+    />
+
+</LinearLayout>

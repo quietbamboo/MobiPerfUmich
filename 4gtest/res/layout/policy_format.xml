@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_height="fill_parent" android:layout_width="fill_parent">
+
+     
+     <ScrollView android:layout_marginBottom="10dip" 
+     android:id="@+id/ScrollView02" 
+     android:layout_height="fill_parent" 
+     android:layout_width="fill_parent"
+     android:background = "@drawable/background"
+     >
+     
+          <RadioGroup android:id="@+id/RadioGroup01" 
+          android:layout_width="fill_parent" 
+          android:layout_height="fill_parent">
+          <TextView
+        	android:id="@+id/policy_1_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_1_txt2"
+            android:layout_width="fill_parent"
+            
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_1_txt3"
+            android:layout_width="fill_parent"
+            
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+            
+             <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                     <TextView
+        	android:id="@+id/policy_2_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_2_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_2_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+            
+             <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_3_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_3_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_3_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+            
+             <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_4_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_4_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_4_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+            
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_5_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_5_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_5_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_6_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_6_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_6_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_7_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_7_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_7_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_8_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_8_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_8_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_9_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_9_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_9_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+                         <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+                                 <TextView
+        	android:id="@+id/policy_10_txt1"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:textStyle="bold"  
+            android:textSize = "22px"
+            android:gravity="center_vertical"
+            android:text="" />
+            
+        <TextView  
+        	android:id="@+id/policy_10_txt2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "12px"
+            android:ellipsize="marquee"
+            
+            android:textStyle="italic" 
+            android:text="" />
+           
+             <TextView  
+             android:id="@+id/policy_10_txt3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             android:textSize = "18px"
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="" 
+            />
+             <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+            
+          </RadioGroup>
+     </ScrollView>
+    
+</LinearLayout>
