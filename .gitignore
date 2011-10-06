@@ -57,3 +57,8 @@ client/apk
 
 */.DS_Store
 */*/.DS_Store
+
+*/*.swp
+
+server/nodeList
+server/mlab.sh
