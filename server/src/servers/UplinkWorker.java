@@ -70,13 +70,13 @@ public class UplinkWorker extends BaseTcpWorker {
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
-				Definition.PORT_UP_THRU + " " +
+				Definition.PORT_UPLINK + " " +
 				client.getInetAddress().getHostAddress();
 			tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
-				Definition.PORT_UP_THRU + " " +
+				Definition.PORT_UPLINK + " " +
 				client.getInetAddress().getHostAddress();
 
 			String s = null;

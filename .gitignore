@@ -62,3 +62,4 @@ client/apk
 
 server/nodeList
 server/mlab.sh
+server/mlab

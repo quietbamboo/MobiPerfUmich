@@ -69,6 +69,7 @@ public class BaseServer {
 		try{
 			server = new ServerSocket(port);
 		} catch (IOException e) {
+			e.printStackTrace();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e1) {
@@ -126,14 +127,14 @@ public class BaseServer {
 		    		break;
 		    	
 		    	
-		    	case Definition.PORT_DOWN_THRU:
+		    	case Definition.PORT_DOWNLINK:
 		    		//downlink server
 		    		DownlinkWorker downlink_worker = new DownlinkWorker();
 		    		downlink_worker.setSocket(server.accept());
 		    		downlink_worker.start();
 		    		break;
 		    		
-		    	case Definition.PORT_UP_THRU:
+		    	case Definition.PORT_UPLINK:
 		    		UplinkWorker uplink_worker = new UplinkWorker();
 		    		uplink_worker.setSocket(server.accept());
 		    		uplink_worker.start();

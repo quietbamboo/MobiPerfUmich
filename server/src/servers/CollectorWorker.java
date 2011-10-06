@@ -187,9 +187,9 @@ public class CollectorWorker extends BaseTcpWorker{
 				id_string + " " + 
 				rid_string + " ";
 				if(report.startsWith(Definition.COMMAND_TCP_UPLINK)){
-					tcpdump_init += Definition.PORT_UP_THRU;
+					tcpdump_init += Definition.PORT_UPLINK;
 				}else if(report.startsWith(Definition.COMMAND_TCP_DOWNLINK)){
-					tcpdump_init += Definition.PORT_DOWN_THRU;
+					tcpdump_init += Definition.PORT_DOWNLINK;
 				}else if(report.startsWith(Definition.COMMAND_REACH_START)){
 					tcpdump_init_reach += "nothing";
 					tcpdump_init_reach += " " + client.getInetAddress().getHostAddress();

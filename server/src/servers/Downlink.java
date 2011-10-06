@@ -19,7 +19,7 @@ public class Downlink extends BaseServer {
 		while(true){
 			System.out.println("Downlink server starts");
 			Downlink server = new Downlink();
-			server.listenSocket(Definition.PORT_DOWN_THRU);
+			server.listenSocket(Definition.PORT_DOWNLINK);
 		}
 	}
 }

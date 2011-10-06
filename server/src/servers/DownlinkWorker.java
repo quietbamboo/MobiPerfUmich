@@ -73,13 +73,13 @@ public class DownlinkWorker extends BaseTcpWorker{
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
-				Definition.PORT_DOWN_THRU + " " +
+				Definition.PORT_DOWNLINK + " " +
 				client.getInetAddress().getHostAddress();
 			tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
-				Definition.PORT_DOWN_THRU + " " +
+				Definition.PORT_DOWNLINK + " " +
 				client.getInetAddress().getHostAddress();
 	    
 	    

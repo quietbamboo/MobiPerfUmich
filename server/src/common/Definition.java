@@ -34,8 +34,14 @@ public class Definition {
 	public static final int PORT_WHOAMI = 5000;
 	
 	public static final int PORT_BT_RANDOM = 5005;
-	public static final int PORT_DOWN_THRU = 5001;
-	public static final int PORT_UP_THRU = 5002;
+	
+	public static final int PORT_DOWNLINK = 5001;
+	public static final int PORT_UPLINK = 5002;
+	//MLab nodes, the above two ports are already occupied = =!
+	public static final int PORT_DOWNLINK_MLAB = 6001;
+	public static final int PORT_UPLINK_MLAB = 6002;
+	
+	
 	public static final int PORT_REPORT = 5004;
 	public static final int PORT_TCPDUMP_REPORT = 5006;
 	
