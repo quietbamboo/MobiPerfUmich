@@ -53,6 +53,7 @@ client/apk
 
 4gtest/apk
 
-4gtest/res/.DS_Store
-
 4gtest/gen
+
+*/.DS_Store
+*/*/.DS_Store
