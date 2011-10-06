@@ -29,19 +29,7 @@ server/bin/
 
 server/compile_falcon.sh
 
-server/run/server/Whoami/Whoami.jar
-
-server/run/server/Version/Version.jar
-
-server/run/server/Uplink/Uplink.jar
-
-server/run/server/Tcpdump/Tcpdump.jar
-
-server/run/server/Reach/Reach.jar
-
-server/run/server/Downlink/Downlink.jar
-
-server/run/server/Collector/Collector.jar
+server/run/server/
 
 client/bin
 
