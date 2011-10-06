@@ -23,29 +23,20 @@ public class TestCenter{
 	public String infoS;
 
 	public Service service;
-	public boolean fore; //true for user-triggered running at the foreground, with ui
 
-	
+
 	private PowerManager.WakeLock wakeLock;
 	private WifiManager.WifiLock wlw;
 
-	
-	public TestCenter(Service s, boolean f){
+
+	public TestCenter(Service s){
 		service = s;
-		fore = f;
 		progress = 0;
 	}
 
-	
-	public synchronized void RunTest(){
-		
-		
-		
 
-		if(!fore){
-			Log.w("MobiPerf", "Periodic running " + System.currentTimeMillis());
-			return;
-		}
+	public synchronized void RunTest(){
+
 
 		long start = System.currentTimeMillis();
 		long end = start;
@@ -53,15 +44,13 @@ public class TestCenter{
 
 		InformationCenter.reset();
 
-		
+
 		//check airplane mode
-		if(fore)
-			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
+		((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
 		boolean isEnabled = Settings.System.getInt( service.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0 ) == 1;
 		if(isEnabled){
 			progress = 0;
-			if(fore)
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_ENABLED, null), progress);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_ENABLED, null), progress);
 			return;
 		}
 		//ok, now airplane mode is not enabled and we are good to go
@@ -75,15 +64,15 @@ public class TestCenter{
 		WifiManager wm = ( WifiManager ) service.getSystemService( Context.WIFI_SERVICE );
 		wlw = wm.createWifiLock( "WIFI LOCK TAG" );
 		wlw.acquire();
-		
-		
-		
+
+
+
 		//catch any exception here
 		try{
 
 			//checking network connectivity by connecting to google.com
-			if(fore)
-				((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
+
+			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
 			if (Utilities.checkConnection()){
 				InformationCenter.setNetworkStatus(true);
 			}else{
@@ -93,50 +82,17 @@ public class TestCenter{
 			//if no network connection
 			if(!InformationCenter.getNetworkStatus()){ 
 				progress = 0;
-				if(fore)
-					((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_DOWN, null), progress);
+
+				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_DOWN, null), progress);
 				wakeLock.release();
 				wlw.release();
 				return;
 			}
 
 			//network connection is available, start tests
-			
-			//MSP test
-			/*if(fore){
-				//TimeoutClient.start(310, 311, 10);
-				while(true){
-					Log.v("MobiPerf", "Start traceroute");
-					Traceroute.start();
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				//if(true)return;
-			}//*/
-
-			//MobiOpen test
-			/*service.updateTextView3("MobiPerf local experiments");
-				if(1==1){
-					while(true){
-						long start = System.currentTimeMillis();
-						localExperiments("rtt.size");
-						//localExperiments("port.scan");
-						long end = System.currentTimeMillis();
-						service.updateTextView2("last time (sec): " + (end-start)/1000);
-						service.updateTextView3("Prefix " + Definition.getPrefix());
-						//DNS.LookupUniqueUrl(true);
-					}
-				}
-				//*/
 
 
-			if(fore)
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.DEVICE_ID, null), progress += 2);
-			//service.addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.RUN_ID, null), mProgressStatus += 2);
-
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.DEVICE_ID, null), progress += 2);
 
 			//Version information
 			(new Report()).sendReport("PACKAGE:<VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
@@ -155,8 +111,7 @@ public class TestCenter{
 			//carrier info, network type, signal strength, cellID
 			String carrier = InformationCenter.getNetworkOperator();
 			String netInfoS = "NETWORK:" + "<Carrier:" + carrier + ">";
-			if(fore)
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CARRIER_NAME, new String[]{carrier}), progress += 5);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CARRIER_NAME, new String[]{carrier}), progress += 5);
 
 			String[] networkType = InformationCenter.getTypeNameAndId();
 			int cellid = InformationCenter.getCellId();
@@ -168,17 +123,15 @@ public class TestCenter{
 			"><LAC:" + lac +
 			"><Signal:" + signal + ">;";
 
-			if(fore){
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CELL_ID, new String[]{"" + cellid}), progress += 1);
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CELL_ID, new String[]{"" + cellid}), progress += 1);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
 
-				Display.displayResult("Network Type", "Network type used (WiFi, UMTS, CDMA, etc.)", networkType[0], 0);
-				Display.displayResult("Carrier", "Name of cellular carrier", carrier, 0);
-				Display.displayResult("Cell ID", "Id of cell tower connected", "" + cellid, 0);
-				Display.displayResult("Signal Strength", "Signal strength in asu, 0 is worst and 31 is best", "" + signal, 0);
-			}
+			Display.displayResult("Network Type", "Network type used (WiFi, UMTS, CDMA, etc.)", networkType[0], 0);
+			Display.displayResult("Carrier", "Name of cellular carrier", carrier, 0);
+			Display.displayResult("Cell ID", "Id of cell tower connected", "" + cellid, 0);
+			Display.displayResult("Signal Strength", "Signal strength in asu, 0 is worst and 31 is best", "" + signal, 0);
 
 			(new Report()).sendReport(netInfoS);
 			if(shouldStop())
@@ -190,12 +143,11 @@ public class TestCenter{
 
 
 			//local ip vs global ip
-			if(fore){
-				if(((MainService)service).isRoot)
-					((MainService)service).updateTextView3("Testing IP, NAT, and firewall with root...");
-				else
-					((MainService)service).updateTextView3("Testing IP, NAT, and firewall...");
-			}
+
+			if(((MainService)service).isRoot)
+				((MainService)service).updateTextView3("Testing IP, NAT, and firewall with root...");
+			else
+				((MainService)service).updateTextView3("Testing IP, NAT, and firewall...");
 
 			int replyCode = Phone_IPs.Get_Phone_IPs(Definition.SERVER_NAME, Definition.PORT_WHOAMI );
 
@@ -210,21 +162,18 @@ public class TestCenter{
 				message1 = "Global IP address: Error in test";
 			}
 
-			if(fore){
-				((MainService)service).addResultAndUpdateUI(message, progress += 2);//Local IP
-				((MainService)service).addResultAndUpdateUI(message1, progress += 2);//Global IP
+			((MainService)service).addResultAndUpdateUI(message, progress += 2);//Local IP
+			((MainService)service).addResultAndUpdateUI(message1, progress += 2);//Global IP
 
-				Display.displayResult("Local IP", "Local IP address of your device, could be private IP", Phone_IPs.localIP, 0);
-				Display.displayResult("Seen IP", "IP address of your device seen by a remote server", Phone_IPs.seenIP, 0);
-			}
+			Display.displayResult("Local IP", "Local IP address of your device, could be private IP", Phone_IPs.localIP, 0);
+			Display.displayResult("Seen IP", "IP address of your device seen by a remote server", Phone_IPs.seenIP, 0);
 
 			(new Report()).sendReport(result);
 			if(shouldStop())
 				return;
 
 			//checking GPS info
-			if(fore)
-				((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
+			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
 
 			while(GPS.location == null){
 				end = System.currentTimeMillis();
@@ -242,12 +191,10 @@ public class TestCenter{
 				}
 			}
 
-			if(fore){
-				progress += 5;
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
-				Display.displayResult("GPS Location", "Latitude (<0 for South) Longitude (<0 for West)", 
-						"Latitude:" + GPS.location.getLatitude() + " Longitude:" + GPS.location.getLongitude(), 0);
-			}
+			progress += 5;
+			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
+			Display.displayResult("GPS Location", "Latitude (<0 for South) Longitude (<0 for West)", 
+					"Latitude:" + GPS.location.getLatitude() + " Longitude:" + GPS.location.getLongitude(), 0);
 
 			infoS = Utilities.Info(service);
 			// set report prefix
@@ -255,17 +202,8 @@ public class TestCenter{
 			if(shouldStop())
 				return;
 
-
-			
-			///reachability test wrapper
-			//TODO no reachability test for now
-			if(testReachability())
-				return;
-
-
 			// downlink tput
-			if(fore)
-				((MainService)service).updateTextView3("Testing downlink throughput...");
+			((MainService)service).updateTextView3("Testing downlink throughput...");
 			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_DOWN);
 
 			result = "DOWN:";
@@ -292,10 +230,8 @@ public class TestCenter{
 
 			progress = 90;
 
-			if(fore){
-				((MainService)service).addResultAndUpdateUI(message, progress);//TCP down
-				Display.displayResult("Downlink throughput", "How many bits per second can be downloaded in TCP", message, 1);
-			}
+			((MainService)service).addResultAndUpdateUI(message, progress);//TCP down
+			Display.displayResult("Downlink throughput", "How many bits per second can be downloaded in TCP", message, 1);
 
 			result += ";";
 			result += "\n";
@@ -304,8 +240,8 @@ public class TestCenter{
 				return;
 
 			// uplink tput  
-			if(fore)
-				((MainService)service).updateTextView3("Testing uplink throughput...");
+
+			((MainService)service).updateTextView3("Testing uplink throughput...");
 
 			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_UP);                    
 
@@ -339,10 +275,9 @@ public class TestCenter{
 
 			Log.v("error"," dis is "+message);
 
-			if(fore){
-				((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
-				Display.displayResult("Uplink throughput", "How many bits per second can be uploaded in TCP", message, 1);
-			}
+
+			((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
+			Display.displayResult("Uplink throughput", "How many bits per second can be uploaded in TCP", message, 1);
 
 
 			//traceroute experiments to our server
@@ -385,88 +320,6 @@ public class TestCenter{
 				}
 			}
 		}
-	}
-
-
-	/**
-	 * Test reachability of PORTS.length ports
-	 * @return true when stop button clicked and should return for upper layer
-	 */
-
-	public boolean testReachability(){
-		if(fore){
-			Tcpdump.start_server();
-			Tcpdump.start_client();
-			
-		}
-		if(fore)
-			((MainService)service).updateTextView3("Testing port blocking...");
-		PortScan.finishedPorts = 0;
-
-		for(int j = 0; j < Definition.PORTS.length; j++){
-
-			new PortScan(j).start();
-			//wait a little while before staring new thread
-			try {
-				Thread.sleep(30);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-
-		do {
-			try {
-				//sleep for 1 sec
-				Thread.sleep( 1000 );
-			}catch ( InterruptedException e ) {
-				e.printStackTrace();
-			}
-		}while(PortScan.finishedPorts < Definition.PORTS.length);
-
-		String result = "REACH:";
-		String blocked = "Blocked ports for direct access: ";
-		String allowed = "Allowed ports for direct access: ";
-
-		for ( int i = 0; i < Definition.PORTS.length ;i++ ){
-			Log.v("LOG", "REACHB result " + i + " for port " + Definition.PORTS[i] + " is " + PortScan.reachable[i]);
-			if (!PortScan.reachable[i]){
-				blocked += Definition.PORTS[i] + " (" + Definition.PORT_NAMES[i] + ")" + " ";
-				if (PortScan.blockedStage[i] == 'c')
-					result += "<" + Definition.PORTS[i] + ": CONNECT>";
-				else
-					result += "<" + Definition.PORTS[i] + ": RECV>";
-			}else {
-				allowed += Definition.PORTS[i] + " (" + Definition.PORT_NAMES[i] + ")" + " ";
-				result += "<" + Definition.PORTS[i] + ": OK>";
-			}
-		}
-		result += ";";
-
-		
-		if(fore){
-			progress = 80;
-			//Utilities.write_to_file(FILENAME, Context.MODE_APPEND ,message + "\n"+mProgressStatus + "\n"+message1 + "\n"+mProgressStatus + "\n", context );
-			//Utilities.sendudpmessage( uiFile, "" + message.length() + "!" + message + "" + mProgressStatus + "!", context );
-			((MainService)service).addResultAndUpdateUI(blocked, progress);//disallowed ports
-			//Utilities.write_to_file(LOG_FILE_NAME, Context.MODE_APPEND, message + "\n"+message1 + "\n", service  );
-			//Utilities.sendudpmessage( uiFile, "" + message1.length() + "!" + message1 + "" + mProgressStatus + "!", context );
-			((MainService)service).addResultAndUpdateUI(allowed, progress);//allowed ports
-			Display.displayResult("Blocked ports", "Either connection is not set up, or data packets are blocked", blocked, 2);
-			Display.displayResult("Allowed ports", "Data on these ports can be uploaded/downloaded", allowed, 2);
-		}
-
-		(new Report()).sendReport(result);
-		if(fore){
-			Tcpdump.terminate_client();
-			Tcpdump.terminate_server();
-			Tcpdump.upload();
-		}
-			
-		
-		if(shouldStop())
-			return true;
-		else
-			return false;
 	}
 
 

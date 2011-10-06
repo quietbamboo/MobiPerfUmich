@@ -20,7 +20,7 @@ public class MainThread extends Thread {
 	private TestCenter tc;
 
 	public MainThread(MainService s){
-		tc = new TestCenter(s, true);
+		tc = new TestCenter(s);
 	}
 	
 	public int getProgress(){
