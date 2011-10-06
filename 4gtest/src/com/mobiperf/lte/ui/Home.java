@@ -31,8 +31,7 @@ public class Home extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, MENU_EMAIL, 0, "About us");
-		//menu.add(0, VOTE, 0, "Vote for us");
-		//menu.add(0, PERF_ME, 0, "Performance Near Me");
+
 		return true;
 	}
 	// Deal with menu event

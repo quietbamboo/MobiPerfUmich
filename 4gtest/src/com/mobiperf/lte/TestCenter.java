@@ -15,8 +15,6 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.mobiperf.lte.ui.Display;
-
 public class TestCenter{
 	public int progress;
 
@@ -128,11 +126,7 @@ public class TestCenter{
 			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
 			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
 
-			Display.displayResult("Network Type", "Network type used (WiFi, UMTS, CDMA, etc.)", networkType[0], 0);
-			Display.displayResult("Carrier", "Name of cellular carrier", carrier, 0);
-			Display.displayResult("Cell ID", "Id of cell tower connected", "" + cellid, 0);
-			Display.displayResult("Signal Strength", "Signal strength in asu, 0 is worst and 31 is best", "" + signal, 0);
-
+		
 			(new Report()).sendReport(netInfoS);
 			if(shouldStop())
 				return;
@@ -165,9 +159,7 @@ public class TestCenter{
 			((MainService)service).addResultAndUpdateUI(message, progress += 2);//Local IP
 			((MainService)service).addResultAndUpdateUI(message1, progress += 2);//Global IP
 
-			Display.displayResult("Local IP", "Local IP address of your device, could be private IP", Phone_IPs.localIP, 0);
-			Display.displayResult("Seen IP", "IP address of your device seen by a remote server", Phone_IPs.seenIP, 0);
-
+	
 			(new Report()).sendReport(result);
 			if(shouldStop())
 				return;
@@ -193,9 +185,7 @@ public class TestCenter{
 
 			progress += 5;
 			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
-			Display.displayResult("GPS Location", "Latitude (<0 for South) Longitude (<0 for West)", 
-					"Latitude:" + GPS.location.getLatitude() + " Longitude:" + GPS.location.getLongitude(), 0);
-
+		
 			infoS = Utilities.Info(service);
 			// set report prefix
 			(new Report()).sendReport(infoS);
@@ -231,8 +221,7 @@ public class TestCenter{
 			progress = 90;
 
 			((MainService)service).addResultAndUpdateUI(message, progress);//TCP down
-			Display.displayResult("Downlink throughput", "How many bits per second can be downloaded in TCP", message, 1);
-
+			
 			result += ";";
 			result += "\n";
 			(new Report()).sendReport(result);
@@ -277,7 +266,6 @@ public class TestCenter{
 
 
 			((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
-			Display.displayResult("Uplink throughput", "How many bits per second can be uploaded in TCP", message, 1);
 
 
 			//traceroute experiments to our server

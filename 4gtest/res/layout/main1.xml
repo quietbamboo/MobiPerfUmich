@@ -57,11 +57,6 @@
         android:layout_marginTop="2px"
     />
     
-    
-    
-    
-
-    
     <ListView android:id="@+id/list"
 		android:paddingTop="10px"
 		android:layout_width="fill_parent"
@@ -81,15 +76,5 @@
 		android:scrollbarStyle="insideInset"
 		android:smoothScrollbar="true"
 	/> 
-	<Button
-        android:id="@+id/button_tab_view"
-        android:layout_width="120px"
-        android:textSize="14px"
-        android:paddingTop="2px"
-        android:layout_height="36px"
-        android:layout_gravity="center_horizontal"
-		android:layout_centerInParent="true"
-        android:layout_marginTop="2px"
-    />
 
 </LinearLayout>

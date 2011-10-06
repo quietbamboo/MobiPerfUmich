@@ -60,13 +60,7 @@ public class About extends Activity {
 				 startActivityForResult(i, 0);
                 break;
                 
-            //TODO:new menu --------cc
-	        case PAST_RECORD:
-	        	 Intent in = new Intent(this, com.mobiperf.lte.ui.HistoricalList.class);
-				 startActivityForResult(in, 0);
-				 break;
 	        }
-
 	        return true;
 
 	}

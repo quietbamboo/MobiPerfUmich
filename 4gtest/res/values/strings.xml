@@ -2,8 +2,6 @@
 <resources>
 	<string name="app_name">4G Test</string>
 	<string name="target">Your Device Target:</string>
-	<string name="stop_service">Stop Push Service</string>
-	<string name="start_service">Start Push service</string>
 	<string name="about">www.mobiperf.com</string>
 	<string name="btn_network_test">Compare 4G\n with 3G</string>
 	<string name="btn_about">About Us</string>

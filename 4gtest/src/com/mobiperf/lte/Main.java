@@ -14,7 +14,6 @@
 
 package com.mobiperf.lte;
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -36,8 +35,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mobiperf.lte.ui.Display;
-
 
 
 public class Main extends Activity {
@@ -51,7 +48,7 @@ public class Main extends Activity {
 	ArrayAdapter<String> adapter;
 	Button button;
 	//Button button1,button2;
-	Button button_tab_view;
+	
 	// Need handler for callbacks to the UI thread
 	static Handler mHandler = new Handler();
 
@@ -97,8 +94,7 @@ public class Main extends Activity {
 		setContentView( R.layout.main1 );
 
 		button = ( Button ) findViewById( R.id.Button01 );
-		//TODO: button added to be test----cc
-		button_tab_view = ( Button ) findViewById( R.id.button_tab_view );
+		
 		//button2 = ( Button ) findViewById( R.id.button2 );
 		t1 = ( TextView ) findViewById( R.id.textview1 );
 		t2 = ( TextView ) findViewById( R.id.textview2 );
@@ -146,44 +142,6 @@ public class Main extends Activity {
 					}
 				}
 		);
-
-		//TODO:Switch views to a tabhost view--------CC
-		button_tab_view.setOnClickListener(
-				new View.OnClickListener() {
-					public void onClick( final View view ) {
-						// setContentView( R.layout.display1);
-						Intent i = new Intent(view.getContext(), com.mobiperf.lte.ui.Display.class);
-						startActivityForResult(i, 0);
-
-						//Tcpdump.start_client();
-					}
-				}
-		);
-		button_tab_view.setText("More Details");
-
-
-
-		//displayResult("abc","a ","daadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsf",0);
-		//displayResult("abc","a ","daadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsf",0);
-		//displayResult("abc","a ","daadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsf",1);
-		//displayResult("abc","a ","daadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsf",2);
-		//displayResult("abc","a ","daadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsfdaadfsdfsf",2);
-
-		/*button2.setOnClickListener(
-        		new View.OnClickListener() {
-        			 public void onClick( final View view ) {
-        				 //setContentView( R.layout.display1);
-        				 //Intent i = new Intent(view.getContext(), eecs.umich.threegtest.ui.Display.class);
-        				 //startActivityForResult(i, 0);
-        				 //temp
-
-        				 Intent settingsActivity = new Intent(view.getContext(), com.mobiperf.ui.Preferences.class);
-        				 startActivityForResult(settingsActivity, 0);
-        			 }
-        		}
-        );
-		 */
-
 
 		Log.v("MobiPerf", "create finish in "+ (System.currentTimeMillis() - start));
 	}
@@ -259,8 +217,7 @@ public class Main extends Activity {
 			updateButton( "Stop" );
 			updateTextView3("Tests are running.");
 			updateTextView1("You may switch back to check results later.");
-			//clear 3 tab contents
-			Display.clearTabView();
+			
 		}
 	}
 	/*************************************************/
@@ -272,7 +229,7 @@ public class Main extends Activity {
 	//-------------commented by cc---------
 	//protected static final int MENU_LAST = Menu.FIRST + 2;
 	//protected static final int MENU_HISTORY = Menu.FIRST + 3;
-	protected static final int MENU_EMAIL = Menu.FIRST +4;
+	protected static final int MENU_ABOUT = Menu.FIRST +4;
 	//TODO:new menu --------cc
 	protected static final int PAST_RECORD = Menu.FIRST +5;
 	//protected static final int VOTE = Menu.FIRST +6;
@@ -281,15 +238,7 @@ public class Main extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_PERIODIC, 0, "Settings");
-		// menu.add(0, MENU_NOTIFICATION, 0, "Notification setting").setEnabled(isPeriodicalRunEnabled(this)?true:false);
-		//menu.add(0, MENU_LAST, 0, "Last run results");
-		//menu.add(0, MENU_HISTORY, 0, "Periodic run results");
-		//TODO:new menu --------cc
-		menu.add(0, PAST_RECORD, 0, "View past record");
-		menu.add(0, MENU_EMAIL, 0, "About us");
-		//menu.add(0, VOTE, 0, "Vote for us");
-		//menu.add(0, PERF_ME, 0, "Performance Near Me");
+		menu.add(0, MENU_ABOUT, 0, "About us");
 		return true;
 	}
 	@Override
@@ -308,7 +257,7 @@ public class Main extends Activity {
 		Log.v("menu","onOptionsItemSelected "+item.getItemId());
 		switch (item.getItemId()) {
 
-		case MENU_EMAIL:
+		case MENU_ABOUT:
 			try
 			{
 				//--------commented by cc -----------
