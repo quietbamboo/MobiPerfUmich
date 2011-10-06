@@ -14,15 +14,11 @@
 
 package com.mobiperf.lte.ui;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -31,13 +27,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import com.mobiperf.lte.Definition;
-import com.mobiperf.lte.History;
-import com.mobiperf.lte.Main;
-import com.mobiperf.lte.Periodic;
 import com.mobiperf.lte.R;
-import com.mobiperf.lte.Tcpdump;
-import com.mobiperf.lte.Utilities;
 
  
 public class Preferences extends PreferenceActivity {
@@ -56,11 +46,9 @@ public class Preferences extends PreferenceActivity {
                 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 		boolean CheckboxPreference = prefs.getBoolean("PeriodicPref", true);
                 		if (CheckboxPreference == true){
-                			enablePeriodicalRun(Preferences.this);
                 			Toast.makeText(getApplicationContext(), "enabled the periodic running", Toast.LENGTH_SHORT).show();
                 		}
                 		if (CheckboxPreference == false){
-                			disablePeriodicalRun(Preferences.this);
                 			Toast.makeText(getApplicationContext(), "disable periodic running", Toast.LENGTH_SHORT).show();
                 		}
                 		
@@ -151,27 +139,6 @@ public class Preferences extends PreferenceActivity {
     	    Dialog dialog;
     	    AlertDialog.Builder builder;
     	    switch(id) {
-    	    case DIALOG_PERIODIC:
-    	    	builder = new AlertDialog.Builder(this);
-    	    	builder.setTitle("Periodic MobiPerf currently running ...");
-    	    	builder.setSingleChoiceItems(periodicItems, isPeriodicalRunEnabled(this)?0:1, new DialogInterface.OnClickListener() {
-    	    	    public void onClick(DialogInterface dialog, int item) {
-    	    	        switch(item)
-    	    	        {
-    	    	        case PERIODIC_YES:
-    	    	        	enablePeriodicalRun(Preferences.this);
-    	    	        	break;
-    	    	        case PERIODIC_NO:
-    	    	        	disablePeriodicalRun(Preferences.this);
-    	    	        	break;
-    	    	        default:
-    	    	        }
-    	    	        Toast.makeText(getApplicationContext(), periodicPrompts[item], Toast.LENGTH_SHORT).show();
-    	    	        Preferences.this.dismissDialog(DIALOG_PERIODIC);
-    	    	    }
-    	    	});
-    	    	dialog = builder.create();
-    	    	break;
     	    case DIALOG_NOTIFICATION:
     	    	builder = new AlertDialog.Builder(this);
     	    	builder.setTitle("Enable notification");
@@ -181,8 +148,6 @@ public class Preferences extends PreferenceActivity {
     	    	        {
     	    	        case NOTIFICATION_YES:
     	    	        	isNotificationEnabled = true;
-    	    	        	if(isPeriodicalRunEnabled(Preferences.this))
-    	    	        		createNotification(Preferences.this);
     	    	        	break;
     	    	        case NOTIFICATION_NO:
     	    	        	clearNotification(Preferences.this);
@@ -219,75 +184,6 @@ public class Preferences extends PreferenceActivity {
         public static final int REQUEST_CODE = 100000;
         public static final long INTERVAL = 3600*1000;
         public static final String PERIODIC_FILE = "periodic_file";
-        public static boolean isAllowedPeriodicalRun(Context context)
-        {
-        	String r = Utilities.read_first_line_from_file(PERIODIC_FILE, Context.MODE_PRIVATE, context);
-        	if(r != null && r.equals(PERIODIC_NO+""))
-        		return false;
-        	return true;
-        }
-    	
-    	
-    	public static void enablePeriodicalRun(Context context){
-            //Log.v("LOG", "registering intent with periodc class");
-            Intent intent = new Intent(context, Periodic.class);
-        	PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 
-        			Definition.PERIODIC_REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
-        	//Log.v("LOG", "PendingIntent.getBroadcast() returns " + pendingIntent);
-        	if(pendingIntent != null){
-        		//debug(context, "Alarm already registerd");
-        	}else{
-        		//debug(context, "Register new alarm");
-        		// Create new pending intent
-        		pendingIntent = PendingIntent.getBroadcast(context, Definition.PERIODIC_REQUEST_CODE, intent, 0);
-        		AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        		// First run starts 1 mins later after registering
-        		//int interval = TimeSetting.getProgress() * 3600 * 1000;
-        		
-        		//int interval = 1000;
-            	alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 
-            			System.currentTimeMillis() + Definition.PERIODIC_FIRST_RUN_STARTING_DELAY, 
-            			Definition.PERIODIC_INTERVAL, pendingIntent);
-        	}
-
-        	Utilities.writeToFile(Definition.PERIODIC_FILE, Context.MODE_PRIVATE, PERIODIC_YES + "", context);
-        	if(isNotificationEnabled)
-        		createNotification(context);
-    	}
-    	
-    	public static void disablePeriodicalRun(Context context){
-            //Log.v("LOG", "registering intent with periodic class");
-            Intent intent = new Intent(context, Periodic.class);
-        	PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Definition.PERIODIC_REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
-        	//Log.v("LOG", "PendingIntent.getBroadcast() returns " + pendingIntent);
-        	if(pendingIntent != null){
-        		//debug("Alarm cancelled");
-        		AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        		// Cancel alarm
-        		alarmManager.cancel(pendingIntent);
-        		// Remove the pending intent
-        		pendingIntent.cancel();
-        	}
-
-        	Utilities.writeToFile(Definition.PERIODIC_FILE, Context.MODE_PRIVATE, PERIODIC_NO + "", context);
-
-        	clearNotification(context);
-    	}
-        
-    	
-    	
-    	
-    	public static boolean isPeriodicalRunEnabled(Context context)
-    	{
-    		Intent intent = new Intent(context, Periodic.class);
-        	PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 
-        			Definition.PERIODIC_REQUEST_CODE, intent, PendingIntent.FLAG_NO_CREATE);
-        	//Log.v("LOG", "PendingIntent.getBroadcast() returns " + pendingIntent);
-        	if(pendingIntent == null)
-        		return false;
-        	return true;
-    	}
-    	
     	private static void clearNotification(Context context)
     	{
     		NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

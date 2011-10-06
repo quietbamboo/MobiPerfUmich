@@ -282,38 +282,6 @@ public class Utilities  {
 		Log.v("LOG", "iptables available: " + iptables_available);
 		return iptables_available;
 	}
-
-	public static boolean testHpingAvailability(Context context) {
-		boolean hping_available = false;
-		try {
-			Process rootProcess = Runtime.getRuntime().exec("su");
-			DataOutputStream os = new DataOutputStream(rootProcess.getOutputStream());
-			File dir = context.getFilesDir();
-			//Log.v("LOG", "@@@@@@@@@@@@@@@@@@@@@@@@@ program dir: " + dir.getAbsolutePath());
-			String cmd = NAT_Test_Thread.HPING +" > " + dir.getAbsolutePath() + "/hping.test\n";
-			//Log.v("LOG", "((((((((((((( iptables: " + cmd);
-			os.writeBytes(cmd);
-
-			FileInputStream fis = context.openFileInput("hping.test");
-			DataInputStream dis = new DataInputStream(fis);
-
-			while (dis.available() > 0) {
-				String line = dis.readLine();
-				if (line.indexOf("hping2 --help") >= 0) {
-					hping_available = true;
-					break;
-				}
-			}
-
-		} catch (IOException e) {
-			// TODO Code to run in input/output exception
-			// toastMessage("not root");
-		}
-
-		Log.v("LOG", "hping_available: " + hping_available);
-		return hping_available;
-	}
-
 	
 	public static boolean checkRootPrivilege()
     {
@@ -345,72 +313,7 @@ public class Utilities  {
     }
 	
 	static Thread binaryThread;
-    public static Thread installBinaries(final Context context)
-    {
-    	
-    	if(binaryThread == null || !binaryThread.isAlive())
-    	{
-    		// make it a thread so that it will not block the UI thread
-	    	binaryThread = new Thread()
-	    	{
-		    	public void run()
-		    	{
-		            
-			    	String []names = {"hping", "ef_client_3", "phone_iptables_drop_packet", "tcpdump"};
-			    	try {
-			    		for(int i = 0; i < names.length; i++)
-			    		{
-			    			String path = NAT_Test_Thread.PATH + names[i];
-			    			File file = new File(path);
-			    			if(!file.exists())
-			    			{
-								InputStream is = context.getAssets().open(names[i]);
-								FileOutputStream fos = new FileOutputStream(path);
-								byte[] buf = new byte[1024];
-								int size = 0;
-								while((size = is.read(buf)) > -1)
-								{
-									fos.write(buf, 0, size);
-								}
-								is.close();
-								fos.close();
-			    			}
-			    			else
-			    			{
-			    				//Log.v("MobiPerf", path+" exists!");
-			    			}
-			    		}
-			    	} catch (IOException e) {
-						e.printStackTrace();
-					} 
-			    	
-					try{
-						Process process = Runtime.getRuntime().exec("su");
-			    		DataOutputStream os = new DataOutputStream(process.getOutputStream());
-			    		String commands[] = {
-			    				"chmod 777 " + NAT_Test_Thread.HPING,
-			    				"chmod 777 " + NAT_Test_Thread.EF_CLIENT,
-			    				"chmod 777 " + Firewall_Test_Thread.PIDP,
-			    				"chmod 777"  + Tcpdump.TCPDUMP,
-			    				"exit"};		
-			    		for (String single : commands) {
-			    		   os.writeBytes(single + "\n");
-			    		   os.flush();
-			    		}
-			    		process.waitFor();
-			    		Log.v("MobiPerf", "Binaries have been installed!");
-					} catch (IOException e) {
-						e.printStackTrace();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-		    	}
-	    	};
-			binaryThread.start();
-    	}
-		return binaryThread;
-    }
-	
+  
 	// Copies src file to dst file.
 	// If the dst file does not exist, it is created
 	public static void copy(File src, File dst) throws IOException {

@@ -75,10 +75,6 @@ public class Main extends Activity {
         //firstTimeRun();
         
         
-        
-    	// Setup periodical run
-    	if(Preferences.isAllowedPeriodicalRun(this))
-    		Preferences.enablePeriodicalRun(this);
         //long install = System.currentTimeMillis() - start;
         //toastMessage("install "+ install);
     }
@@ -548,8 +544,6 @@ public class Main extends Activity {
      		// Show warning
          	showDialog(Preferences.DIALOG_WARNING);
          	// Remove existing pending intent after update a new version app.
-         	Preferences.disablePeriodicalRun(this);
-         	Preferences.enablePeriodicalRun(this);
          }
 
     

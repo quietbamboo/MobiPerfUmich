@@ -177,16 +177,9 @@ class CustomDrawableView extends View {
     	else
     	{
     		textPaint.setColor(Color.RED);
-    		if(Preferences.isPeriodicalRunEnabled(this.getContext()))
-    		{
-    			canvas.drawText("No history data available yet.", TEXT_X, 8 * MARGIN, textPaint);
-    			canvas.drawText("Please wait.", TEXT_X, 10 * MARGIN, textPaint);
-    		}
-    		else
-    		{
-    			canvas.drawText("No history data available.", TEXT_X, 8 * MARGIN, textPaint);	
-    			canvas.drawText("Please enable histroy tracking.", TEXT_X, 10 * MARGIN, textPaint);
-    		}
+    		canvas.drawText("No history data available.", TEXT_X, 8 * MARGIN, textPaint);	
+    		canvas.drawText("Please enable histroy tracking.", TEXT_X, 10 * MARGIN, textPaint);
+
     	}
        
     }
