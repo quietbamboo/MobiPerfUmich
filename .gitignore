@@ -62,6 +62,4 @@ client/apk
 
 server/nodeList
 server/mlab.sh
-server/mlab
-
-server/mlab/Uplink.jar
+server/mlab/
