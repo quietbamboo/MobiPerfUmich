@@ -1,7 +1,6 @@
 
 server/nodeList
-server/mlab.sh
-server/mlab
+server/mlab/*.jar
 
 server/src/test/MultiClients.java
 

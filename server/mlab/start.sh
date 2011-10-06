@@ -4,6 +4,6 @@
 for i in Downlink Uplink KeepAlive
 do
 	echo "running $i"
-	java -jar $i.jar &
+	java -jar $i.jar mlab &
 done
 
