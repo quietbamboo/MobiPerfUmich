@@ -16,10 +16,15 @@ import common.Definition;
 public class Downlink extends BaseServer {
 	
 	public static void main(String[] argv){
+		int port = Definition.PORT_DOWNLINK;
+		if(argv.length >= 1){
+			if(argv[0].equals("mlab"))
+				port = Definition.PORT_DOWNLINK_MLAB;
+		}
 		while(true){
 			System.out.println("Downlink server starts");
 			Downlink server = new Downlink();
-			server.listenSocket(Definition.PORT_DOWNLINK);
+			server.listenSocket(port);
 		}
 	}
 }
