@@ -1,4 +1,8 @@
 
+server/nodeList
+server/mlab.sh
+server/mlab
+
 server/src/test/MultiClients.java
 
 server/src/test/Console.java
@@ -55,11 +59,9 @@ client/apk
 
 4gtest/gen
 
+
+
 */.DS_Store
 */*/.DS_Store
 
 */*.swp
-
-server/nodeList
-server/mlab.sh
-server/mlab
