@@ -30,12 +30,6 @@ public class Home extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_PERIODIC, 0, "Settings");
-		// menu.add(0, MENU_NOTIFICATION, 0, "Notification setting").setEnabled(isPeriodicalRunEnabled(this)?true:false);
-		//menu.add(0, MENU_LAST, 0, "Last run results");
-		//menu.add(0, MENU_HISTORY, 0, "Periodic run results");
-		//TODO:new menu --------cc
-		menu.add(0, PAST_RECORD, 0, "View past record");
 		menu.add(0, MENU_EMAIL, 0, "About us");
 		//menu.add(0, VOTE, 0, "Vote for us");
 		//menu.add(0, PERF_ME, 0, "Performance Near Me");
@@ -47,40 +41,8 @@ public class Home extends Activity {
 		super.onOptionsItemSelected(item);
 		Log.v("menu","onOptionsItemSelected "+item.getItemId());
 		switch (item.getItemId()) {
-		case MENU_PERIODIC:
-			Log.v("menu", "DIALOG_PERIODIC");
-			// Show the setting dialog for periodical running
-			//showDialog(DIALOG_PERIODIC);
-			Intent settingsActivity = new Intent(this, com.mobiperf.lte.ui.Preferences.class);
-			startActivityForResult(settingsActivity, 0);
-
-			break;
-			//TODO:new menu --------cc
-		case PAST_RECORD:
-			Intent i = new Intent(this, com.mobiperf.lte.ui.HistoricalList.class);
-			startActivityForResult(i, 0);
-			break;		       /* case MENU_NOTIFICATION:
-		        	 	Log.v("menu", "DIALOG_NOTIFICATION");
-		        	 	// Show the setting dialog for periodical running
-		        	 	showDialog(DIALOG_NOTIFICATION);
-		                break;
-			 */
-			//--------------commented by cc------------
-			/*case MENU_LAST:
-			        	try {
-							this.getApplicationContext().openFileInput(Service_Thread.LAST_LOG_FILE_NAME);
-							this.startActivity(new Intent(this,LastRunResult.class));
-						} catch (FileNotFoundException e1) {
-							this.toastMessage("Last run results were not found\nPlease run the tests");
-							e1.printStackTrace();
-						}
-		                break;
-			        case MENU_HISTORY:
-		        	 	Log.v("menu", "HISTORY");
-		        	 	// Show the setting dialog for periodical running
-		        	 	this.startActivity(new Intent(this,History.class));
-		                break;
-			 */
+		
+		
 
 		case MENU_EMAIL:
 			try
