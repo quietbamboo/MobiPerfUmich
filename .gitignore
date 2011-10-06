@@ -52,4 +52,8 @@ client/apk
 4gtest/bin
 
 4gtest/apk
+
 4gtest/res/.DS_Store
+
+4gtest/gen
+
