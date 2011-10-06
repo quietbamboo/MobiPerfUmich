@@ -16,17 +16,19 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Random;
 
+import common.Util;
+
 public class KeepAlive {
 	
-	public static final long SLEEP_TIME = 3600 * 1000;
+	public static final long SLEEP_TIME = 10 * 60 * 1000;
 	
 	public static void main(String argv[]){
 		System.out.println("Keep alive for MobiPerf throughput server node list");
 		while(true){
 			sendKeepAlive();
 			try {
-				Thread.sleep(SLEEP_TIME + ((new Random()).nextLong() % (20 * 60 * 1000))); 
-				//randomized 20 minutes to lower the server's burden
+				Thread.sleep(SLEEP_TIME + ((new Random()).nextLong() % (5 * 60 * 1000))); 
+				//randomized 5 minutes to lower the server's burden
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -36,9 +38,10 @@ public class KeepAlive {
 	public static void sendKeepAlive(){
 	
 		try {
+			String host = Util.runCmd("uname -a", false).split(" ")[1];
 		    // Construct data
 		    String data = URLEncoder.encode("ip", "UTF-8") + "=" + URLEncoder.encode(InetAddress.getLocalHost().getHostAddress(), "UTF-8");
-		    //data += "&" + URLEncoder.encode("key2", "UTF-8") + "=" + URLEncoder.encode("value2", "UTF-8");
+		    data += "&" + URLEncoder.encode("host", "UTF-8") + "=" + URLEncoder.encode(host, "UTF-8");
 
 		    // Send data
 		    URL url = new URL("http://mobiperf.com/php/keepalive.php");

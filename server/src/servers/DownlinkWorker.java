@@ -67,6 +67,8 @@ public class DownlinkWorker extends BaseTcpWorker{
 			if(!readPrefix(prefix))
 				return;
 		    
+			//for MLab servers, this does not matter: 
+			//since these commands will finish fast with "bash: /home/hjx/3gtest/tcpdump_init.sh: No such file or directory"
 		    tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 

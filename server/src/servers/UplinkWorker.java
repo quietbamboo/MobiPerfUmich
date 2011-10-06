@@ -18,6 +18,8 @@ import common.PrefixParser;
 /**
  * @author Junxian Huang
  * 
+ * @Description
+ * Uplink server as both uplink and TCP connect RTT measurement server for Mlab
  */
 public class UplinkWorker extends BaseTcpWorker {
  
@@ -51,7 +53,6 @@ public class UplinkWorker extends BaseTcpWorker {
 
 			// //////////////////////////////////////////
 			// Get prefix and start tcpdump
-
 			
 			StringBuilder prefix_sb = new StringBuilder("");
 			int bytes_read = in.read(buffer);

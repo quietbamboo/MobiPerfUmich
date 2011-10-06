@@ -18,10 +18,14 @@ import common.Definition;
 public class Uplink extends BaseServer {
 	
 	public static void main(String[] argv){
+		int port = Definition.PORT_UP_THRU;
+		if(argv.length >= 1 && !argv[0].equals("")){
+			port = Integer.parseInt(argv[0]);
+		}
 		while(true){
 			System.out.println("Uplink server starts");
 			Uplink server = new Uplink();
-			server.listenSocket(Definition.PORT_UP_THRU);
+			server.listenSocket(port);
 		}
 	}
 }
