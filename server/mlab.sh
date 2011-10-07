@@ -51,12 +51,13 @@ elif [ $1 = "-d" ]; then
 			scp -o "StrictHostKeyChecking no" -P $port  mlab/* $user@$n:~/mobiperf
 			#first terminate
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash end.sh'
-			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash start.sh &' &
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash start.sh' &
 		fi
 		echo $n " done"
 	done
 elif [ $1 = "-t" ];then
         ps aux | grep "measurement-lab.org" | awk '{system("sudo kill -9 " $2);}'
+        ps aux | grep "mobiperf.com" | awk '{system("sudo kill -9 " $2);}'
 else
 	echo "Usage: compile -c; deploy -d; terminate remotely -d -e; install java -d -i; kill all local process -t"
 fi

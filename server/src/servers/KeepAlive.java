@@ -40,8 +40,8 @@ public class KeepAlive {
 		try {
 			String host = Util.runCmd("uname -a", false).split(" ")[1];
 		    // Construct data
-		    String data = URLEncoder.encode("ip", "UTF-8") + "=" + URLEncoder.encode(InetAddress.getLocalHost().getHostAddress(), "UTF-8");
-		    data += "&" + URLEncoder.encode("host", "UTF-8") + "=" + URLEncoder.encode(host, "UTF-8");
+		    //String data = URLEncoder.encode("ip", "UTF-8") + "=" + URLEncoder.encode(InetAddress.getLocalHost().getHostAddress(), "UTF-8") + "&" + 
+		    String data = URLEncoder.encode("host", "UTF-8") + "=" + URLEncoder.encode(host, "UTF-8");
 
 		    // Send data
 		    URL url = new URL("http://mobiperf.com/php/keepalive.php");
