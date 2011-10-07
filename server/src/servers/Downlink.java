@@ -28,5 +28,3 @@ public class Downlink extends BaseServer {
 		}
 	}
 }
-
-

@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 
+import android.util.Log;
+
 /**
  * 
  * This class handles all functions related with Mlab server selection, etc.
@@ -23,7 +25,7 @@ public class Mlab {
 	
 	public static String[] ServerList;
 	public static void loadServerList(){
-		String res = Definition.SERVER_NAME + ";"; //default server
+		String res = "";
 		try {
 		    // Construct data
 			//String data = URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode(Definition.TYPE, "UTF-8");
@@ -43,6 +45,11 @@ public class Mlab {
 		    rd.close();
 		} catch (Exception e) {
 		}
+		
+		if(res.equals("")){
+			res = Definition.SERVER_NAME;
+		}
+		Log.v("4G Test", res);
 		ServerList = res.split(";");
 	}
 

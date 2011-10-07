@@ -41,6 +41,8 @@ public class TestCenter{
 		String message;
 
 		InformationCenter.reset();
+		
+		Mlab.loadServerList();
 
 
 		//check airplane mode
