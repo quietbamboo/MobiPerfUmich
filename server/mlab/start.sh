@@ -1,6 +1,8 @@
 #!/bin/bash
 #this script needs to be run from the current directory
 
+cd ~/mobiperf
+
 for i in Downlink Uplink KeepAlive
 do
 	echo "running $i"

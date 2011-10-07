@@ -43,15 +43,15 @@ elif [ $1 = "-d" ]; then
 		fi
 		echo "Deploy"
 		if [ $2 = "-e" ]; then
-			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash end.sh'
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/end.sh'
 		elif [ $2 = "-i" ]; then
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'sudo yum -y install java' &
 		else
 			#ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'mkdir ~/mobiperf' &
 			scp -o "StrictHostKeyChecking no" -P $port  mlab/* $user@$n:~/mobiperf
 			#first terminate
-			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash end.sh'
-			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'cd ~/mobiperf;bash start.sh' &
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/end.sh'
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/start.sh' &
 		fi
 		echo $n " done"
 	done
