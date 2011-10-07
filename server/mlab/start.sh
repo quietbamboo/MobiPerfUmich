@@ -7,3 +7,4 @@ do
 	java -jar $i.jar mlab &
 done
 
+echo "success deploying and running server\n"
