@@ -152,7 +152,7 @@ public class MainService extends Service {
     {
     	this.currentTest=text;
     	if(activity != null)
-    		activity.updateTextView3(text);
+    		activity.updateTextView2(text);
     }
     public void updateButton(final String text)
     {

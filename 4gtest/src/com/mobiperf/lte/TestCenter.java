@@ -196,7 +196,7 @@ public class TestCenter{
 
 			// downlink tput
 			((MainService)service).updateTextView3("Testing downlink throughput...");
-			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_DOWN);
+			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_DOWNLINK);
 
 			result = "DOWN:";
 
@@ -234,7 +234,7 @@ public class TestCenter{
 
 			((MainService)service).updateTextView3("Testing uplink throughput...");
 
-			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_UP);                    
+			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_UPLINK);                    
 
 			result = "UP:";
 

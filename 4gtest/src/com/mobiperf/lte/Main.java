@@ -15,6 +15,9 @@
 package com.mobiperf.lte;
 import java.util.ArrayList;
 
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -28,18 +31,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobiperf.lte.chart.CubicChart;
+import com.mobiperf.lte.chart.IChart;
+
 
 
 public class Main extends Activity {
 
-	TextView t1, t2, t3;
+	TextView t1, t2;
 	//--------------------cc
 	String test;
 	static boolean stopFlag = false;
@@ -54,10 +62,17 @@ public class Main extends Activity {
 
 	public void onStart() {
 
-		Log.w("MobiPerf", "threegtest start begin");
+		Log.w("4G Test", "threegtest start begin");
 
 		super.onStart();
-
+		
+		
+		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+		
+		CubicChart chart = new CubicChart();
+		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT));
+		
 		InformationCenter.init(this);
 
 		doBindService();
@@ -80,13 +95,13 @@ public class Main extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		doUnbindService();
-		Log.v("MobiPerf", "threegtest onDestroy");
+		Log.v("4G Test", "threegtest onDestroy");
 	}
 
 	@Override
 	public void onCreate( Bundle savedInstanceState ) {
 		long start = System.currentTimeMillis();
-		Log.v("MobiPerf", "threegtest create begins");
+		Log.v("4G Test", "threegtest create begins");
 
 		super.onCreate( savedInstanceState );
 
@@ -98,12 +113,10 @@ public class Main extends Activity {
 		//button2 = ( Button ) findViewById( R.id.button2 );
 		t1 = ( TextView ) findViewById( R.id.textview1 );
 		t2 = ( TextView ) findViewById( R.id.textview2 );
-		t3 = ( TextView ) findViewById( R.id.textview3 );
 		mProgress = ( ProgressBar ) findViewById( R.id.progress_bar );
 
 		t1.setHintTextColor( 2 );
 		t2.setHintTextColor( 2 );
-		t3.setHintTextColor( 2 );
 
 		updateProgress(0);
 
@@ -123,13 +136,13 @@ public class Main extends Activity {
 						if (isRunning())	// Stop service 
 						{
 							stopFlag = true;
-							updateTextView3("The program is trying to stop...");
+							updateTextView2("The program is trying to stop...");
 							updateButton("Please wait");
 							button.setClickable(false);
 						}
 						else {
 							stopFlag=false;
-							updateTextView3("Starting tests...");
+							updateTextView2("Starting tests...");
 							updateButton("Please wait");
 							button.setClickable(false);
 
@@ -143,7 +156,7 @@ public class Main extends Activity {
 				}
 		);
 
-		Log.v("MobiPerf", "create finish in "+ (System.currentTimeMillis() - start));
+		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
 	/****** methods for updating UI ******/
@@ -170,14 +183,6 @@ public class Main extends Activity {
 		mHandler.post(new Runnable() {
 			public void run() {
 				t2.setText(text);
-			}
-		});
-	}
-	public void updateTextView3(final String text)
-	{
-		mHandler.post(new Runnable() {
-			public void run() {
-				t3.setText(text);
 			}
 		});
 	}
@@ -209,13 +214,13 @@ public class Main extends Activity {
 		{
 			updateButton("Run");
 			button.setClickable(true);
-			updateTextView3(Feedback.getMessage(Feedback.TYPE.NEW_TEST, null));
+			updateTextView2(Feedback.getMessage(Feedback.TYPE.NEW_TEST, null));
 			updateTextView1("Please allow 2~3 minutes to finish all the tests.");
 		}else
 		{
 			button.setClickable(true);
 			updateButton( "Stop" );
-			updateTextView3("Tests are running.");
+			updateTextView2("Tests are running.");
 			updateTextView1("You may switch back to check results later.");
 			
 		}
@@ -260,28 +265,7 @@ public class Main extends Activity {
 		case MENU_ABOUT:
 			try
 			{
-				//--------commented by cc -----------
-				/*Intent emailIntent = new Intent(
-							android.content.Intent.ACTION_SEND);
-
-					String aEmailList[] = { "MobiPerf@umich.edu" };
-					// String aEmailCCList[] = {
-					// "user3@fakehost.com","user4@fakehost.com"};
-					// String aEmailBCCList[] = { "user5@fakehost.com" };
-					emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-							aEmailList);
-					// emailIntent.putExtra(android.content.Intent.EXTRA_CC,
-					// aEmailCCList);
-					// emailIntent.putExtra(android.content.Intent.EXTRA_BCC,
-					// aEmailBCCList);
-					emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-							"Feedback on MobiPerf");
-					emailIntent.setType("plain/text");
-					// emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-					// "My message body.");
-					startActivity(emailIntent);
-				 */
-
+				
 				Intent in1 = new Intent(this, com.mobiperf.lte.ui.About.class);
 				startActivityForResult(in1, 0);
 			}
@@ -296,65 +280,6 @@ public class Main extends Activity {
 		return true;
 
 	}
-
-	/*
-    long repeattime;
-    @Override
-    public boolean onCreateOptionsMenu( Menu menu ) {
-        super.onCreateOptionsMenu( menu );
-        //menu.add(0, 0, 0,"No repeatitions");
-        //menu.add(0, 1, 0,"Repeat every 10 minutes");
-        //menu.add(0, 2, 0,"Repeat every 1 hour");
-        //menu.add(0, 3, 0,"Repeat every 6 hour");
-        //menu.add(0, 4, 0,"Repeat every 12 hour");
-        //menu.add(0, 5, 0,"Repeat every 24 hours");
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected( MenuItem item ) {
-        super.onOptionsItemSelected( item );
-
-        switch ( item.getItemId() ) {
-        case 0:
-            repeattime = 0;
-            break;
-        case 1:
-            repeattime = 600000;
-            break;
-        case 2:
-            repeattime = 3600000;
-            break;
-        case 3:
-            repeattime = 21600000;
-            break;
-        case 4:
-            repeattime = 43200000;
-            break;
-        case 5:
-            repeattime = 86400000;
-            break;
-        default:
-            break;
-        }
-
-        Utilities.checkifrunning(context);
-        Utilities.write_to_file("repeatfile.txt", MODE_WORLD_READABLE,"" + repeattime + "\n", context );
-        Utilities.checkifrunning(context);
-
-        if ( isRunning ) {
-            mHandler.post( new Runnable() {
-                               public void run() {
-                                   t3.setPadding( 40, 5, 10, 5 );
-                                   t3.setText( "App is running, press button to stop" );
-                               }
-                           }
-
-                         );
-        }
-        return false;
-    }
-	 */
 
 
 	/******** print something on screen for debugging purpose by Gary ***********/
@@ -387,7 +312,7 @@ public class Main extends Activity {
 			{
 				updateListView(mBoundService.resultList);
 				updateProgress(mBoundService.testThread.getProgress());
-				updateTextView3(mBoundService.currentTest);
+				updateTextView2(mBoundService.currentTest);
 			}
 			//mBoundService.bindThreadActivity(threegtest.this);
 			// Tell the user about this for our demo.
@@ -430,7 +355,7 @@ public class Main extends Activity {
 			else
 				return false;
 		}else{
-			Log.v("MobiPerf", "mBoundService null not running");
+			Log.v("4G Test", "mBoundService null not running");
 			return false;
 		}
 	}
