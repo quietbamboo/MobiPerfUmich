@@ -20,7 +20,7 @@ public class ServerParser {
 	 // Server parser
 	 public ServerParser (double lat, double longi, double radius) throws Exception {
 		 URL mobiperfreturn = 
-			 new URL("http://mobiperf.com/php/gpsaround.php?lat=" + lat + "&lng=" + longi + "&radius=" + radius);
+			 new URL("http://mobiperf.com/php/gpsaround.php?format=xml&lat=" + lat + "&lng=" + longi + "&radius=" + radius);
 		 URLConnection serverReturn = mobiperfreturn.openConnection();
 		 BufferedReader in = new BufferedReader(new InputStreamReader(serverReturn.getInputStream()));
 		 String inputLine;

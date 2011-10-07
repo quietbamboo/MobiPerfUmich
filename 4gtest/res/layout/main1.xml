@@ -3,38 +3,46 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent">
 	
-	<ProgressBar android:maxHeight="12dip"
+	<ProgressBar android:id="@+id/progress_bar"
+		android:maxHeight="12dip"
 		android:minHeight="8dip"
 		android:layout_marginRight="8px"
 		android:layout_marginLeft="8px"
 		android:layout_marginTop="2px"
 		android:layout_width="fill_parent"
-		android:indeterminateOnly="false" android:progressDrawable="@android:drawable/progress_horizontal"
-		
+		android:indeterminateOnly="false"
+		android:progressDrawable="@android:drawable/progress_horizontal"
 		android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
-		android:layout_height="wrap_content" android:id="@+id/progress_bar"></ProgressBar>
+		android:layout_height="wrap_content" />
 		
-	<Button android:layout_width="120px" android:id="@+id/Button01" android:paddingTop="2px"
-		android:layout_marginTop="2px" android:textSize="16px"
-		android:layout_gravity="center_horizontal" android:layout_height="17dp" android:layout_weight="0.06">
-		</Button>
+	<Button android:id="@+id/Button01"
+		android:layout_width="120px"
+		android:layout_height="40px"
+		android:layout_weight="0.04"
+		android:paddingTop="2px"
+		android:layout_marginTop="2px"
+		android:textSize="17px"
+		android:layout_gravity="center_horizontal" />
+		
 	<TextView android:id="@+id/textview1" android:textColor="@color/white"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:layout_centerInParent="true" android:layout_marginTop="10px" />
+		android:layout_centerInParent="true"
+		android:textSize="17px"
+		android:layout_marginTop="2px" android:layout_weight="0.10"/>
 	
 	<TextView android:id="@+id/textview2" android:textColor="@color/white"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:layout_centerInParent="true" android:layout_marginTop="2px" android:layout_weight="0.27"/>
+		android:layout_centerInParent="true"
+		android:layout_marginTop="2px"
+		android:textSize="17px" android:layout_weight="0.10"/>
 		
 	<LinearLayout android:id="@+id/chart"
-		android:orientation="horizontal"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_weight="1.57"/>
+		android:layout_height="wrap_content" android:orientation="horizontal" android:layout_weight="0.93"/>
 
-	<ListView android:id="@+id/list" android:paddingTop="10px"
+	<ListView android:id="@+id/list" android:paddingTop="2px"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:choiceMode="none" android:drawSelectorOnTop="false"
 		android:layout_marginTop="2px" android:focusable="false"
@@ -43,7 +51,6 @@
 		android:cacheColorHint="#00000000" android:transcriptMode="alwaysScroll"
 		android:stackFromBottom="true"
 		android:scrollbarAlwaysDrawVerticalTrack="true"
-		android:scrollbarStyle="insideInset" android:smoothScrollbar="true"
-		android:layout_weight="0.31" />
+		android:scrollbarStyle="insideInset" android:smoothScrollbar="true" android:layout_weight="0.18"/>
 
 </LinearLayout>
