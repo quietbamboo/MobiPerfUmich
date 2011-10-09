@@ -22,6 +22,23 @@ import android.util.Log;
 public class Mlab {
 	
 	public static String[] ServerList;
+	
+	/**
+	 * called every time want to user Mlab server
+	 * @return
+	 */
+	public static void prepareServer(){
+		if(ServerList.length > 0)
+			return;
+		
+		loadServerList();
+		
+		if(ServerList.length > 0)
+			return;
+		else
+			ServerList = new String[]{"mobiperf.com"};
+	}
+	
 	public static void loadServerList(){
 		String res = "";
 		try {
@@ -50,5 +67,7 @@ public class Mlab {
 		Log.v("4G Test", res);
 		ServerList = res.split(";");
 	}
+	
+	
 
 }

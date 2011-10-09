@@ -94,4 +94,7 @@ public class Definition {
 	public static final String COMMAND_REACH_START = "COMMAND:REACH:START";
 
 	public static final String COMMAND_REACH_STOP = "COMMAND:REACH:STOP";
+	
+	//ENABLE DEBUG MODE
+	public static boolean DEBUG = true;
 }

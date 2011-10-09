@@ -43,6 +43,8 @@ public class TestCenter{
 		InformationCenter.reset();
 		
 		Mlab.loadServerList();
+		RTT.test();
+		System.exit(-1);
 
 
 		//check airplane mode

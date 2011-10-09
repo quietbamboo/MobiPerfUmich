@@ -22,6 +22,17 @@ import java.net.SocketException;
 public class RTT {
 
 	public static void test(){
+		
+		Mlab.prepareServer();
+		
+		if(Definition.DEBUG)
+			assert(Mlab.ServerList.length == 10);
+		
+		for(int i = 0; i < 10 ; i++){
+			for(int s = 0 ; s < 10 ; s++){
+				System.out.println("RTT to server " + s + " " + Mlab.ServerList[s] + " RTT: " + unitTest(Mlab.ServerList[s]));
+			}
+		}
 
 	}
 
