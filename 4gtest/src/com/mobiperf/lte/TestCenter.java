@@ -7,6 +7,9 @@
  ****************************/
 package com.mobiperf.lte;
 
+import com.mobiperf.lte.chart.CubicChart;
+
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -14,6 +17,8 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 
 public class TestCenter{
 	public int progress;
@@ -35,18 +40,11 @@ public class TestCenter{
 
 	public synchronized void RunTest(){
 
-
 		long start = System.currentTimeMillis();
 		long end = start;
 		String message;
 
 		InformationCenter.reset();
-		
-		Mlab.loadServerList();
-		//RTT.test();
-		ThroughputMulti.startTest(true, 1);
-		
-		System.exit(-1);
 
 		//check airplane mode
 		((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
@@ -95,7 +93,7 @@ public class TestCenter{
 			//network connection is available, start tests
 
 
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.DEVICE_ID, null), progress += 2);
+			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.DEVICE_ID, null), progress += 2);
 
 			//Version information
 			(new Report()).sendReport("PACKAGE:<VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
@@ -127,48 +125,16 @@ public class TestCenter{
 			"><Signal:" + signal + ">;";
 
 			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CELL_ID, new String[]{"" + cellid}), progress += 1);
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
+			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CELL_ID, new String[]{"" + cellid}), progress += 1);
+			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
+			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
 
 		
 			(new Report()).sendReport(netInfoS);
 			if(shouldStop())
 				return;
-
-
-			//DNS unique lookup to UMICH DNS servers
-			DNS.LookupUniqueUrl(false);
-
-
-			//local ip vs global ip
-
-			if(((MainService)service).isRoot)
-				((MainService)service).updateTextView3("Testing IP, NAT, and firewall with root...");
-			else
-				((MainService)service).updateTextView3("Testing IP, NAT, and firewall...");
-
-			int replyCode = Phone_IPs.Get_Phone_IPs(Definition.SERVER_NAME, Definition.PORT_WHOAMI );
-
-
-			String result = "ADDRESS:<LocalIp:" + Phone_IPs.localIP + ">:<GlobalIp:" + Phone_IPs.seenIP + ">;";
-			String message1;
-			if ( replyCode >= 7 ) {
-				message = "Local IP address: " + Phone_IPs.localIP;
-				message1 = "Global IP address: " + Phone_IPs.seenIP;
-			}else{
-				message = "Local IP address: Error in test";
-				message1 = "Global IP address: Error in test";
-			}
-
-			((MainService)service).addResultAndUpdateUI(message, progress += 2);//Local IP
-			((MainService)service).addResultAndUpdateUI(message1, progress += 2);//Global IP
-
-	
-			(new Report()).sendReport(result);
-			if(shouldStop())
-				return;
-
+			
+			
 			//checking GPS info
 			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
 
@@ -196,87 +162,21 @@ public class TestCenter{
 			(new Report()).sendReport(infoS);
 			if(shouldStop())
 				return;
-
-			// downlink tput
-			((MainService)service).updateTextView3("Testing downlink throughput...");
-			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_DOWNLINK);
-
-			result = "DOWN:";
-
-			if ( replyCode == 7 ) {
-
-				double downtp = (Throughput.downlinkSize * 8 ) / Throughput.downlinkTime; // in kbps
-
-				message = "TCP downlink bandwidth (kbps): " + downtp;
-				result += "<Tp:" + downtp + ">";
-
-
-				if ( downtp > 500 )
-					message += " Good";
-				else if ( downtp > 130 )
-					message += " Moderate";
-				else
-					message += " Bad";
-			}
-			else {
-				message = "TCP downlink bandwidth (kbps): Network problem in test";
-				result += "<Tp:-1>";
-			}
-
-			progress = 90;
-
-			((MainService)service).addResultAndUpdateUI(message, progress);//TCP down
 			
-			result += ";";
-			result += "\n";
-			(new Report()).sendReport(result);
-			if(shouldStop())
-				return;
-
-			// uplink tput  
-
-			((MainService)service).updateTextView3("Testing uplink throughput...");
-
-			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_UPLINK);                    
-
-			result = "UP:";
-
-			if ( replyCode == 7 ) {
-				//double uptp = Throughput.uplinkSize / ( 128 * 60 );//old mistaken one
-				double uptp = (Throughput.uplinkSize * 8) / Throughput.uplinkTime;
-				message = "TCP uplink bandwidth (kbps): " + uptp;
-				result += "<Tp:" + uptp + ">";
-
-				if ( uptp > 100 )
-					message += " Good";
-				else if ( uptp > 30 )
-					message += " Moderate";
-				else
-					message += " Bad";
-			}
-			else {
-				message = "TCP uplink bandwidth (kbps): Network problem in test";
-				result += "<Tp:-1>";
-			}
-
+			
+			
+			
+			Mlab.loadServerList();
+			//RTT.test();
+			//ThroughputMulti.startTest(false, 2);
+			
+			((MainService)service).updateChart("update chart");
+			
+			
+			
 			progress = 100;
-			result += ";";
-			result += "\n";
-			(new Report()).sendReport(result);
-			if(shouldStop())
-				return;
-
-
-			Log.v("error"," dis is "+message);
-
-
-			((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
-
-
-			//traceroute experiments to our server
-			//TODO
-			//Traceroute.traceroute(Def.SERVER_NAME, -1, -1);
-
+			
+			//((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
 
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");

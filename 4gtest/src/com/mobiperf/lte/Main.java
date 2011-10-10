@@ -15,9 +15,6 @@
 package com.mobiperf.lte;
 import java.util.ArrayList;
 
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -41,7 +38,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobiperf.lte.chart.CubicChart;
-import com.mobiperf.lte.chart.IChart;
 
 
 
@@ -55,6 +51,7 @@ public class Main extends Activity {
 	public ListView listView; 
 	ArrayAdapter<String> adapter;
 	Button button;
+	LinearLayout layout;
 	//Button button1,button2;
 	
 	// Need handler for callbacks to the UI thread
@@ -65,13 +62,6 @@ public class Main extends Activity {
 		Log.w("4G Test", "threegtest start begin");
 
 		super.onStart();
-		
-		
-		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
-		
-		CubicChart chart = new CubicChart();
-		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.FILL_PARENT));
 		
 		InformationCenter.init(this);
 
@@ -109,6 +99,12 @@ public class Main extends Activity {
 		setContentView( R.layout.main1 );
 
 		button = ( Button ) findViewById( R.id.Button01 );
+		
+		layout = (LinearLayout) findViewById(R.id.chart);
+		CubicChart chart = new CubicChart();
+		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
+				LayoutParams.FILL_PARENT));
+		
 		
 		//button2 = ( Button ) findViewById( R.id.button2 );
 		t1 = ( TextView ) findViewById( R.id.textview1 );
@@ -159,6 +155,21 @@ public class Main extends Activity {
 		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
+	
+	public void updateChart(final String text)
+	{
+		mHandler.post(new Runnable() {
+			public void run() {
+				layout.removeAllViews();
+				CubicChart chart = new CubicChart();
+				layout.addView(chart.getGraphView(InformationCenter.activity), new LayoutParams(LayoutParams.FILL_PARENT,
+						LayoutParams.FILL_PARENT));
+				
+			}
+		});
+	}
+	
+	
 	/****** methods for updating UI ******/
 	public void updateTextView1(final String text)
 	{

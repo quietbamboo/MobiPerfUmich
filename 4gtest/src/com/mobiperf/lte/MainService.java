@@ -120,6 +120,11 @@ public class MainService extends Service {
     		return testThread.isAlive();
     	return false;
     }
+    
+    public void updateChart(String params){
+    	if(activity != null)
+    		activity.updateChart(params);
+    }
 
     /**
      * 

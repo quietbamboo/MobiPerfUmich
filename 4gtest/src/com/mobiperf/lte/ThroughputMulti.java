@@ -60,8 +60,13 @@ public class ThroughputMulti extends Thread{
 			}
 		}
 	
+		String type;
+		if(isDown)
+			type = "down";
+		else
+			type = "up";
 		(new Report()).sendReport("THROUGHPUT_MULTI:<parallel:" + parallel + 
-				"><down:" + getMedianThroughput() + "><sample:" + index + ">;");
+				"><" + type + ":" + getMedianThroughput() + "><sample:" + index + ">;");
 	}
 	
 	/**

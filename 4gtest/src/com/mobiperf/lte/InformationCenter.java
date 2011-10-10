@@ -36,7 +36,7 @@ import android.telephony.gsm.GsmCellLocation;
 //TODO Junxian: manage GPS information here, disallow GPS access from other parts, too messy 
 public class InformationCenter {
 	//holds the threegtest that extends Activity
-	private static Context activity;
+	public static Context activity;
 
 	//WIFI or MOBIlE variables
 	private static ConnectivityManager connectivityManager;
