@@ -7,9 +7,6 @@
  ****************************/
 package com.mobiperf.lte;
 
-import com.mobiperf.lte.chart.CubicChart;
-
-import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -17,8 +14,6 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
 
 public class TestCenter{
 	public int progress;
@@ -162,8 +157,6 @@ public class TestCenter{
 			(new Report()).sendReport(infoS);
 			if(shouldStop())
 				return;
-			
-			
 			
 			
 			Mlab.loadServerList();
