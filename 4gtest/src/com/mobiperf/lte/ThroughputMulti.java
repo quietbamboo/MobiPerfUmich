@@ -57,7 +57,8 @@ public class ThroughputMulti extends Thread{
 			}
 		}
 	
-		(new Report()).sendReport("THROUGHPUT_MULTI:<down:>" + getMedianThroughput() + ";");
+		(new Report()).sendReport("THROUGHPUT_MULTI:<parallel:" + parallel + 
+				"><down:" + getMedianThroughput() + "><sample:" + index + ">;");
 	}
 	
 	/**

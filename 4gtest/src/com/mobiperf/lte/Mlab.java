@@ -66,6 +66,16 @@ public class Mlab {
 		}
 		Log.v("4G Test", res);
 		ServerList = res.split(";");
+		
+		
+		//report MLab list to server
+		String report = "MLAB:";
+		report += "<total:" + ServerList.length + ">";
+		for(int i = 0 ; i < ServerList.length ; i++){
+			report += "<server" + i + ":" + ServerList[i] + ">";
+		}
+		report += ";";
+		(new Report()).sendReport(report);
 	}
 	
 	

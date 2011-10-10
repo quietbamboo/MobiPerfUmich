@@ -14,7 +14,6 @@ if [ $1 = "-c" ]; then
 	done
 
 	rm manifest
-
 	cd ..
 
 elif [ $1 = "-d" ]; then

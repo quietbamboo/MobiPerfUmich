@@ -6,7 +6,7 @@ cd ~/mobiperf
 for i in Downlink Uplink KeepAlive
 do
 	echo "running $i"
-	java -jar $i.jar mlab &
+	sudo java -jar $i.jar mlab &
 done
 
 echo "success deploying and running server\n"
