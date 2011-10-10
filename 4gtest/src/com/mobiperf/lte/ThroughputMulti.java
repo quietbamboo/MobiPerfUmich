@@ -12,7 +12,6 @@ import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 
 public class ThroughputMulti extends Thread{
@@ -43,12 +42,22 @@ public class ThroughputMulti extends Thread{
 		assert(Mlab.ServerList.length > parallel);
 		
 		reset();
+		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
 		for(int i = 0 ; i < parallel ; i++){
 			tm[i] = new ThroughputMulti(Mlab.ServerList[i], isDown);
 			tm[i].start();
 		}
+		
+		for(int i = 0 ; i < parallel ; i++){
+			try {
+				tm[i].join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	
+		(new Report()).sendReport("THROUGHPUT_MULTI:<down:>" + getMedianThroughput() + ";");
 	}
 	
 	/**
@@ -56,6 +65,7 @@ public class ThroughputMulti extends Thread{
 	 */
 	public static void reset(){
 		size = 0;
+		testStartTime = System.currentTimeMillis();
 		startTime = 0;
 		index = 0;
 	}
@@ -69,6 +79,12 @@ public class ThroughputMulti extends Thread{
 		double gtime = System.currentTimeMillis() - testStartTime;
 		if(gtime < SLOW_START_PERIOD)//ignore slow start
 			return;
+		
+		if(startTime == 0){
+			//starting first sample
+			startTime = System.currentTimeMillis();
+			size = 0;
+		}
 		
 		size += delta;
 		
@@ -124,7 +140,7 @@ public class ThroughputMulti extends Thread{
 	
 	public void downlink(){
 		
-		System.out.println("here here wtf");
+		
 		Socket tcpSocket = null;
 		DataOutputStream os = null;
 		DataInputStream is = null;
@@ -153,9 +169,9 @@ public class ThroughputMulti extends Thread{
 			Thread.sleep(2000); //sleep for 2 seconds for server to be ready
 			
 			int read_bytes = 0;
+			byte[] buffer = new byte[15000];
 			do {
-				byte[] buffer = new byte[15000];
-				read_bytes = is.read(buffer, 0, 15000);
+				read_bytes = is.read(buffer, 0, buffer.length);
 				updateSize(read_bytes, true);
 			}
 			while(read_bytes >= 0);

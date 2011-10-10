@@ -45,8 +45,8 @@ public class TestCenter{
 		Mlab.loadServerList();
 		//RTT.test();
 		ThroughputMulti.startTest(true, 1);
+		
 		System.exit(-1);
-
 
 		//check airplane mode
 		((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
