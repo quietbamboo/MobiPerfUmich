@@ -29,7 +29,7 @@ public class DownlinkWorker extends BaseTcpWorker{
 
 	public void run(){
 		
-		String tcpdump_init = "";
+		//String tcpdump_init = "";
 		String tcpdump_end = "";
 		
 	    try{
@@ -69,12 +69,12 @@ public class DownlinkWorker extends BaseTcpWorker{
 		    
 			//for MLab servers, this does not matter: 
 			//since these commands will finish fast with "bash: /home/hjx/3gtest/tcpdump_init.sh: No such file or directory"
-		    tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
+		    /*tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
 				Definition.PORT_DOWNLINK + " " +
-				client.getInetAddress().getHostAddress();
+				client.getInetAddress().getHostAddress();*/
 			tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 				type_string + " " + 
 				id_string + " " + 
@@ -82,18 +82,16 @@ public class DownlinkWorker extends BaseTcpWorker{
 				Definition.PORT_DOWNLINK + " " +
 				client.getInetAddress().getHostAddress();
 	    
-	    
 	    	String s = null;
-	    	
 
-	    	System.out.println("<Thread " + id + "> " + tcpdump_init);
+	    	/*System.out.println("<Thread " + id + "> " + tcpdump_init);
 			Process p = Runtime.getRuntime().exec(tcpdump_init);
 			BufferedReader stdInput = new BufferedReader(new 
 	                InputStreamReader(p.getInputStream()));
 			
 			while ((s = stdInput.readLine()) != null) {
                 System.out.println(s);
-            }
+            }*/
 		
 		
 			System.out.println("Server received prefix ok, start");

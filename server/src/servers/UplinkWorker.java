@@ -28,7 +28,7 @@ public class UplinkWorker extends BaseTcpWorker {
 	public void run() {
 		
 		
-		String tcpdump_init = "";
+		//String tcpdump_init = "";
 		String tcpdump_end = "";
 
 		try {
@@ -66,12 +66,12 @@ public class UplinkWorker extends BaseTcpWorker {
 				return;
 			
 
-			tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
+			/*tcpdump_init = "sudo bash " + Definition.ROOT_DIR + "tcpdump_init.sh " + 
 				type_string + " " + 
 				id_string + " " + 
 				rid_string + " " + 
 				Definition.PORT_UPLINK + " " +
-				client.getInetAddress().getHostAddress();
+				client.getInetAddress().getHostAddress();*/
 			tcpdump_end = "sudo bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
 				type_string + " " + 
 				id_string + " " + 
@@ -82,12 +82,12 @@ public class UplinkWorker extends BaseTcpWorker {
 			String s = null;
 			
 			
-			System.out.println("<Thread " + id + "> " + tcpdump_init);
+			/*System.out.println("<Thread " + id + "> " + tcpdump_init);
 			Process p = Runtime.getRuntime().exec(tcpdump_init);
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			while ((s = stdInput.readLine()) != null) {
 				System.out.println(s);
-			}
+			}*/
 
 			System.out.println("Server received prefix ok, start");
 
