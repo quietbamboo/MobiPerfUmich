@@ -28,6 +28,7 @@ elif [ $1 = "-d" ]; then
 		if [ $n = "mobiperf.com" ]; then
 			user="hjx"
 			port=22
+			echo "For mobiperf.com, you need to go to server and do bash end.sh => bash start.sh because need to type in password for sudo, not for Mlab nodes"
 		else
 			user="michigan_1"
 			port=806
