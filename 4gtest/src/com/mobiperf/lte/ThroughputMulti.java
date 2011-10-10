@@ -12,7 +12,6 @@ import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import android.util.Log;
@@ -42,19 +41,18 @@ public class ThroughputMulti extends Thread{
 	public static void startTest(boolean isDown, int parallel){
 		
 		Mlab.prepareServer();
-		assert(Mlab.ServerList.length > parallel);
+		assert(Mlab.ipList.length > parallel);
 		
 		reset();
 		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
 		for(int i = 0 ; i < parallel ; i++){
-			//tm[i] = new ThroughputMulti(Mlab.ServerList[i], isDown);
-			tm[i] = new ThroughputMulti("38.106.70.152", isDown);
+			tm[i] = new ThroughputMulti(Mlab.ipList[i], isDown);
+			//tm[i] = new ThroughputMulti("38.106.70.152", isDown);
 			tm[i].start();
 		}
 		
-		//TODO change 1 to 0 in the next line
-		for(int i = 1 ; i < parallel ; i++){
+		for(int i = 0 ; i < parallel ; i++){
 			try {
 				tm[i].join();
 			} catch (InterruptedException e) {
@@ -173,6 +171,7 @@ public class ThroughputMulti extends Thread{
 			byte[] buffer = new byte[15000];
 			do {
 				read_bytes = is.read(buffer, 0, buffer.length);
+				//System.out.println("Update receive. Thread ID " + this.getId());
 				updateSize(read_bytes, true);
 			}while(read_bytes >= 0);
 			
@@ -180,7 +179,6 @@ public class ThroughputMulti extends Thread{
 			e.printStackTrace();
 			return;
 		}
-
 		
 		try {
 			os.close();

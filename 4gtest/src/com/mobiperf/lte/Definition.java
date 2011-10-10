@@ -52,8 +52,8 @@ public class Definition {
 
 
 	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for throughput tests
-	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
-	public static final int UDP_TIMEOUT_IN_MILLI = 5000;
+	public static final int TCP_TIMEOUT_IN_MILLI = 10000; // 5 seconds for timeout
+	public static final int UDP_TIMEOUT_IN_MILLI = 10000;
 
 	public static final int IP_HEADER_LENGTH = 20;
 	public static final int TCP_HEADER_LENGTH = 32;

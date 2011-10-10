@@ -21,22 +21,24 @@ import android.util.Log;
  */
 public class Mlab {
 	
-	public static String[] ServerList;
+	//only ipList is allowed by external access
+	private static String[] serverList;
+	public static String[] ipList;
 	
 	/**
 	 * called every time want to user Mlab server
 	 * @return
 	 */
 	public static void prepareServer(){
-		if(ServerList.length > 0)
+		if(serverList.length > 0)
 			return;
 		
 		loadServerList();
 		
-		if(ServerList.length > 0)
+		if(serverList.length > 0)
 			return;
 		else
-			ServerList = new String[]{"mobiperf.com"};
+			serverList = new String[]{"mobiperf.com"};
 	}
 	
 	public static void loadServerList(){
@@ -65,14 +67,19 @@ public class Mlab {
 			res = Definition.SERVER_NAME;
 		}
 		Log.v("4G Test", res);
-		ServerList = res.split(";");
+		serverList = res.split(";");
+		
+		ipList = new String[serverList.length];
+		for(int i = 0 ; i < serverList.length ; i++){
+			ipList[i] = serverList[i].split(",")[1];
+		}
 		
 		
 		//report MLab list to server
 		String report = "MLAB:";
-		report += "<total:" + ServerList.length + ">";
-		for(int i = 0 ; i < ServerList.length ; i++){
-			report += "<server" + i + ":" + ServerList[i] + ">";
+		report += "<total:" + serverList.length + ">";
+		for(int i = 0 ; i < serverList.length ; i++){
+			report += "<server" + i + ":" + serverList[i] + ">";
 		}
 		report += ";";
 		(new Report()).sendReport(report);
