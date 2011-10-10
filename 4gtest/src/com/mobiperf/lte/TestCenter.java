@@ -43,7 +43,8 @@ public class TestCenter{
 		InformationCenter.reset();
 		
 		Mlab.loadServerList();
-		RTT.test();
+		//RTT.test();
+		ThroughputMulti.startTest(true, 1);
 		System.exit(-1);
 
 
