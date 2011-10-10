@@ -47,7 +47,7 @@ elif [ $1 = "-d" ]; then
 		elif [ $2 = "-i" ]; then
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'sudo yum -y install java' &
 		else
-			#ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'mkdir ~/mobiperf' &
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'mkdir ~/mobiperf'
 			scp -o "StrictHostKeyChecking no" -P $port  mlab/* $user@$n:~/mobiperf
 			#first terminate
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/end.sh'

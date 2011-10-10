@@ -22,7 +22,7 @@ public class Downlink extends BaseServer {
 				port = Definition.PORT_DOWNLINK_MLAB;
 		}
 		while(true){
-			System.out.println("Downlink server starts");
+			System.out.println("Downlink server starts on port " + port);
 			Downlink server = new Downlink();
 			server.listenSocket(port);
 		}

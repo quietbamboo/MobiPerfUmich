@@ -12,7 +12,10 @@ import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
+
+import android.util.Log;
 
 public class ThroughputMulti extends Thread{
 	
@@ -45,11 +48,13 @@ public class ThroughputMulti extends Thread{
 		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
 		for(int i = 0 ; i < parallel ; i++){
-			tm[i] = new ThroughputMulti(Mlab.ServerList[i], isDown);
+			//tm[i] = new ThroughputMulti(Mlab.ServerList[i], isDown);
+			tm[i] = new ThroughputMulti("38.106.70.152", isDown);
 			tm[i].start();
 		}
 		
-		for(int i = 0 ; i < parallel ; i++){
+		//TODO change 1 to 0 in the next line
+		for(int i = 1 ; i < parallel ; i++){
 			try {
 				tm[i].join();
 			} catch (InterruptedException e) {
@@ -134,11 +139,6 @@ public class ThroughputMulti extends Thread{
 			uplink();
 	}
 	
-	public void uplink(){
-		
-		
-	}
-	
 	public void downlink(){
 		
 		
@@ -174,8 +174,7 @@ public class ThroughputMulti extends Thread{
 			do {
 				read_bytes = is.read(buffer, 0, buffer.length);
 				updateSize(read_bytes, true);
-			}
-			while(read_bytes >= 0);
+			}while(read_bytes >= 0);
 			
 		}catch ( Exception e ) {
 			e.printStackTrace();
@@ -188,6 +187,73 @@ public class ThroughputMulti extends Thread{
 			is.close();
 			tcpSocket.close();
 		}catch ( Exception e ) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void uplink(){
+		
+		Socket tcpSocket = null;
+		DataOutputStream os = null;
+		DataInputStream is = null;
+
+		try {
+			tcpSocket = new Socket();
+			SocketAddress remoteAddr = new InetSocketAddress(host, Definition.PORT_UPLINK_MLAB);
+			tcpSocket.connect( remoteAddr, Definition.TCP_TIMEOUT_IN_MILLI );
+			os = new DataOutputStream( tcpSocket.getOutputStream() );
+			is = new DataInputStream( tcpSocket.getInputStream() );
+			tcpSocket.setSoTimeout( Definition.TCP_TIMEOUT_IN_MILLI );
+			tcpSocket.setTcpNoDelay(true);
+
+		}catch (Exception e){
+			e.printStackTrace();
+			return;
+		}
+
+		//1K buffer
+		String buf = "ehcsinmfuevrxruudycdbgdyrlmbapvxpbmzshhkrtewlijrlzbcfobxxugvnjqehdpnsiuwqnbhshrgfgivdyafowedzjlxwxavfsbvzqdddaiorpnpmunqzihrgewqebvnymvujrylymgwliovsyyoozkdgcskedzmhxijruaaurpocsnxtitlcvotrxpvnzwornmoicpaxbobfoehwvirpannjeizbtkizvdgmhgjjkljmjkculysjdvfnsranueaizstwrtuszgfknbsarwkfsrcuhjvzhvcduabphnusscfvqyqpfyndbplpklrwqrpgyitigaeowfnxnfvysdrwjpvbustrltyoqrtunmnxxenmyudvatlevpzsqmfwlzdsglthvwfvldylyktapinzkztygsbzfnbeiimstfjgppamkimryjnxmojdiezuhkvjzgqrfcmhrgcaqyqktvsdxnyptamfmsvghunxbeqlydmnkeqgzgdjjyemgmgxrlsczsuzenyeozgvhhrdawzgvgjueaykkcqlswfcjozucztcyynorcarkhsbgmzodkxjbdejbtxldpaoapyithrskisxyrrcrbuaezveueikvppwzvyvloytphbztcumodlhmvcwdqwtgtnnmlnhmdvpsrnfbbzydikyvamnzxudoeppvhonysvzjccfatxyosaumvgkxdpwsjbtpqcscfyqzruztafodqhfywacsqocckdlssrpnvoycecwvzzsyzbwmnkfpvupudfhrocunyzpytdtvznuskauhaancoylvcezzbgnrayvhwxjocckahppqhotpoccserezellvwijjdqfakcvjknxnjnibdyugxfpsnsrgxmkgbsjyynrdfdifcrxvgcyvtbseipkxhlajjpsmoqjdijeoudfvqpfjwjixfzgdhnkhyahdiuezbpxyjqhblahgwyqosjjqcdbvbqdabrxgmirbtv";
+
+		byte [] message =  InformationCenter.getPrefix().getBytes();
+
+		Log.v("LOG", "sent prefix for uplink " + InformationCenter.getPrefix());
+
+		try {
+			os.write( message );
+			os.flush();
+			
+			//don't need to check response
+			Thread.sleep(4000); //sleep for 4 seconds for server to be ready
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+
+		message = buf.getBytes();
+		System.out.println ("------- MESSAGE LENGTH = " + message.length);
+		long startTime = System.currentTimeMillis();
+		long endTime = System.currentTimeMillis();
+
+		//Test lasts 16 seconds - Junxian
+		try {
+			do {
+				os.write(message);
+				endTime = System.currentTimeMillis();
+				ThroughputMulti.updateSize(message.length, false);
+			}while((endTime - startTime) < Definition.TP_DURATION_IN_MILLI);
+		}catch ( Exception e ) {
+			e.printStackTrace();
+			return;
+		}
+
+		try {
+			os.close();
+			is.close();
+			tcpSocket.close();
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

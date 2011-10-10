@@ -24,7 +24,7 @@ public class Uplink extends BaseServer {
 				port = Definition.PORT_UPLINK_MLAB;
 		}
 		while(true){
-			System.out.println("Uplink server starts");
+			System.out.println("Uplink server starts on port " + port);
 			Uplink server = new Uplink();
 			server.listenSocket(port);
 		}
