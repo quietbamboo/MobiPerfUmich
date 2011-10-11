@@ -120,9 +120,9 @@ public class MainService extends Service {
     	return false;
     }
     
-    public void updateChart(double[] tp, double[] rtt){
+    public void updateChart(double[] rtt, double[] tp_down, double[] tp_up){
     	if(activity != null)
-    		activity.updateChart(tp, rtt);
+    		activity.updateChart(rtt, tp_down, tp_up);
     }
 
     /**

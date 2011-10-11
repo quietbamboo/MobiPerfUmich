@@ -14,6 +14,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.Arrays;
 
+import android.app.Service;
 import android.util.Log;
 
 public class ThroughputMulti extends Thread{
@@ -26,28 +27,30 @@ public class ThroughputMulti extends Thread{
 	public static int size = 0;
 	public static long testStartTime = 0; //test start time, used to determine slow start period
 	public static long startTime = 0; //start time of this period to calculate throughput
-	public static int index = 0;
-	public static double tps[] = new double[1000]; //large enough
+	public static double tps_up[];
+	public static double tps_down[];
+	public static boolean isDown;
+	public static Service service;
 	
 	//local
 	public String host;
-	public boolean isDown;
 	
-	public ThroughputMulti(String host, boolean isDown){
+	public ThroughputMulti(String host){
 		this.host = host;
-		this.isDown = isDown;
 	}
 	
-	public static void startTest(boolean isDown, int parallel){
+	public static void startTest(boolean isDown, int parallel, Service service){
 		
+		ThroughputMulti.isDown = isDown;
+		ThroughputMulti.service = service;
 		Mlab.prepareServer();
 		assert(Mlab.ipList.length > parallel);
 		
-		reset();
+		reset(isDown);
 		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
 		for(int i = 0 ; i < parallel ; i++){
-			tm[i] = new ThroughputMulti(Mlab.ipList[i], isDown);
+			tm[i] = new ThroughputMulti(Mlab.ipList[i]);
 			//tm[i] = new ThroughputMulti("38.106.70.152", isDown);
 			tm[i].start();
 		}
@@ -61,22 +64,31 @@ public class ThroughputMulti extends Thread{
 		}
 	
 		String type;
-		if(isDown)
-			type = "down";
-		else
-			type = "up";
-		(new Report()).sendReport("THROUGHPUT_MULTI:<parallel:" + parallel + 
-				"><" + type + ":" + getMedianThroughput() + "><sample:" + index + ">;");
+		if(isDown){
+			type = "DOWN";
+			(new Report()).sendReport("MLAB_THROUGHPUT_" + type + ":<parallel:" + parallel + 
+					"><median:" + Utilities.getMedian(tps_down) + "><max:" + Utilities.getMax(tps_down) + 
+					"><min:" + Utilities.getMin(tps_down) + "><sample:" + tps_down.length + ">;");
+		}else{
+			type = "UP";
+			(new Report()).sendReport("MLAB_THROUGHPUT_" + type + ":<parallel:" + parallel + 
+					"><median:" + Utilities.getMedian(tps_up) + "><max:" + Utilities.getMax(tps_up) + 
+					"><min:" + Utilities.getMin(tps_up) + "><sample:" + tps_up.length + ">;");
+		}
+		
 	}
 	
 	/**
 	 * called before each test in terms of total uplink/downlink test
 	 */
-	public static void reset(){
+	public static void reset(boolean isDown){
 		size = 0;
 		testStartTime = System.currentTimeMillis();
 		startTime = 0;
-		index = 0;
+		if(isDown)
+			tps_down = new double[]{};
+		else
+			tps_up = new double[]{};
 	}
 	
 	/**
@@ -99,6 +111,7 @@ public class ThroughputMulti extends Thread{
 		
 		double time = System.currentTimeMillis() - startTime;
 		if(time < SAMPLE_PERIOD){//wait till sample period finishes
+			
 			return;
 		}else{
 			//now samples
@@ -110,29 +123,19 @@ public class ThroughputMulti extends Thread{
 			System.out.println("_throughput: " + throughput + " kbps_Time(sec): " + (gtime / 1000.0));
 			
 			//record this sample
-			tps[index] = throughput;
-			index++;
+			if(isDown){
+				tps_down = Utilities.pushResult(tps_down, throughput);
+			}else{
+				tps_up = Utilities.pushResult(tps_up, throughput);
+			}
+			
+			((MainService)service).updateChart(RTT.rtts, ThroughputMulti.tps_down, ThroughputMulti.tps_up);
 			
 			size = 0;
 			startTime = System.currentTimeMillis();
 		}	
 	}
 	
-	public static double getMedianThroughput(){
-		double median = 0;
-		
-		Arrays.sort(tps, 0, index);
-		
-		if(index % 2 == 0){
-			//index is even, e.g., index = 4, => (2 + 1) / 2
-			median = (tps[index / 2] + tps[index / 2 - 1]) / 2;
-		}else{
-			//index is odd, e.g. index = 3, => 1
-			median = tps[(index - 1) / 2];
-		}
-		
-		return median;
-	}
 	
 	public void run(){
 		System.out.println("Thread running ID " + getId());
@@ -143,8 +146,7 @@ public class ThroughputMulti extends Thread{
 	}
 	
 	public void downlink(){
-		
-		
+
 		Socket tcpSocket = null;
 		DataOutputStream os = null;
 		DataInputStream is = null;
@@ -176,7 +178,11 @@ public class ThroughputMulti extends Thread{
 			byte[] buffer = new byte[15000];
 			do {
 				read_bytes = is.read(buffer, 0, buffer.length);
-				//System.out.println("Update receive. Thread ID " + this.getId());
+				
+				//if(System.currentTimeMillis() % 100 == 1)
+					//System.out.println("Update receive " + read_bytes +  " . Thread ID " + this.getId());
+				
+				
 				updateSize(read_bytes, true);
 			}while(read_bytes >= 0);
 			
@@ -244,6 +250,10 @@ public class ThroughputMulti extends Thread{
 			do {
 				os.write(message);
 				endTime = System.currentTimeMillis();
+				
+				//if(System.currentTimeMillis() % 100 == 1)
+					//System.out.println("Update receive " + message.length +  " . Thread ID " + this.getId());
+				
 				ThroughputMulti.updateSize(message.length, false);
 			}while((endTime - startTime) < Definition.TP_DURATION_IN_MILLI);
 		}catch ( Exception e ) {

@@ -101,7 +101,7 @@ public class Main extends Activity {
 		button = ( Button ) findViewById( R.id.Button01 );
 		
 		layout = (LinearLayout) findViewById(R.id.chart);
-		CubicChart chart = new CubicChart(new double[]{}, new double[]{});
+		CubicChart chart = new CubicChart(new double[]{}, new double[]{}, new double[]{});
 		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		
@@ -154,12 +154,12 @@ public class Main extends Activity {
 	}
 
 	
-	public void updateChart(final double[] tp, final double[] rtt)
+	public void updateChart(final double[] rtt, final double[] tp_down, final double[] tp_up)
 	{
 		mHandler.post(new Runnable() {
 			public void run() {
 				layout.removeAllViews();
-				CubicChart chart = new CubicChart(tp, rtt);
+				CubicChart chart = new CubicChart(rtt, tp_down, tp_up);
 				layout.addView(chart.getGraphView(InformationCenter.activity), new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.FILL_PARENT));
 				

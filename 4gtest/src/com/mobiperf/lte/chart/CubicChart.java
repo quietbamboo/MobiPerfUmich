@@ -7,6 +7,7 @@
  ****************************/
 package com.mobiperf.lte.chart;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,29 +24,42 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 
+import com.mobiperf.lte.Utilities;
+
 /**
  * Average temperature demo chart.
  */
 public class CubicChart extends AbstractChart {
 	
-	public static double[] index = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
-	public double[] tp;
+	public static double[] index = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 	public double[] rtt;
+	public double[] tp_down;
+	public double[] tp_up;
 	
-	public CubicChart(double[] tp, double[] rtt){
+	
+	public CubicChart(double[] rtt, double[] tp_down, double[] tp_up){
 		this.rtt = new double[index.length];
-		this.tp = new double[index.length];
+		this.tp_down = new double[index.length];
+		this.tp_up = new double[index.length];
+		
+		DecimalFormat df = new DecimalFormat("###.##");
 		
 		for(int i = 0; i < index.length; i++){
-			this.rtt[i] = Double.MIN_VALUE;
-			this.tp[i] = Double.MIN_VALUE;
+			this.rtt[i] = 0;
+			this.tp_down[i] = 0;
+			this.tp_up[i] = 0;
 		}
 		
-		for(int i = 1; i <= rtt.length; i++){
-			this.rtt[index.length - i] = rtt[rtt.length - i];
+		for(int i = 1; i <= rtt.length && i <= index.length; i++){
+			this.rtt[index.length - i] = Double.parseDouble(df.format(rtt[rtt.length - i]));
 		}
-		for(int i = 1; i <= tp.length; i++){
-			this.tp[index.length - i] = tp[tp.length - i];
+		
+		for(int i = 1; i <= tp_down.length && i <= index.length; i++){
+			this.tp_down[index.length - i] = Double.parseDouble(df.format(tp_down[tp_down.length - i] / 1000.0)); //turn into Mbps
+		}
+		
+		for(int i = 1; i <= tp_up.length && i <= index.length; i++){
+			this.tp_up[index.length - i] = Double.parseDouble(df.format(tp_up[tp_up.length - i] / 1000.0)); //turn into Mbps
 		}
 	}
 	
@@ -73,23 +87,30 @@ public class CubicChart extends AbstractChart {
 
 	public GraphicalView getGraphView(Context context) {
 		
-		String[] titles = new String[] { "Throughput (kbps)" };
+		double rtt_max = Utilities.getMax(rtt) + 5;
+		double tp_down_max = Utilities.getMax(tp_down) + 0.5;
+		double tp_up_max = Utilities.getMax(tp_up) + 0.5;
+		double tp_max = Math.max(tp_down_max, tp_up_max);
+		if(rtt_max > 5000)
+			rtt_max = 5000;
+		
+		String[] titles = new String[] { "Downlink throughput (Mbps)", "Uplink throughput (Mbps)"};
 		List<double[]> x = new ArrayList<double[]>();
 		for (int i = 0; i < titles.length; i++) {
 			x.add(index);
 		}
 		List<double[]> values = new ArrayList<double[]>();
-		values.add(tp);
-		int[] colors = new int[] { Color.YELLOW, Color.GREEN };
-		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND,
-				PointStyle.TRIANGLE, PointStyle.SQUARE };
+		values.add(tp_down);
+		values.add(tp_up);
+		int[] colors = new int[] { Color.YELLOW, Color.RED, Color.GREEN };
+		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND, PointStyle.TRIANGLE};
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer(2);
 		setRenderer(renderer, colors, styles);
 		int length = renderer.getSeriesRendererCount();
 		for (int i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
 		}
-		setChartSettings(renderer, "Network Performance", "Experiment NO.", "Throughput (kbps)", 0.5, 12.5, 0, 32,
+		setChartSettings(renderer, "Network Performance", "Experiment NO.", "Throughput (Mbps)", 0.5, 16.5, 0, tp_max,
 				Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
@@ -103,6 +124,8 @@ public class CubicChart extends AbstractChart {
 		renderer.setYTitle("Latency (ms)", 1);
 		renderer.setYAxisAlign(Align.RIGHT, 1);
 		renderer.setYLabelsAlign(Align.LEFT, 1);
+		renderer.setYAxisMax(rtt_max, 1);
+		renderer.setYAxisMin(0, 1);
 		XYMultipleSeriesDataset dataset = buildDataset(titles, x, values);
 		values.clear();
 		values.add(rtt);

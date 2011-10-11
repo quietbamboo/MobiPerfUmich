@@ -155,13 +155,37 @@ public class TestCenter{
 			if(shouldStop())
 				return;
 			
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_LOADING_SERVER_LIST, null));
+			progress += 15;
+			((MainService)service).updateProgress(progress);
 			
 			Mlab.loadServerList();
-			//RTT.test();
-			//ThroughputMulti.startTest(false, 2);
+			RTT.reset();
+			ThroughputMulti.reset(true);
+			ThroughputMulti.reset(false);
+			
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_TESTING_RTT, null));
+			progress += 15;
+			((MainService)service).updateProgress(progress);
+
+			RTT.reset();
+			RTT.test(service);
 			
 			
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_DOWNLINK, null));
+			progress += 15;
+			((MainService)service).updateProgress(progress);
 			
+			ThroughputMulti.reset(true);
+			ThroughputMulti.startTest(true, 3, service);
+			
+			
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
+			progress += 15;
+			((MainService)service).updateProgress(progress);
+			
+			ThroughputMulti.reset(false);
+			ThroughputMulti.startTest(false, 3, service);
 			
 			
 			progress = 100;
@@ -182,12 +206,7 @@ public class TestCenter{
 		Log.v("MobiPerf", "service thread finish using " + (end - start) / 1000 +"s");
 	}
 	
-	
-	public void updateChart(double[] tp, double[] rtt){
-		((MainService)service).updateChart(tp, rtt);
-	}
-	
-	
+
 	/**
 	 * For FCC challenge or local experiments
 	 * Test both latency to TCP and UDP server with the list of ports

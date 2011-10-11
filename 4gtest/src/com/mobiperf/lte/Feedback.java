@@ -36,7 +36,11 @@ public class Feedback {
 		NETWORK_TYPE,
 		CELL_ID,
 		SIGNAL_STRENGTH,
-		LAC
+		LAC,
+		MLAB_LOADING_SERVER_LIST,
+		MLAB_TESTING_RTT,
+		MLAB_THROUGHPUT_DOWNLINK,
+		MLAB_THROUGHPUT_UPLINK
 	};
 	
 	/**
@@ -94,6 +98,14 @@ public class Feedback {
 				return "Location Area Code (LAC): " + parameters[0];
 			case SIGNAL_STRENGTH:
 				return "Signal strength (asu): " + parameters[0];
+			case MLAB_LOADING_SERVER_LIST:
+				return "Loading nearest server list";
+			case MLAB_TESTING_RTT:
+				return "Measuring latency to nearest server";
+			case MLAB_THROUGHPUT_DOWNLINK:
+				return "TCP downlink throughput to 3 servers";
+			case MLAB_THROUGHPUT_UPLINK:
+				return "TCP uplink throughput to 3 servers";
 				
 		}
 		return null;

@@ -31,6 +31,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -46,9 +47,69 @@ import android.util.Log;
 
 
 public class Utilities  {
-	
-	public static String getAppPkg(Context c, int uid) throws NullPointerException
-	{
+
+	public static double getMax(double[] a){  
+		if(a == null || a.length == 0){
+			System.err.println("getMax invalid array");
+			return Double.MIN_VALUE;
+		}
+		double max = Double.MIN_VALUE;  
+		for(int i = 0; i < a.length;i++){  
+			if(a[i] > max){  
+				max = a[i];  
+			}  
+		}  
+		return max;  
+	}  
+
+	public static double getMin(double[] a){  
+		if(a == null || a.length == 0){
+			System.err.println("getMax invalid array");
+			return Double.MIN_VALUE;
+		}
+		double min = Double.MAX_VALUE;  
+		for(int i = 0; i < a.length; i++){  
+			if(a[i] < min){  
+				min = a[i];  
+			}  
+		}  
+		return min;  
+	}  
+
+	public static double getMedian(double[] a){
+		if(a == null || a.length == 0){
+			System.err.println("getMedian invalid array");
+			return Double.MIN_VALUE;
+		}
+		double[] tmp = a.clone();
+		double median = 0;
+		Arrays.sort(tmp);
+		int len = tmp.length;
+		if(len % 2 == 0){
+			//len is even, e.g., len = 4, => (2 + 1) / 2
+			median = (tmp[len / 2] + tmp[len / 2 - 1]) / 2;
+		}else{
+			//len is odd, e.g. len = 3, => 1
+			median = tmp[(len - 1) / 2];
+		}
+		return median;
+	}
+
+
+	/**
+	 * make new array of results to increase it's size + 1 and add new res to the end
+	 * @param res
+	 */
+	public static double[] pushResult(double[] results, double res){
+		double[] tmp = results.clone();
+		results = new double[tmp.length + 1];
+		for(int i = 0; i < tmp.length; i++)
+			results[i] = tmp[i];
+		results[tmp.length] = res;
+		return results.clone();
+	}
+
+	public static String getAppPkg(Context c, int uid) throws NullPointerException{
 		PackageManager pm = c.getPackageManager();
 		String name = pm.getPackagesForUid(uid)[0];
 		return name;
@@ -62,7 +123,7 @@ public class Utilities  {
 		PackageManager pm = c.getPackageManager();
 		return pm.getApplicationInfo(name, PackageManager.GET_UNINSTALLED_PACKAGES);
 	}
-	
+
 	/**
 	 * @author Yunxing Dai
 	 * get application's icon based on uid given
@@ -84,7 +145,7 @@ public class Utilities  {
 		}
 		return icon;
 	}
-	
+
 	/**
 	 * @author Yunxing Dai
 	 * get application's user friendly label based on context and uid
@@ -105,7 +166,7 @@ public class Utilities  {
 		}
 		return label;
 	}
-	
+
 	/*
 	public static int setProgressStatus (int hardCodedValue) {
     	int val = (int) (time() % 3) + hardCodedValue - 1;
@@ -113,8 +174,8 @@ public class Utilities  {
     	if (val > 100) val = 100;
     	return val;
     }
-    */
-	
+	 */
+
 	/**
 	 * @author Junxian Huang
 	 * getAgo string
@@ -152,7 +213,7 @@ public class Utilities  {
 		}
 		return time_str + " ago";
 	}
-	
+
 	/**
 	 * @author Junxian Huang
 	 * Get previous run results list from server
@@ -160,33 +221,33 @@ public class Utilities  {
 	public static String getPreviousResult(String runId){
 		String res = "";
 		try {
-		    // Construct data
+			// Construct data
 			String data = URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode(Definition.TYPE, "UTF-8");
-		    data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
-		    data += "&" + URLEncoder.encode("runId", "UTF-8") + "=" + URLEncoder.encode(runId, "UTF-8");
+			data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
+			data += "&" + URLEncoder.encode("runId", "UTF-8") + "=" + URLEncoder.encode(runId, "UTF-8");
 
-		    // Send data
-		    URL url = new URL("http://mobiperf.com/php/getResult.php");
-		    URLConnection conn = url.openConnection();
-		    conn.setDoOutput(true);
-		    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		    wr.write(data);
-		    wr.flush();
+			// Send data
+			URL url = new URL("http://mobiperf.com/php/getResult.php");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			wr.write(data);
+			wr.flush();
 
-		    // Get the response
-		    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		    String line;
-		    while ((line = rd.readLine()) != null) {
-		        // Process line...
-		    	res += line;
-		    }
-		    wr.close();
-		    rd.close();
+			// Get the response
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) {
+				// Process line...
+				res += line;
+			}
+			wr.close();
+			rd.close();
 		} catch (Exception e) {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * @author Junxian Huang
 	 * Get previous run results list from server
@@ -194,64 +255,64 @@ public class Utilities  {
 	public static String getPreviousResultList(){
 		String res = "";
 		try {
-		    // Construct data
+			// Construct data
 			String data = URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode(Definition.TYPE, "UTF-8");
-		    data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
+			data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
 
-		    // Send data
-		    URL url = new URL("http://mobiperf.com/php/getList.php");
-		    URLConnection conn = url.openConnection();
-		    conn.setDoOutput(true);
-		    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		    wr.write(data);
-		    wr.flush();
+			// Send data
+			URL url = new URL("http://mobiperf.com/php/getList.php");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			wr.write(data);
+			wr.flush();
 
-		    // Get the response
-		    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		    String line;
-		    while ((line = rd.readLine()) != null) {
-		        // Process line...
-		    	res += line;
-		    }
-		    wr.close();
-		    rd.close();
+			// Get the response
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) {
+				// Process line...
+				res += line;
+			}
+			wr.close();
+			rd.close();
 		} catch (Exception e) {
 		}
 		return res;
 	}
-	
+
 	/**
 	 * @author Junxian Huang
 	 * Send commands to server to results to database
 	 */
 	public static void letServerWriteOutputToMysql(){
 		try {
-		    // Construct data
+			// Construct data
 			String data = URLEncoder.encode("type", "UTF-8") + "=" + URLEncoder.encode(Definition.TYPE, "UTF-8");
-		    data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
-		    data += "&" + URLEncoder.encode("runId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getRunId(), "UTF-8");
+			data += "&" + URLEncoder.encode("deviceId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getDeviceID(), "UTF-8");
+			data += "&" + URLEncoder.encode("runId", "UTF-8") + "=" + URLEncoder.encode(InformationCenter.getRunId(), "UTF-8");
 
-		    // Send data
-		    URL url = new URL("http://mobiperf.com/php/put.php");
-		    URLConnection conn = url.openConnection();
-		    conn.setDoOutput(true);
-		    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		    wr.write(data);
-		    wr.flush();
+			// Send data
+			URL url = new URL("http://mobiperf.com/php/put.php");
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+			wr.write(data);
+			wr.flush();
 
-		    // Get the response
-		    BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		    String line;
-		    while ((line = rd.readLine()) != null) {
-		        // Process line...
-		    	Log.v("MobiPerf", line);
-		    }
-		    wr.close();
-		    rd.close();
+			// Get the response
+			BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) {
+				// Process line...
+				Log.v("MobiPerf", line);
+			}
+			wr.close();
+			rd.close();
 		} catch (Exception e) {
 		}
 	}
-	
+
 	public static boolean testIptablesAvailability(Context context) {
 		boolean iptables_available = false;
 		try {
@@ -282,54 +343,54 @@ public class Utilities  {
 		Log.v("LOG", "iptables available: " + iptables_available);
 		return iptables_available;
 	}
-	
+
 	public static boolean checkRootPrivilege()
-    {
-        Process p;   
-        try {   
-           // Preform su to get root privledges  
-           p = Runtime.getRuntime().exec("su");               
-           // Attempt to write a file to a root-only   
-           DataOutputStream os = new DataOutputStream(p.getOutputStream());   
-           os.writeBytes("echo \"Do I have root?\" >/data/temporary.txt\n");             
-           // Close the terminal  
-           os.writeBytes("exit\n");   
-           os.flush();   
-           try {   
-              p.waitFor();   
-               if (p.exitValue() != 255) {   
-                  // TODO Code to run on success  
-                  Log.v("MobiPerf", "checkroot: root");
-                  return true;
-               }     
-           } catch (InterruptedException e) {   
-              // TODO Code to run in interrupted exception     
-           }   
-        } catch (IOException e) {   
-           // TODO Code to run in input/output exception    
-        }  
-        Log.v("MobiPerf", "checkroot: no root");
-        return false;
-    }
-	
+	{
+		Process p;   
+		try {   
+			// Preform su to get root privledges  
+			p = Runtime.getRuntime().exec("su");               
+			// Attempt to write a file to a root-only   
+			DataOutputStream os = new DataOutputStream(p.getOutputStream());   
+			os.writeBytes("echo \"Do I have root?\" >/data/temporary.txt\n");             
+			// Close the terminal  
+			os.writeBytes("exit\n");   
+			os.flush();   
+			try {   
+				p.waitFor();   
+				if (p.exitValue() != 255) {   
+					// TODO Code to run on success  
+					Log.v("MobiPerf", "checkroot: root");
+					return true;
+				}     
+			} catch (InterruptedException e) {   
+				// TODO Code to run in interrupted exception     
+			}   
+		} catch (IOException e) {   
+			// TODO Code to run in input/output exception    
+		}  
+		Log.v("MobiPerf", "checkroot: no root");
+		return false;
+	}
+
 	static Thread binaryThread;
-  
+
 	// Copies src file to dst file.
 	// If the dst file does not exist, it is created
 	public static void copy(File src, File dst) throws IOException {
-	    InputStream in = new FileInputStream(src);
-	    OutputStream out = new FileOutputStream(dst);
+		InputStream in = new FileInputStream(src);
+		OutputStream out = new FileOutputStream(dst);
 
-	    // Transfer bytes from in to out
-	    byte[] buf = new byte[1024];
-	    int len;
-	    while ((len = in.read(buf)) > 0) {
-	        out.write(buf, 0, len);
-	    }
-	    in.close();
-	    out.close();
+		// Transfer bytes from in to out
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = in.read(buf)) > 0) {
+			out.write(buf, 0, len);
+		}
+		in.close();
+		out.close();
 	}
-	
+
 	//Junxian: does not use local storage for logs, use remote mysql for better support
 	@Deprecated
 	public static void backupLogFile(Context context)
@@ -347,47 +408,47 @@ public class Utilities  {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
-    }
-	
-    public static String getCurrentGMTTime()
-    {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
-    	sdf.setTimeZone(TimeZone.getTimeZone("GMT:00"));
-    	return sdf.format(new Date()).toString();
-    }
-    
-    public static String getCurrentLocalTime()
-    {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
-    	return sdf.format(new Date()).toString();
-    }
-	
-	
+	}
+
+	public static String getCurrentGMTTime()
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("GMT:00"));
+		return sdf.format(new Date()).toString();
+	}
+
+	public static String getCurrentLocalTime()
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd,HH:mm:ss");
+		return sdf.format(new Date()).toString();
+	}
+
+
 	public static void writeToFile(String filename, int  mode, String data, Context context){
-		
-    	FileOutputStream fo = null;
-        OutputStreamWriter osw = null;
-        try {
+
+		FileOutputStream fo = null;
+		OutputStreamWriter osw = null;
+		try {
 			fo = context.openFileOutput( filename, mode );
 			osw = new OutputStreamWriter( fo );
-	        osw.write( data );
-	        osw.close();
-	        fo.close();
+			osw.write( data );
+			osw.close();
+			fo.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-    }
-	
+
+	}
+
 	public static String read_first_line_from_file(String filename, int  mode, Context context){
-        try {
+		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader( context.openFileInput( filename)),8*1024);
 			return br.readLine();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        return null;
-    }
+		return null;
+	}
 	/*
 	public static void sendudpmessage( String FILENAME, String message, Context context ) {
         try {
@@ -408,17 +469,17 @@ public class Utilities  {
     catch ( Exception e ) {}
 
     }
-	*/
-	
-	
-    public static String signalServers = "";
-    
-    public static boolean checkConnection()
-    {
-    	boolean successful = false; 
-    	for(int i = 0; i < 3; i++)
-    	{
-	    	try {
+	 */
+
+
+	public static String signalServers = "";
+
+	public static boolean checkConnection()
+	{
+		boolean successful = false; 
+		for(int i = 0; i < 3; i++)
+		{
+			try {
 				Socket remoteTCPSocket = new Socket();
 				SocketAddress remoteAddr = new InetSocketAddress( "www.google.com", 80 );
 				remoteTCPSocket.connect( remoteAddr, 8000 );
@@ -432,18 +493,18 @@ public class Utilities  {
 				e.printStackTrace();
 				successful = false;
 			}
-    	}
-    	return successful;
-    }
-    
-    /**
-     * 
-     * @param cmd
-     * @return output
-     */
-    public static String executeCmd(String cmd, boolean sudo){
+		}
+		return successful;
+	}
+
+	/**
+	 * 
+	 * @param cmd
+	 * @return output
+	 */
+	public static String executeCmd(String cmd, boolean sudo){
 		try {
-			
+
 			Process p;
 			if(!sudo)
 				p= Runtime.getRuntime().exec(cmd);
@@ -464,36 +525,36 @@ public class Utilities  {
 			e.printStackTrace();
 		}
 		return "";
-		
-    }
-    
+
+	}
+
 	public static long pingS( String serverIP, int ttl, int tl, int sl_p, long timeout ) {
 
-        String line = null;
-        boolean flag;
-        long start, end;
+		String line = null;
+		boolean flag;
+		long start, end;
 
-        try {
-            if ( tl == 0 ) {
-                try {
-                    start = System.currentTimeMillis();
-                    line = Utilities.executeCmd("ping -c 1 -t " + ttl + " " + serverIP, false);
-                }
-                catch ( Exception e1 ) {
-                    e1.printStackTrace();
-                }
-            }
+		try {
+			if ( tl == 0 ) {
+				try {
+					start = System.currentTimeMillis();
+					line = Utilities.executeCmd("ping -c 1 -t " + ttl + " " + serverIP, false);
+				}
+				catch ( Exception e1 ) {
+					e1.printStackTrace();
+				}
+			}
 
-            if ( tl == 1 ) {
-                try {
-                    start = System.currentTimeMillis();
-                    line = Utilities.executeCmd("ping -c 1 " + serverIP, false);
-                    }
-                catch ( Exception e ) {
-                    e.printStackTrace();
-                }
-            }
-            /*TODO
+			if ( tl == 1 ) {
+				try {
+					start = System.currentTimeMillis();
+					line = Utilities.executeCmd("ping -c 1 " + serverIP, false);
+				}
+				catch ( Exception e ) {
+					e.printStackTrace();
+				}
+			}
+			/*TODO
             while ( true ) {
                 end = time();
 
@@ -507,22 +568,22 @@ public class Utilities  {
                 }
 
                 Log.v("LOG", "4444444444 line: " + line);
-                
+
                 line = input.readLine();
 
                 Log.v("LOG", "5555555555 line: " + line);
-                
-                
+
+
                 if ( line == null )
                 {
                 	Log.v("LOG", "66666666666 line still null");
-                    
+
                     break;
                 }
                 long timeforresponse = end - start;
 
                 if ( line.indexOf( "From" ) != -1 && tl == 0 ) {
-                    
+
                     int i = line.indexOf( "(" );
 
                     if ( i != -1 ) {
@@ -578,7 +639,7 @@ public class Utilities  {
 
                     if ( line.indexOf( "from" ) != -1 ) {
                         flag = true;
-                        
+
                         return timeforresponse;
                     }
                 }
@@ -588,23 +649,23 @@ public class Utilities  {
                     return timeforresponse;
                 }
                 else {
-                	
+
                 	Log.v("LOG", "777777777777 weird, line: " + line);
-                    
+
                     break;
                 }
             }//*/
 
-        }
-        catch ( Exception e ) {
-        	e.printStackTrace();
-        	
-        }
-        Log.v("LOG", "FAILED in ping test!!!!!!!!!!!!!!!!");
-        return -1;
-    }
-	
-/*	
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+
+		}
+		Log.v("LOG", "FAILED in ping test!!!!!!!!!!!!!!!!");
+		return -1;
+	}
+
+	/*	
 	public static long getrepeattime(Context context) {
         try {
         	BufferedReader bufferedReader = new BufferedReader (new InputStreamReader (context.openFileInput("repeatfile.txt")));
@@ -621,7 +682,7 @@ public class Utilities  {
         try {
         	BufferedReader bufferedReader = new BufferedReader (new InputStreamReader(context.openFileInput( "killsocket.txt" )));
             String line = "";
-            
+
             line = bufferedReader.readLine();
             int port = new Integer( line );
             InetAddress udpaddress = null;
@@ -645,89 +706,89 @@ public class Utilities  {
         catch ( Exception e ) {}
 
     } 
-*/
+	 */
 	public static boolean checkStop() {
-        /*if ( threegtest.stopFlag == true ) {
+		/*if ( threegtest.stopFlag == true ) {
             //threegtest.mProgressStatus = 0;
             return true;
         }return false;*/
 		return Main.stopFlag;
-    }
-	
-	
+	}
+
+
 	public static String Info(Context context) {
-    	
-        //Service_Thread.runID = Utilities.time();
-        Geocoder gc = new Geocoder( context );
-        String zipcode = null;
-        String city = null;
-        
-        if ( GPS.location != null ) {
-            try {
-                List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
 
-                if ( address != null && address.size() > 0 ) {
-                    zipcode = address.get( 0 ).getPostalCode();
-                    city = address.get( 0 ).getLocality();
-                }
-            }
-            catch ( Exception e1 ) {
-                e1.printStackTrace();
-            }
-        }
-        
-        return "DEVICE:<ID:" + InformationCenter.getDeviceID() + ">:<TYPE:android>" + 
-        ":<RID:" + InformationCenter.getRunId() + ">:<ZIPcode:" + zipcode + 
-        ">:<City:" + city + ">:<LocationLatitude:" + GPS.latitude + ">:<LocationLongitude:" + 
-        GPS.longitude + ">;";
+		//Service_Thread.runID = Utilities.time();
+		Geocoder gc = new Geocoder( context );
+		String zipcode = null;
+		String city = null;
 
-    }
-	
+		if ( GPS.location != null ) {
+			try {
+				List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
+
+				if ( address != null && address.size() > 0 ) {
+					zipcode = address.get( 0 ).getPostalCode();
+					city = address.get( 0 ).getLocality();
+				}
+			}
+			catch ( Exception e1 ) {
+				e1.printStackTrace();
+			}
+		}
+
+		return "DEVICE:<ID:" + InformationCenter.getDeviceID() + ">:<TYPE:android>" + 
+		":<RID:" + InformationCenter.getRunId() + ">:<ZIPcode:" + zipcode + 
+		">:<City:" + city + ">:<LocationLatitude:" + GPS.latitude + ">:<LocationLongitude:" + 
+		GPS.longitude + ">;";
+
+	}
+
 	public static String getZipcode(Context context)
 	{
 		Geocoder gc = new Geocoder( context );
-		 if ( GPS.location != null ) {
-	            try {
-	                List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
-	                if ( address != null && address.size() > 0 ) {
-	                    return address.get( 0 ).getPostalCode();
-	                }
-	            }
-	            catch ( Exception e1 ) {
-	                e1.printStackTrace();
-	            }
-	        }
-		 return null;
+		if ( GPS.location != null ) {
+			try {
+				List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
+				if ( address != null && address.size() > 0 ) {
+					return address.get( 0 ).getPostalCode();
+				}
+			}
+			catch ( Exception e1 ) {
+				e1.printStackTrace();
+			}
+		}
+		return null;
 	}
 	public static String getCity(Context context)
 	{
 		Geocoder gc = new Geocoder( context );
-		 if ( GPS.location != null ) {
-	            try {
-	                List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
-	                if ( address != null && address.size() > 0 ) {
-	                    return address.get( 0 ).getLocality();
-	                }
-	            }
-	            catch ( Exception e1 ) {
-	                e1.printStackTrace();
-	            }
-	        }
-		 return null;
+		if ( GPS.location != null ) {
+			try {
+				List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
+				if ( address != null && address.size() > 0 ) {
+					return address.get( 0 ).getLocality();
+				}
+			}
+			catch ( Exception e1 ) {
+				e1.printStackTrace();
+			}
+		}
+		return null;
 	}
 	public static String getCountry(Context context)
 	{
 		Geocoder gc = new Geocoder( context );
-		 if ( GPS.location != null ) {
-	            try {
-	                List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
-	                if ( address != null && address.size() > 0 ) {
-	                    return address.get( 0 ).getCountryName();
-	                }
-	            }
-	            catch ( Exception e1 ) {
-	                e1.printStackTrace();
-	            }
+		if ( GPS.location != null ) {
+			try {
+				List<Address> address = gc.getFromLocation( GPS.latitude, GPS.longitude, 1 );
+				if ( address != null && address.size() > 0 ) {
+					return address.get( 0 ).getCountryName();
+				}
+			}
+			catch ( Exception e1 ) {
+				e1.printStackTrace();
+			}
 		}
 		return null;
 	}
