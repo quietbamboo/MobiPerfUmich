@@ -61,8 +61,6 @@ public class TestCenter{
 		wlw = wm.createWifiLock( "WIFI LOCK TAG" );
 		wlw.acquire();
 
-
-
 		//catch any exception here
 		try{
 
