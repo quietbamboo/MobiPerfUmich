@@ -14,43 +14,40 @@
 		android:progressDrawable="@android:drawable/progress_horizontal"
 		android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
 		android:layout_height="wrap_content" />
-		
+	
+	<TextView android:id="@+id/textview" android:textColor="@color/white"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:layout_centerInParent="true"
+		android:textSize="17px"
+		android:layout_marginTop="0px"/>
+			
 	<Button android:id="@+id/Button01"
 		android:layout_width="120px"
-		android:layout_height="40px"
-		android:layout_weight="0.04"
-		android:paddingTop="2px"
-		android:layout_marginTop="2px"
+		android:layout_height="38px"
+		android:paddingTop="1px"
+		android:layout_marginTop="1px"
 		android:textSize="17px"
 		android:layout_gravity="center_horizontal" />
-		
-	<TextView android:id="@+id/textview1" android:textColor="@color/white"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:layout_centerInParent="true"
-		android:textSize="17px"
-		android:layout_marginTop="2px" android:layout_weight="0.10"/>
 	
-	<TextView android:id="@+id/textview2" android:textColor="@color/white"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:layout_centerInParent="true"
-		android:layout_marginTop="2px"
-		android:textSize="17px" android:layout_weight="0.10"/>
-		
 	<LinearLayout android:id="@+id/chart"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:orientation="horizontal" android:layout_weight="0.93"/>
+		android:layout_height="wrap_content"
+		android:orientation="horizontal" android:layout_weight="0.90"/>
 
-	<ListView android:id="@+id/list" android:paddingTop="2px"
+	<ListView android:id="@+id/list" android:paddingTop="0px"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:choiceMode="none" android:drawSelectorOnTop="false"
-		android:layout_marginTop="2px" android:focusable="false"
+		android:layout_marginTop="0px" 
+		android:focusable="false"
 		android:focusableInTouchMode="false" android:clickable="false"
 		android:listSelector="@android:color/transparent"
-		android:cacheColorHint="#00000000" android:transcriptMode="alwaysScroll"
+		android:cacheColorHint="#00000000"
+		android:transcriptMode="alwaysScroll"
 		android:stackFromBottom="true"
 		android:scrollbarAlwaysDrawVerticalTrack="true"
-		android:scrollbarStyle="insideInset" android:smoothScrollbar="true" android:layout_weight="0.18"/>
+		android:scrollbarStyle="insideInset"
+		android:smoothScrollbar="true"
+		android:layout_weight="0.18"/>
 
 </LinearLayout>

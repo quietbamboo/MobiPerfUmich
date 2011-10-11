@@ -37,12 +37,11 @@ public class TestCenter{
 
 		long start = System.currentTimeMillis();
 		long end = start;
-		String message;
 
 		InformationCenter.reset();
 
 		//check airplane mode
-		((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
+		((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
 		boolean isEnabled = Settings.System.getInt( service.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0 ) == 1;
 		if(isEnabled){
 			progress = 0;
@@ -66,7 +65,7 @@ public class TestCenter{
 
 			//checking network connectivity by connecting to google.com
 
-			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
 			if (Utilities.checkConnection()){
 				InformationCenter.setNetworkStatus(true);
 			}else{
@@ -129,7 +128,7 @@ public class TestCenter{
 			
 			
 			//checking GPS info
-			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
 
 			while(GPS.location == null){
 				end = System.currentTimeMillis();
@@ -161,13 +160,12 @@ public class TestCenter{
 			//RTT.test();
 			//ThroughputMulti.startTest(false, 2);
 			
-			((MainService)service).updateChart("update chart");
+			
 			
 			
 			
 			progress = 100;
-			
-			//((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
+			((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
 
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");
@@ -183,6 +181,13 @@ public class TestCenter{
 		end = System.currentTimeMillis();
 		Log.v("MobiPerf", "service thread finish using " + (end - start) / 1000 +"s");
 	}
+	
+	
+	public void updateChart(double[] tp, double[] rtt){
+		((MainService)service).updateChart(tp, rtt);
+	}
+	
+	
 	/**
 	 * For FCC challenge or local experiments
 	 * Test both latency to TCP and UDP server with the list of ports

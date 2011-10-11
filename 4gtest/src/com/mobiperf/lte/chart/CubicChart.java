@@ -27,6 +27,28 @@ import android.graphics.Paint.Align;
  * Average temperature demo chart.
  */
 public class CubicChart extends AbstractChart {
+	
+	public static double[] index = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+	public double[] tp;
+	public double[] rtt;
+	
+	public CubicChart(double[] tp, double[] rtt){
+		this.rtt = new double[index.length];
+		this.tp = new double[index.length];
+		
+		for(int i = 0; i < index.length; i++){
+			this.rtt[i] = Double.MIN_VALUE;
+			this.tp[i] = Double.MIN_VALUE;
+		}
+		
+		for(int i = 1; i <= rtt.length; i++){
+			this.rtt[index.length - i] = rtt[rtt.length - i];
+		}
+		for(int i = 1; i <= tp.length; i++){
+			this.tp[index.length - i] = tp[tp.length - i];
+		}
+	}
+	
 	/**
 	 * Returns the chart name.
 	 * 
@@ -50,45 +72,15 @@ public class CubicChart extends AbstractChart {
 	}
 
 	public GraphicalView getGraphView(Context context) {
-		/*String[] titles = new String[] { "Corfu", "Thassos", "Skiathos" };
+		
+		String[] titles = new String[] { "Throughput (kbps)" };
 		List<double[]> x = new ArrayList<double[]>();
 		for (int i = 0; i < titles.length; i++) {
-			x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
+			x.add(index);
 		}
 		List<double[]> values = new ArrayList<double[]>();
-		values.add(new double[] { 10, 10, 12, 15, 20, 24, 26, 26, 23, 18, 14, 11 });
-		values.add(new double[] { 5, 5.3, 8, 12, 17, 22, 24.2, 24, 19, 15, 9, 6 });
-		values.add(new double[] { 9, 10, 11, 15, 19, 23, 26, 25, 22, 18, 13, 10 });
-		int[] colors = new int[] { Color.GREEN, Color.CYAN, Color.YELLOW };
-		PointStyle[] styles = new PointStyle[] { PointStyle.DIAMOND,
-				PointStyle.TRIANGLE, PointStyle.SQUARE };
-		XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
-		int length = renderer.getSeriesRendererCount();
-		for (int i = 0; i < length; i++) {
-			((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
-		}
-		setChartSettings(renderer, "3G/4G Performance comparison", "Experiment", "Temperature", 0.5, 12.5, 0, 32,
-				Color.LTGRAY, Color.LTGRAY);
-		renderer.setXLabels(12);
-		renderer.setYLabels(10);
-		renderer.setShowGrid(true);
-		renderer.setXLabelsAlign(Align.RIGHT);
-		renderer.setYLabelsAlign(Align.RIGHT);
-
-
-		renderer.setZoomButtonsVisible(true);
-		renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
-		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
-		 */
-		String[] titles = new String[] { "Crete" };
-		List<double[]> x = new ArrayList<double[]>();
-		for (int i = 0; i < titles.length; i++) {
-			x.add(new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 });
-		}
-		List<double[]> values = new ArrayList<double[]>();
-		values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
-				13.9 });
-		int[] colors = new int[] { Color.BLUE, Color.YELLOW };
+		values.add(tp);
+		int[] colors = new int[] { Color.YELLOW, Color.GREEN };
 		PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND,
 				PointStyle.TRIANGLE, PointStyle.SQUARE };
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer(2);
@@ -97,7 +89,7 @@ public class CubicChart extends AbstractChart {
 		for (int i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
 		}
-		setChartSettings(renderer, "Average temperature", "Month", "Temperature", 0.5, 12.5, 0, 32,
+		setChartSettings(renderer, "Network Performance", "Experiment NO.", "Throughput (kbps)", 0.5, 12.5, 0, 32,
 				Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);
@@ -108,13 +100,13 @@ public class CubicChart extends AbstractChart {
 		renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
 		renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 
-		renderer.setYTitle("Hours", 1);
+		renderer.setYTitle("Latency (ms)", 1);
 		renderer.setYAxisAlign(Align.RIGHT, 1);
 		renderer.setYLabelsAlign(Align.LEFT, 1);
 		XYMultipleSeriesDataset dataset = buildDataset(titles, x, values);
 		values.clear();
-		values.add(new double[] { 4.3, 4.9, 5.9, 8.8, 10.8, 11.9, 13.6, 12.8, 11.4, 9.5, 7.5, 5.5 });
-		addXYSeries(dataset, new String[] { "Sunshine hours" }, x, values, 1);
+		values.add(rtt);
+		addXYSeries(dataset, new String[] { "Latency (ms)" }, x, values, 1);
 
 		for (int i = 0; i < length; i++) {
 			SimpleSeriesRenderer seriesRenderer = renderer.getSeriesRendererAt(i);

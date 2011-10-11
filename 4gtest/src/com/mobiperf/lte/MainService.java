@@ -114,16 +114,15 @@ public class MainService extends Service {
     	this.activity = a;
     }
     
-    public boolean isRunning()
-    {
+    public boolean isRunning(){
     	if(testThread != null)
     		return testThread.isAlive();
     	return false;
     }
     
-    public void updateChart(String params){
+    public void updateChart(double[] tp, double[] rtt){
     	if(activity != null)
-    		activity.updateChart(params);
+    		activity.updateChart(tp, rtt);
     }
 
     /**
@@ -131,8 +130,7 @@ public class MainService extends Service {
      * @param s
      * @param progress -1 if not wishing to change progress
      */
-    public void addResultAndUpdateUI(String s, int progress)
-    {
+    public void addResultAndUpdateUI(String s, int progress){
     	this.resultList.add(s);
     	updateListView(this.resultList);
     	if(progress > 0)
@@ -143,29 +141,23 @@ public class MainService extends Service {
     /*
      * Call exact the same functions in the activity
      */
-    public void updateProgress(int val)
-    {
+    public void updateProgress(int val){
     	if(activity != null)
     		activity.updateProgress(val);
     }
-    public void updateTextView2(final String text)
-    {
-    	if(activity != null)
-    		activity.updateTextView2(text);
-    }
-    public void updateTextView3(final String text)
-    {
+    
+    public void updateTextView(final String text){
     	this.currentTest=text;
     	if(activity != null)
-    		activity.updateTextView2(text);
+    		activity.updateTextView(text);
     }
-    public void updateButton(final String text)
-    {
+    
+    public void updateButton(final String text){
     	if(activity != null)
     		activity.updateButton(text);
     }
-    public void updateListView(ArrayList<String> list)
-    {
+    
+    public void updateListView(ArrayList<String> list){
     	if(activity != null)
     		activity.updateListView(list);
     }

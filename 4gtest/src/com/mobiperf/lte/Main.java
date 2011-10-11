@@ -43,7 +43,7 @@ import com.mobiperf.lte.chart.CubicChart;
 
 public class Main extends Activity {
 
-	TextView t1, t2;
+	TextView t;
 	//--------------------cc
 	String test;
 	static boolean stopFlag = false;
@@ -101,18 +101,16 @@ public class Main extends Activity {
 		button = ( Button ) findViewById( R.id.Button01 );
 		
 		layout = (LinearLayout) findViewById(R.id.chart);
-		CubicChart chart = new CubicChart();
+		CubicChart chart = new CubicChart(new double[]{}, new double[]{});
 		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
 		
 		
 		//button2 = ( Button ) findViewById( R.id.button2 );
-		t1 = ( TextView ) findViewById( R.id.textview1 );
-		t2 = ( TextView ) findViewById( R.id.textview2 );
+		t = (TextView)findViewById(R.id.textview);
 		mProgress = ( ProgressBar ) findViewById( R.id.progress_bar );
 
-		t1.setHintTextColor( 2 );
-		t2.setHintTextColor( 2 );
+		t.setHintTextColor(2);
 
 		updateProgress(0);
 
@@ -132,13 +130,13 @@ public class Main extends Activity {
 						if (isRunning())	// Stop service 
 						{
 							stopFlag = true;
-							updateTextView2("The program is trying to stop...");
+							updateTextView("The program is trying to stop...");
 							updateButton("Please wait");
 							button.setClickable(false);
 						}
 						else {
 							stopFlag=false;
-							updateTextView2("Starting tests...");
+							updateTextView("Starting tests...");
 							updateButton("Please wait");
 							button.setClickable(false);
 
@@ -156,12 +154,12 @@ public class Main extends Activity {
 	}
 
 	
-	public void updateChart(final String text)
+	public void updateChart(final double[] tp, final double[] rtt)
 	{
 		mHandler.post(new Runnable() {
 			public void run() {
 				layout.removeAllViews();
-				CubicChart chart = new CubicChart();
+				CubicChart chart = new CubicChart(tp, rtt);
 				layout.addView(chart.getGraphView(InformationCenter.activity), new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.FILL_PARENT));
 				
@@ -171,11 +169,11 @@ public class Main extends Activity {
 	
 	
 	/****** methods for updating UI ******/
-	public void updateTextView1(final String text)
+	public void updateTextView(final String text)
 	{
 		mHandler.post(new Runnable() {
 			public void run() {
-				t1.setText(text);
+				t.setText(text);
 			}
 		});
 	}
@@ -185,18 +183,10 @@ public class Main extends Activity {
 		mHandler.post(new Runnable() {
 			public void run() {
 				mProgress.setProgress(val);
-				t2.setText(val+"% complete");
 			}
 		});
 	}
-	public void updateTextView2(final String text)
-	{
-		mHandler.post(new Runnable() {
-			public void run() {
-				t2.setText(text);
-			}
-		});
-	}
+	
 	public void updateButton(final String text)
 	{
 		mHandler.post(new Runnable() {
@@ -225,14 +215,12 @@ public class Main extends Activity {
 		{
 			updateButton("Run");
 			button.setClickable(true);
-			updateTextView2(Feedback.getMessage(Feedback.TYPE.NEW_TEST, null));
-			updateTextView1("Please allow 2~3 minutes to finish all the tests.");
+			updateTextView(Feedback.getMessage(Feedback.TYPE.NEW_TEST, null));
 		}else
 		{
 			button.setClickable(true);
 			updateButton( "Stop" );
-			updateTextView2("Tests are running.");
-			updateTextView1("You may switch back to check results later.");
+			updateTextView("Tests are running.");
 			
 		}
 	}
@@ -323,7 +311,7 @@ public class Main extends Activity {
 			{
 				updateListView(mBoundService.resultList);
 				updateProgress(mBoundService.testThread.getProgress());
-				updateTextView2(mBoundService.currentTest);
+				updateTextView(mBoundService.currentTest);
 			}
 			//mBoundService.bindThreadActivity(threegtest.this);
 			// Tell the user about this for our demo.
