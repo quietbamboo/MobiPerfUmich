@@ -94,7 +94,7 @@ public class CubicChart extends AbstractChart {
 		if(rtt_max > 5000)
 			rtt_max = 5000;
 		
-		String[] titles = new String[] { "Downlink throughput (Mbps)", "Uplink throughput (Mbps)"};
+		String[] titles = new String[] { "Downlink speed (Mbps)", "Uplink speed (Mbps)"};
 		List<double[]> x = new ArrayList<double[]>();
 		for (int i = 0; i < titles.length; i++) {
 			x.add(index);
@@ -110,7 +110,7 @@ public class CubicChart extends AbstractChart {
 		for (int i = 0; i < length; i++) {
 			((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
 		}
-		setChartSettings(renderer, "Network Performance", "Experiment NO.", "Throughput (Mbps)", 0.5, 16.5, 0, tp_max,
+		setChartSettings(renderer, "Network Performance", "Experiment NO.", "Throughput (Mbps)", 0.5, 15.5, 0, tp_max,
 				Color.LTGRAY, Color.LTGRAY);
 		renderer.setXLabels(12);
 		renderer.setYLabels(10);

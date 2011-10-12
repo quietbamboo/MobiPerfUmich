@@ -22,6 +22,7 @@ public class BaseTcpWorker extends Thread{
 	public String type_string;
 	public String id_string;
 	public String rid_string;
+	public String extra_string;
 
 	
 	public void setSocket(Socket client){
@@ -34,6 +35,7 @@ public class BaseTcpWorker extends Thread{
 	 * @return true on successfully loading type_string, id_string and rid_string
 	 */
 	public boolean readPrefix(String prefix){
+		
 		PrefixParser parser = new PrefixParser();
 		String[] prefix_array = parser.parsePrefix(prefix);
 		if (prefix_array == null) {
@@ -43,6 +45,11 @@ public class BaseTcpWorker extends Thread{
 		type_string = prefix_array[0];
 		id_string = prefix_array[1];
 		rid_string = prefix_array[2];
+		if(prefix_array.length <= 3)
+			extra_string = null;
+		else
+			extra_string = prefix_array[3];
+		
 		return true;
 	}
 	

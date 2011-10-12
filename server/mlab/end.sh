@@ -3,6 +3,6 @@
 
 for i in Downlink Uplink KeepAlive
 do
-        echo "stoping $i"
-        ps aux | grep "$i.jar mlab" | awk '{system("sudo kill -9 " $2);}'
+	echo "stoping $i"
+	ps aux | grep "$i.jar mlab" | awk '{system("sudo kill -9 " $2);}'
 done
