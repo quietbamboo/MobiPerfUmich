@@ -49,6 +49,7 @@ public class ThroughputMulti extends Thread{
 		reset(isDown);
 		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
+		
 		for(int i = 0 ; i < parallel ; i++){
 			tm[i] = new ThroughputMulti(Mlab.ipList[i]);
 			//tm[i] = new ThroughputMulti("38.106.70.152", isDown);
@@ -138,7 +139,7 @@ public class ThroughputMulti extends Thread{
 	
 	
 	public void run(){
-		System.out.println("Thread running ID " + getId());
+		System.out.println("4G Test: Thread running ID " + getId() + " server " + host);
 		if(isDown)
 			downlink();
 		else
