@@ -28,7 +28,7 @@ public class Definition {
 	public static final int PREFIX_RECEIVE_BUFFER_LENGTH = 1000;
 	public static final int TCPDUMP_RECEIVE_BUFFER_LENGTH = 1000000;
 	
-	public static final long DURATION_IPERF_MILLISECONDS = 16000;
+	public static final long DURATION_IPERF_MILLISECONDS = 20000;
 	public static final int RECV_TIMEOUT = 15000;
 
 	public static final int PORT_WHOAMI = 5000;

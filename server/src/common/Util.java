@@ -120,7 +120,7 @@ public class Util {
 			cmd = "sudo " + cmd;
 		Process p = Runtime.getRuntime().exec(cmd);
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		
+
 		String s = null;
 		String res = "";
 		while((s = stdInput.readLine()) != null){//is there any problem for single lined output???
