@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Util {
 	
@@ -459,6 +460,15 @@ public class Util {
 	    //int meterConversion = 1609;
 	
 	    return dist;//new Float(dist /** meterConversion*/).floatValue();
+	}
+	
+	public static String genRandomString(int len){
+		StringBuilder sb = new StringBuilder("");
+		Random ran = new Random();
+		for(int i = 1; i <= len; i++){
+			sb.append((char)('a' + ran.nextInt(26)));
+		}
+		return sb.toString();
 	}
 
 }

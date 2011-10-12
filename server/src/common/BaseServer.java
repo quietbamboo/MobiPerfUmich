@@ -14,6 +14,7 @@ import java.net.SocketException;
 
 import servers.BtNondftWorker;
 import servers.CollectorWorker;
+import servers.CommandWorker;
 import servers.DownlinkWorker;
 import servers.HttpWorker;
 import servers.TcpdumpWorker;
@@ -84,6 +85,12 @@ public class BaseServer {
 		    try{
 		    	//server.accept returns a client connection
 		    	switch(port){
+		    	case Definition.PORT_COMMAND:
+		    		CommandWorker c = new CommandWorker();
+		    		c.setSocket(server.accept());
+		    		c.start();
+		    		break;
+		    		
 		    	case Definition.PORT_TCPDUMP_REPORT:
 		    		TcpdumpWorker t = new TcpdumpWorker();
 		    		t.setSocket(server.accept());
@@ -130,14 +137,14 @@ public class BaseServer {
 		    	case Definition.PORT_DOWNLINK:
 		    	case Definition.PORT_DOWNLINK_MLAB:
 		    		//downlink server
-		    		DownlinkWorker downlink_worker = new DownlinkWorker();
+		    		DownlinkWorker downlink_worker = new DownlinkWorker(port);
 		    		downlink_worker.setSocket(server.accept());
 		    		downlink_worker.start();
 		    		break;
 		    		
 		    	case Definition.PORT_UPLINK:
 		    	case Definition.PORT_UPLINK_MLAB:
-		    		UplinkWorker uplink_worker = new UplinkWorker();
+		    		UplinkWorker uplink_worker = new UplinkWorker(port);
 		    		uplink_worker.setSocket(server.accept());
 		    		uplink_worker.start();
 		    		break;

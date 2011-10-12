@@ -24,6 +24,11 @@ import common.PrefixParser;
 public class UplinkWorker extends BaseTcpWorker {
  
 	public long id;
+	public int port;
+	
+	public UplinkWorker(int port){
+		this.port = port;
+	}
 	
 	public void run() {
 		

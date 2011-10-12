@@ -34,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import android.content.Context;
@@ -47,6 +48,15 @@ import android.util.Log;
 
 
 public class Utilities  {
+	
+	public static String genRandomString(int len){
+		StringBuilder sb = new StringBuilder("");
+		Random ran = new Random();
+		for(int i = 1; i <= len; i++){
+			sb.append((char)('a' + ran.nextInt(26)));
+		}
+		return sb.toString();
+	}
 
 	public static double getMax(double[] a){  
 		if(a == null || a.length == 0){
