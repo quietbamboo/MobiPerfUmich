@@ -621,8 +621,6 @@ public class TestCenter{
 			if(testReachability())
 				return;
 
-			//wait for reach server to stop safely
-			Thread.sleep(5000);
 
 			// downlink tput
 			if(fore)
@@ -673,8 +671,6 @@ public class TestCenter{
 			if(fore)
 				((MainService)service).updateTextView3("Testing uplink throughput...");
 			
-			//wait for reach server to stop safely
-			Thread.sleep(5000);
 
 			//Junxian: New, ask the server to start tcpdump now to collect 3 way handshake
 			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK);
@@ -713,11 +709,18 @@ public class TestCenter{
 
 			Log.v("error"," dis is "+message);
 
+			
+			//wait for uplink trace to be uploaded
+			Thread.sleep(10000);
+			
 			if(fore){
 				((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
 				Display.displayResult("Uplink throughput", "How many bits per second can be uploaded in TCP", message, 1);
 			}
 
+			
+			//wait for uplink trace to be uploaded
+			Thread.sleep(10000);
 
 			//traceroute experiments to our server
 			//TODO
@@ -729,6 +732,9 @@ public class TestCenter{
 			e.printStackTrace();
 		}
 
+		
+
+		
 		//let server write to database
 		Utilities.letServerWriteOutputToMysql();
 
