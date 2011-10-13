@@ -44,10 +44,7 @@ public class TestCenter{
 
 	
 	public synchronized void RunTest(){
-		
-		
-		
-
+	
 		if(!fore){
 			Log.w("MobiPerf", "Periodic running " + System.currentTimeMillis());
 			return;

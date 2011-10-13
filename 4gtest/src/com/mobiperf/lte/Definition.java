@@ -61,6 +61,9 @@ public class Definition {
 	public static final int UDP_HEADER_LENGTH = 8;
 	public static final int PREFIX_RECEIVE_BUFFER_LENGTH = 1000;
 	public static final int TCPDUMP_RECEIVE_BUFFER_LENGTH = 1000000;
+	
+	public static final int THROUGHPUT_UP_SEGMENT_SIZE = 1300;
+	public static final int THROUGHPUT_DOWN_SEGMENT_SIZE = 2600;
 
 	public static final int GPS_UPDATE_WAITING_TIME = 10000; //wait for 10 seconds for GPS to updated
 

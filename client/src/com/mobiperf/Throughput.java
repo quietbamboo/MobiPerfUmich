@@ -77,7 +77,7 @@ class Throughput  {
 
 			long count = 0;
 
-			String buf = Utilities.genRandomString(1300);
+			String buf = Utilities.genRandomString(Definition.THROUGHPUT_UP_SEGMENT_SIZE);
 
 			byte [] message =  InformationCenter.getPrefix().getBytes();
 

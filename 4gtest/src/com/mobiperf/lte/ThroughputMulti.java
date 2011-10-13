@@ -50,9 +50,17 @@ public class ThroughputMulti extends Thread{
 		
 		ThroughputMulti[] tm = new ThroughputMulti[parallel];
 		
+		//start tcpdump on each server
 		for(int i = 0 ; i < parallel ; i++){
+			if(isDown)
+				(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_DOWNLINK, Mlab.ipList[i]);
+			else
+				(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK, Mlab.ipList[i]);
+		}
+		
+		for(int i = 0 ; i < parallel ; i++){
+			
 			tm[i] = new ThroughputMulti(Mlab.ipList[i]);
-			//tm[i] = new ThroughputMulti("38.106.70.152", isDown);
 			tm[i].start();
 		}
 		
@@ -62,6 +70,15 @@ public class ThroughputMulti extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		//terminate tcpdump and upload to central server on each server
+		for(int i = 0 ; i < parallel ; i++){
+			if(isDown)
+				(new Report()).sendCommand(Definition.COMMAND_MLAB_END_DOWNLINK, Mlab.ipList[i]);
+			else
+				(new Report()).sendCommand(Definition.COMMAND_MLAB_END_UPLINK, Mlab.ipList[i]);
+			
 		}
 	
 		String type;
@@ -222,7 +239,7 @@ public class ThroughputMulti extends Thread{
 		}
 
 		//1K buffer
-		String buf = "ehcsinmfuevrxruudycdbgdyrlmbapvxpbmzshhkrtewlijrlzbcfobxxugvnjqehdpnsiuwqnbhshrgfgivdyafowedzjlxwxavfsbvzqdddaiorpnpmunqzihrgewqebvnymvujrylymgwliovsyyoozkdgcskedzmhxijruaaurpocsnxtitlcvotrxpvnzwornmoicpaxbobfoehwvirpannjeizbtkizvdgmhgjjkljmjkculysjdvfnsranueaizstwrtuszgfknbsarwkfsrcuhjvzhvcduabphnusscfvqyqpfyndbplpklrwqrpgyitigaeowfnxnfvysdrwjpvbustrltyoqrtunmnxxenmyudvatlevpzsqmfwlzdsglthvwfvldylyktapinzkztygsbzfnbeiimstfjgppamkimryjnxmojdiezuhkvjzgqrfcmhrgcaqyqktvsdxnyptamfmsvghunxbeqlydmnkeqgzgdjjyemgmgxrlsczsuzenyeozgvhhrdawzgvgjueaykkcqlswfcjozucztcyynorcarkhsbgmzodkxjbdejbtxldpaoapyithrskisxyrrcrbuaezveueikvppwzvyvloytphbztcumodlhmvcwdqwtgtnnmlnhmdvpsrnfbbzydikyvamnzxudoeppvhonysvzjccfatxyosaumvgkxdpwsjbtpqcscfyqzruztafodqhfywacsqocckdlssrpnvoycecwvzzsyzbwmnkfpvupudfhrocunyzpytdtvznuskauhaancoylvcezzbgnrayvhwxjocckahppqhotpoccserezellvwijjdqfakcvjknxnjnibdyugxfpsnsrgxmkgbsjyynrdfdifcrxvgcyvtbseipkxhlajjpsmoqjdijeoudfvqpfjwjixfzgdhnkhyahdiuezbpxyjqhblahgwyqosjjqcdbvbqdabrxgmirbtv";
+		String buf = Utilities.genRandomString(Definition.THROUGHPUT_UP_SEGMENT_SIZE);
 
 		byte [] message =  InformationCenter.getPrefix().getBytes();
 

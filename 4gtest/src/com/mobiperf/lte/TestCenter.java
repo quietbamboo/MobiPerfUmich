@@ -86,9 +86,10 @@ public class TestCenter{
 
 
 			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.DEVICE_ID, null), progress += 2);
-
+			
 			//Version information
-			(new Report()).sendReport("PACKAGE:<VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
+			//AppId 1 for 4G Test, 0 for MobiPerf
+			(new Report()).sendReport("PACKAGE:<AppId:1><VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
 					InformationCenter.getPackageVersionName() + ">");
 
 			//Build information
@@ -177,28 +178,18 @@ public class TestCenter{
 			progress += 15;
 			((MainService)service).updateProgress(progress);
 			
-			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_DOWNLINK);
-			
 			ThroughputMulti.reset(true);
 			ThroughputMulti.startTest(true, 3, service);
-			
-			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_DOWNLINK);
-
-			
 			
 			//UPLINK
 			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
 			progress += 15;
 			((MainService)service).updateProgress(progress);
 			
-			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK);
-			
 			ThroughputMulti.reset(false);
 			ThroughputMulti.startTest(false, 3, service);
 			
-			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_UPLINK);
-			
-			
+
 			progress = 100;
 			((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
 

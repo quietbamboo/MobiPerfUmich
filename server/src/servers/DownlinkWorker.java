@@ -58,7 +58,7 @@ public class DownlinkWorker extends BaseTcpWorker{
 			while(end - start < Definition.DURATION_IPERF_MILLISECONDS){
 
 				//out.write();
-				out.write(Util.genRandomString(2600)); //2600 larger than MTU
+				out.write(Util.genRandomString(Definition.THROUGHPUT_DOWN_SEGMENT_SIZE)); //2600 larger than MTU
 				out.flush();
 				batch++;
 				if(batch % 50 == 0){

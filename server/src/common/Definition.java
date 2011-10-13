@@ -30,6 +30,9 @@ public class Definition {
 	public static final int PREFIX_RECEIVE_BUFFER_LENGTH = 1000;
 	public static final int TCPDUMP_RECEIVE_BUFFER_LENGTH = 1000000;
 	
+	public static final int THROUGHPUT_UP_SEGMENT_SIZE = 1300;
+	public static final int THROUGHPUT_DOWN_SEGMENT_SIZE = 2600;
+	
 	public static final long DURATION_IPERF_MILLISECONDS = 20000;
 	public static final int RECV_TIMEOUT = 15000;
 	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout

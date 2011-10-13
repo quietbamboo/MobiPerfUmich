@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.DatagramPacket;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -298,8 +297,7 @@ public class Util {
 					Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 				}
 			}
-		}
-		else if(line.startsWith("TTL:")){
+		}else if(line.startsWith("TTL:")){
 			//TTL:<TTL80:30>;
 			
 			for(String port : new String[]{"80", "5001", "5002", "5005", "6881"}){
@@ -308,6 +306,17 @@ public class Util {
 					Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 				}
 			}
+		}else if(line.startsWith("PACKAGE:")){
+			field = "AppId";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
+			
+			field = "VersionCode";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
+			
 		}
 		
 		//else{
@@ -361,9 +370,6 @@ public class Util {
 		String[] p2 = p1[1].split(">");
 		String value = p2[0];
 		value = value.trim();
-		
-		
-		
 		
 		//for updated field names
 		if(field.equals("LocationLatitude")){
