@@ -1,11 +1,12 @@
 #!/bin/bash
 #Compile and deploy for MLab servers
+node=nodeList2
 if [ $1 = "-c" ]; then
 	mkdir mlab
 
 	cd bin
 
-	for i in Downlink Uplink KeepAlive
+	for i in Downlink Uplink KeepAlive Command
 	do
 		#-e: backslash-escaped characters is enabled
 		echo -e "Main-Class: servers."$i"\n" > manifest
@@ -17,7 +18,7 @@ if [ $1 = "-c" ]; then
 	cd ..
 
 elif [ $1 = "-d" ]; then
-	for n in `cat nodeList`
+	for n in `cat $node`
 	do
 	#	if [ $n = "mlab3.atl01.measurement-lab.org" ];then
 	#		echo "this one"
@@ -48,7 +49,7 @@ elif [ $1 = "-d" ]; then
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'sudo yum -y install java' &
 		else
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'mkdir ~/mobiperf'
-			scp -o "StrictHostKeyChecking no" -P $port  mlab/* $user@$n:~/mobiperf
+			scp -o "StrictHostKeyChecking no" -P $port  -r mlab/* $user@$n:~/mobiperf
 			#first terminate
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/end.sh'
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'bash ~/mobiperf/start.sh' &

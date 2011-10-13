@@ -30,6 +30,10 @@ public class Util {
 	}
 	
 	
+	public static String getCurrentHost() throws IOException{
+		return Util.runCmd("uname -a", false).split(" ")[1];
+	}
+	
 	/**
 	 * (synchronized)
 	 * Multi threads wrting to a single file

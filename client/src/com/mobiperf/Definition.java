@@ -35,10 +35,15 @@ public class Definition {
 	//DON'T CHANGE BELOW
 	//port definitions
 	public static final int PORT_WHOAMI = 5000;
-	public static final int PORT_THRU_DOWN = 5001;
-	public static final int PORT_THRU_UP = 5002;
+	
+	public static final int PORT_DOWNLINK = 5001;
+	public static final int PORT_UPLINK = 5002;
+	public static final int PORT_MLAB_DOWNLINK = 6001;
+	public static final int PORT_MLAB_UPLINK = 6002;
+	
 	public static final int PORT_CONTROL = 5004;
 	public static final int PORT_TCPDUMP_REPORT = 5006;
+	public static final int PORT_COMMAND = 5010;
     
     public static final int PORT_DNS = 53;
     public static final int PORT_BT = 6881;
@@ -84,9 +89,12 @@ public class Definition {
 	public static final int REPORT_MAX_PLAINTEXT_LENGTH = 10000;
 	
 	//command 
-	public static final String COMMAND_TCP_UPLINK = "COMMAND:TCP:UPLINK";
-	public static final String COMMAND_TCP_DOWNLINK = "COMMAND:TCP:DOWNLINK";
 	public static final String COMMAND_REACH_START = "COMMAND:REACH:START";
-	
 	public static final String COMMAND_REACH_STOP = "COMMAND:REACH:STOP";
+	
+	public static final String COMMAND_MLAB_INIT_UPLINK = "COMMAND:MLAB:INIT:UPLINK";
+	public static final String COMMAND_MLAB_INIT_DOWNLINK = "COMMAND:MLAB:INIT:DOWNLINK";
+	public static final String COMMAND_MLAB_END_UPLINK = "COMMAND:MLAB:END:UPLINK";
+	public static final String COMMAND_MLAB_END_DOWNLINK = "COMMAND:MLAB:END:DOWNLINK";
+	
 }

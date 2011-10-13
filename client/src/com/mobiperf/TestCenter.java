@@ -627,7 +627,12 @@ public class TestCenter{
 			// downlink tput
 			if(fore)
 				((MainService)service).updateTextView3("Testing downlink throughput...");
-			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_DOWN);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_DOWNLINK);
+
+			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_MLAB_DOWNLINK);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_DOWNLINK);
 
 			result = "DOWN:";
 
@@ -671,7 +676,12 @@ public class TestCenter{
 			//wait for reach server to stop safely
 			Thread.sleep(5000);
 
-			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_UP);                    
+			//Junxian: New, ask the server to start tcpdump now to collect 3 way handshake
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK);
+
+			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_MLAB_UPLINK);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_UPLINK);
 
 			result = "UP:";
 

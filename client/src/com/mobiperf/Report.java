@@ -27,8 +27,15 @@ class Report  {
 	public void sendReport(String result) {
 
 		//try twice
-		if(!trySendReport(result))
-			trySendReport(result);
+		if(!trySend(result, Definition.PORT_CONTROL))
+			trySend(result, Definition.PORT_CONTROL);
+	}
+	
+	public void sendCommand(String result) {
+
+		//try twice
+		if(!trySend(result, Definition.PORT_COMMAND))
+			trySend(result, Definition.PORT_COMMAND);
 	}
 
 	/**
@@ -36,7 +43,7 @@ class Report  {
 	 * @param result
 	 * @return false if fails in any form
 	 */
-	public boolean trySendReport(String result){
+	public boolean trySend(String result, int port){
 
 		Socket remoteTCPSocket; 
 		DataOutputStream remoteOutputStream; 
@@ -46,7 +53,7 @@ class Report  {
 
 		try {
 			remoteTCPSocket = new Socket();
-			SocketAddress remoteAddr = new InetSocketAddress(Definition.SERVER_NAME, Definition.PORT_CONTROL);
+			SocketAddress remoteAddr = new InetSocketAddress(Definition.SERVER_NAME, port);
 			remoteTCPSocket.connect( remoteAddr, Definition.TCP_TIMEOUT_IN_MILLI );
 			remoteOutputStream = new DataOutputStream( remoteTCPSocket.getOutputStream() );
 			remoteInputStream = new DataInputStream( remoteTCPSocket.getInputStream() );

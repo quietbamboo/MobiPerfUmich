@@ -63,18 +63,5 @@ public class UplinkWorker extends BaseTcpWorker {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		//for old server only, terminate tcpdump,
-		//new server will directly use Command.jar to terminate
-		if(port == Definition.PORT_UPLINK){
-			try {
-				String tcpdump_end = "bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
-					type_string + " " + id_string + " " + rid_string + " " + Definition.PORT_UPLINK + " " +
-					client.getInetAddress().getHostAddress();
-				Util.runCmd(tcpdump_end, true);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 }

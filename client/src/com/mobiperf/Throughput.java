@@ -30,9 +30,6 @@ class Throughput  {
 
 	public static int MeasureUplinkTput( String serverIP,int serverPort ) {
 
-		//Junxian: New, ask the server to start tcpdump now to collect 3 way handshake
-		(new Report()).sendReport(Definition.COMMAND_TCP_UPLINK);
-
 		//sleep for a while waiting the server to be ready
 		try {
 			Thread.sleep(4000);
@@ -80,7 +77,7 @@ class Throughput  {
 
 			long count = 0;
 
-			String buf = "ehcsinmfuevrxruudycdbgdyrlmbapvxpbmzshhkrtewlijrlzbcfobxxugvnjqehdpnsiuwqnbhshrgfgivdyafowedzjlxwxavfsbvzqdddaiorpnpmunqzihrgewqebvnymvujrylymgwliovsyyoozkdgcskedzmhxijruaaurpocsnxtitlcvotrxpvnzwornmoicpaxbobfoehwvirpannjeizbtkizvdgmhgjjkljmjkculysjdvfnsranueaizstwrtuszgfknbsarwkfsrcuhjvzhvcduabphnusscfvqyqpfyndbplpklrwqrpgyitigaeowfnxnfvysdrwjpvbustrltyoqrtunmnxxenmyudvatlevpzsqmfwlzdsglthvwfvldylyktapinzkztygsbzfnbeiimstfjgppamkimryjnxmojdiezuhkvjzgqrfcmhrgcaqyqktvsdxnyptamfmsvghunxbeqlydmnkeqgzgdjjyemgmgxrlsczsuzenyeozgvhhrdawzgvgjueaykkcqlswfcjozucztcyynorcarkhsbgmzodkxjbdejbtxldpaoapyithrskisxyrrcrbuaezveueikvppwzvyvloytphbztcumodlhmvcwdqwtgtnnmlnhmdvpsrnfbbzydikyvamnzxudoeppvhonysvzjccfatxyosaumvgkxdpwsjbtpqcscfyqzruztafodqhfywacsqocckdlssrpnvoycecwvzzsyzbwmnkfpvupudfhrocunyzpytdtvznuskauhaancoylvcezzbgnrayvhwxjocckahppqhotpoccserezellvwijjdqfakcvjknxnjnibdyugxfpsnsrgxmkgbsjyynrdfdifcrxvgcyvtbseipkxhlajjpsmoqjdijeoudfvqpfjwjixfzgdhnkhyahdiuezbpxyjqhblahgwyqosjjqcdbvbqdabrxgmirbtv";
+			String buf = Utilities.genRandomString(1300);
 
 			byte [] message =  InformationCenter.getPrefix().getBytes();
 
@@ -93,7 +90,6 @@ class Throughput  {
 				os.flush();
 			}
 			catch ( Exception e3 ) {
-				// TODO Auto-generated catch block
 				retval = 4;
 				break outer;
 			}
@@ -160,9 +156,6 @@ class Throughput  {
 	public static long downlinkTime;
 
 	public static int MeasureDownlinkTput( String serverIP,int serverPort ) {
-
-		//Junxian: New, ask the server to start tcpdump now to collect 3 way handshake
-		(new Report()).sendReport(Definition.COMMAND_TCP_DOWNLINK);
 
 		//sleep for a while waiting the server to be ready
 		try {

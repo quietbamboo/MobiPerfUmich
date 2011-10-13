@@ -22,6 +22,8 @@ public class Definition {
 	
 	public static final String VERSION = "4.1.4";
 	
+	public static final String MAIN_SERVER = "mobiperf.com";
+	
 	public static final int IP_HEADER_LENGTH = 20;
 	public static final int TCP_HEADER_LENGTH = 32;
 	public static final int UDP_HEADER_LENGTH = 8;
@@ -30,6 +32,7 @@ public class Definition {
 	
 	public static final long DURATION_IPERF_MILLISECONDS = 20000;
 	public static final int RECV_TIMEOUT = 15000;
+	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
 
 	public static final int PORT_WHOAMI = 5000;
 	

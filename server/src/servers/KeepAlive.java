@@ -61,7 +61,7 @@ public class KeepAlive {
 	public static void sendKeepAlive(){
 	
 		try {
-			String host = Util.runCmd("uname -a", false).split(" ")[1];
+			String host = Util.getCurrentHost();
 			double lat = 0, lon = 0;
 			if(host.equals("mobiperf.com")){
 				lat = 42.292301;

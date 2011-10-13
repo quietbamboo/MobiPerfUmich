@@ -234,6 +234,7 @@ public class Utilities  {
 	 * @author Junxian Huang
 	 * Send commands to server to results to database
 	 */
+	//TODO change to to be one command of Command.jar
 	public static void letServerWriteOutputToMysql(){
 		try {
 		    // Construct data
