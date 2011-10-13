@@ -118,6 +118,8 @@ public class Util {
 	public static String runCmd(String cmd, boolean sudo) throws IOException{
 		if(sudo)
 			cmd = "sudo " + cmd;
+		
+		System.out.println("Run CMD: " + cmd);
 		Process p = Runtime.getRuntime().exec(cmd);
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 

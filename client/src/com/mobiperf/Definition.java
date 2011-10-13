@@ -46,7 +46,7 @@ public class Definition {
     public static final int PORT_HTTP = 80;
 
     
-	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for throughput tests
+	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for uplink throughput tests
 	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
 	public static final int UDP_TIMEOUT_IN_MILLI = 5000;
 	

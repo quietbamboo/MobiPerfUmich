@@ -121,6 +121,12 @@ public class CommandWorker extends BaseTcpWorker{
 				out.close();
 				client.close();
 				return;
+			}else if(report.startsWith("RUBBISH:")){
+				//this is just for keep alive, ignore 
+				in.close();
+				out.close();
+				client.close();
+				return;//return here, don't need to write command into output
 			}
 
 

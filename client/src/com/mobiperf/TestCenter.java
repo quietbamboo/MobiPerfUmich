@@ -621,6 +621,8 @@ public class TestCenter{
 			if(testReachability())
 				return;
 
+			//wait for reach server to stop safely
+			Thread.sleep(5000);
 
 			// downlink tput
 			if(fore)
@@ -665,6 +667,9 @@ public class TestCenter{
 			// uplink tput  
 			if(fore)
 				((MainService)service).updateTextView3("Testing uplink throughput...");
+			
+			//wait for reach server to stop safely
+			Thread.sleep(5000);
 
 			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_UP);                    
 
@@ -754,8 +759,10 @@ public class TestCenter{
 
 	public boolean testReachability(){
 		if(fore){
-			Tcpdump.start_server();
-			Tcpdump.start_client();
+			//TODO
+			Tcpdump.clearOldTrace();
+			//Tcpdump.start_server();
+			//Tcpdump.start_client();
 			
 		}
 		if(fore)
@@ -816,9 +823,10 @@ public class TestCenter{
 
 		(new Report()).sendReport(result);
 		if(fore){
-			Tcpdump.terminate_client();
-			Tcpdump.terminate_server();
-			Tcpdump.upload();
+			//TODO
+			//Tcpdump.terminate_client();
+			//Tcpdump.terminate_server();
+			//Tcpdump.upload();
 		}
 			
 		

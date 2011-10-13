@@ -37,7 +37,7 @@ public class DownlinkWorker extends BaseTcpWorker{
 			char buffer[] = new char[20480];
 
 			this.id = this.getId();
-			System.out.println("Downlink worder <" + id + "> Thread starts");
+			System.out.println("Downlink worker <" + id + "> Thread starts");
 
 			StringBuilder prefix_sb = new StringBuilder("");
 			int bytes_read = in.read(buffer);
