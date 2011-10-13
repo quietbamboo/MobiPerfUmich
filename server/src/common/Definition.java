@@ -38,8 +38,8 @@ public class Definition {
 	public static final int PORT_DOWNLINK = 5001;
 	public static final int PORT_UPLINK = 5002;
 	//MLab nodes, the above two ports are already occupied = =!
-	public static final int PORT_DOWNLINK_MLAB = 6001;
-	public static final int PORT_UPLINK_MLAB = 6002;
+	public static final int PORT_MLAB_DOWNLINK = 6001;
+	public static final int PORT_MLAB_UPLINK = 6002;
 	
 	
 	public static final int PORT_REPORT = 5004;

@@ -135,7 +135,7 @@ public class BaseServer {
 		    	
 		    	
 		    	case Definition.PORT_DOWNLINK:
-		    	case Definition.PORT_DOWNLINK_MLAB:
+		    	case Definition.PORT_MLAB_DOWNLINK:
 		    		//downlink server
 		    		DownlinkWorker downlink_worker = new DownlinkWorker(port);
 		    		downlink_worker.setSocket(server.accept());
@@ -143,7 +143,7 @@ public class BaseServer {
 		    		break;
 		    		
 		    	case Definition.PORT_UPLINK:
-		    	case Definition.PORT_UPLINK_MLAB:
+		    	case Definition.PORT_MLAB_UPLINK:
 		    		UplinkWorker uplink_worker = new UplinkWorker(port);
 		    		uplink_worker.setSocket(server.accept());
 		    		uplink_worker.start();

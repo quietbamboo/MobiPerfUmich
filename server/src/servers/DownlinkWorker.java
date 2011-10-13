@@ -76,17 +76,5 @@ public class DownlinkWorker extends BaseTcpWorker{
 			e.printStackTrace();
 		}
 
-		//for old server only, terminate tcpdump,
-		//new server will directly use Command.jar to terminate
-		if(port == Definition.PORT_DOWNLINK){
-			try {
-				String tcpdump_end = "bash " + Definition.ROOT_DIR + "tcpdump_end.sh " + 
-					type_string + " " + id_string + " " + rid_string + " " + 
-					Definition.PORT_DOWNLINK + " " + client.getInetAddress().getHostAddress();
-				Util.runCmd(tcpdump_end, true);
-			}catch (IOException e){
-				e.printStackTrace();
-			}
-		}
 	}
 }

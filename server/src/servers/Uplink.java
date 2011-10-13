@@ -21,7 +21,7 @@ public class Uplink extends BaseServer {
 		int port = Definition.PORT_UPLINK;
 		if(argv.length >= 1){
 			if(argv[0].equals("mlab"))
-				port = Definition.PORT_UPLINK_MLAB;
+				port = Definition.PORT_MLAB_UPLINK;
 		}
 		while(true){
 			System.out.println("Uplink server starts on port " + port);
