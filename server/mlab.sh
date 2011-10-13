@@ -1,6 +1,6 @@
 #!/bin/bash
 #Compile and deploy for MLab servers
-node=nodeList2
+node=nodeList
 if [ $1 = "-c" ]; then
 	mkdir mlab
 

@@ -172,20 +172,31 @@ public class TestCenter{
 			RTT.test(service);
 			
 			
+			//DOWNLINK
 			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_DOWNLINK, null));
 			progress += 15;
 			((MainService)service).updateProgress(progress);
 			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_DOWNLINK);
+			
 			ThroughputMulti.reset(true);
 			ThroughputMulti.startTest(true, 3, service);
 			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_DOWNLINK);
+
 			
+			
+			//UPLINK
 			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
 			progress += 15;
 			((MainService)service).updateProgress(progress);
 			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK);
+			
 			ThroughputMulti.reset(false);
 			ThroughputMulti.startTest(false, 3, service);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_UPLINK);
 			
 			
 			progress = 100;
