@@ -51,3 +51,5 @@ client/apk
 */*/.DS_Store
 
 */*.swp
+
+4gtest/images
