@@ -317,6 +317,12 @@ public class Util {
 				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 			}
 			
+		}else if(line.startsWith("MLAB_")){
+			//RTT, up, downlink
+			field = "median";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
 		}
 		
 		//else{
@@ -414,7 +420,20 @@ public class Util {
 			//REA: or REACH:
 			field = "TCP_" + field;
 		}
+
 		
+		//MLab related
+		if(line.startsWith("MLAB_RTT:")){
+			field = "RTT";
+		}
+		if(line.startsWith("MLAB_THROUGHPUT_DOWN:")){
+			field = "DownTp";
+		}
+		if(line.startsWith("MLAB_THROUGHPUT_UP:")){
+			field = "UpTp";
+		}
+
+
 		return postToPhp(type, deviceId, rid, name, field, value);
 	}
 	
