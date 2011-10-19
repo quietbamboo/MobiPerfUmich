@@ -35,10 +35,15 @@ public class Definition {
 	//DON'T CHANGE BELOW
 	//port definitions
 	public static final int PORT_WHOAMI = 5000;
-	public static final int PORT_THRU_DOWN = 5001;
-	public static final int PORT_THRU_UP = 5002;
+	
+	public static final int PORT_DOWNLINK = 5001;
+	public static final int PORT_UPLINK = 5002;
+	public static final int PORT_MLAB_DOWNLINK = 6001;
+	public static final int PORT_MLAB_UPLINK = 6002;
+	
 	public static final int PORT_CONTROL = 5004;
 	public static final int PORT_TCPDUMP_REPORT = 5006;
+	public static final int PORT_COMMAND = 5010;
     
     public static final int PORT_DNS = 53;
     public static final int PORT_BT = 6881;
@@ -46,7 +51,7 @@ public class Definition {
     public static final int PORT_HTTP = 80;
 
     
-	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for throughput tests
+	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for uplink throughput tests
 	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
 	public static final int UDP_TIMEOUT_IN_MILLI = 5000;
 	
@@ -55,6 +60,9 @@ public class Definition {
 	public static final int UDP_HEADER_LENGTH = 8;
 	public static final int PREFIX_RECEIVE_BUFFER_LENGTH = 1000;
 	public static final int TCPDUMP_RECEIVE_BUFFER_LENGTH = 1000000;
+	
+	public static final int THROUGHPUT_UP_SEGMENT_SIZE = 1300;
+	public static final int THROUGHPUT_DOWN_SEGMENT_SIZE = 2600;
 	
 	public static final int GPS_UPDATE_WAITING_TIME = 10000; //wait for 10 seconds for GPS to updated
 	
@@ -84,9 +92,12 @@ public class Definition {
 	public static final int REPORT_MAX_PLAINTEXT_LENGTH = 10000;
 	
 	//command 
-	public static final String COMMAND_TCP_UPLINK = "COMMAND:TCP:UPLINK";
-	public static final String COMMAND_TCP_DOWNLINK = "COMMAND:TCP:DOWNLINK";
 	public static final String COMMAND_REACH_START = "COMMAND:REACH:START";
-	
 	public static final String COMMAND_REACH_STOP = "COMMAND:REACH:STOP";
+	
+	public static final String COMMAND_MLAB_INIT_UPLINK = "COMMAND:MLAB:INIT:UPLINK";
+	public static final String COMMAND_MLAB_INIT_DOWNLINK = "COMMAND:MLAB:INIT:DOWNLINK";
+	public static final String COMMAND_MLAB_END_UPLINK = "COMMAND:MLAB:END:UPLINK";
+	public static final String COMMAND_MLAB_END_DOWNLINK = "COMMAND:MLAB:END:DOWNLINK";
+	
 }

@@ -21,7 +21,7 @@ public class Home extends Activity {
 		//-------------commented by cc---------
 		//protected static final int MENU_LAST = Menu.FIRST + 2;
 		//protected static final int MENU_HISTORY = Menu.FIRST + 3;
-		protected static final int MENU_EMAIL = Menu.FIRST +4;
+		protected static final int MENU_ABOUT = Menu.FIRST +4;
 		//TODO:new menu --------cc
 		protected static final int PAST_RECORD = Menu.FIRST +5;
 		//protected static final int VOTE = Menu.FIRST +6;
@@ -36,7 +36,7 @@ public class Home extends Activity {
 		        //menu.add(0, MENU_HISTORY, 0, "Periodic run results");
 		      //TODO:new menu --------cc
 		        menu.add(0, PAST_RECORD, 0, "View past record");
-		        menu.add(0, MENU_EMAIL, 0, "About us");
+		        menu.add(0, MENU_ABOUT, 0, "About us");
 		        //menu.add(0, VOTE, 0, "Vote for us");
 		        //menu.add(0, PERF_ME, 0, "Performance Near Me");
 		        return true;
@@ -86,7 +86,7 @@ public class Home extends Activity {
 		        	 Intent intent_perf= new Intent(this, com.mobiperf.PerfNearMe.Buttons.class);
 		        	 startActivityForResult(intent_perf, 0);
 					 break;
-		        case MENU_EMAIL:
+		        case MENU_ABOUT:
 		        	try
 		        	{
 

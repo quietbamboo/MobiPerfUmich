@@ -13,11 +13,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.DatagramPacket;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Util {
 	
@@ -28,6 +28,10 @@ public class Util {
 		System.out.println("***********************************************");
 	}
 	
+	
+	public static String getCurrentHost() throws IOException{
+		return Util.runCmd("uname -a", false).split(" ")[1];
+	}
 	
 	/**
 	 * (synchronized)
@@ -117,9 +121,11 @@ public class Util {
 	public static String runCmd(String cmd, boolean sudo) throws IOException{
 		if(sudo)
 			cmd = "sudo " + cmd;
+		
+		System.out.println("Run CMD: " + cmd);
 		Process p = Runtime.getRuntime().exec(cmd);
 		BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		
+
 		String s = null;
 		String res = "";
 		while((s = stdInput.readLine()) != null){//is there any problem for single lined output???
@@ -291,8 +297,7 @@ public class Util {
 					Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 				}
 			}
-		}
-		else if(line.startsWith("TTL:")){
+		}else if(line.startsWith("TTL:")){
 			//TTL:<TTL80:30>;
 			
 			for(String port : new String[]{"80", "5001", "5002", "5005", "6881"}){
@@ -300,6 +305,23 @@ public class Util {
 				if(line.contains("<" + field + ":")){
 					Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 				}
+			}
+		}else if(line.startsWith("PACKAGE:")){
+			field = "AppId";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
+			
+			field = "VersionCode";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
+			
+		}else if(line.startsWith("MLAB_")){
+			//RTT, up, downlink
+			field = "median";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 			}
 		}
 		
@@ -355,9 +377,6 @@ public class Util {
 		String value = p2[0];
 		value = value.trim();
 		
-		
-		
-		
 		//for updated field names
 		if(field.equals("LocationLatitude")){
 			//weidu, N+, S-
@@ -401,7 +420,20 @@ public class Util {
 			//REA: or REACH:
 			field = "TCP_" + field;
 		}
+
 		
+		//MLab related
+		if(line.startsWith("MLAB_RTT:")){
+			field = "RTT";
+		}
+		if(line.startsWith("MLAB_THROUGHPUT_DOWN:")){
+			field = "DownTp";
+		}
+		if(line.startsWith("MLAB_THROUGHPUT_UP:")){
+			field = "UpTp";
+		}
+
+
 		return postToPhp(type, deviceId, rid, name, field, value);
 	}
 	
@@ -459,6 +491,15 @@ public class Util {
 	    //int meterConversion = 1609;
 	
 	    return dist;//new Float(dist /** meterConversion*/).floatValue();
+	}
+	
+	public static String genRandomString(int len){
+		StringBuilder sb = new StringBuilder("");
+		Random ran = new Random();
+		for(int i = 1; i <= len; i++){
+			sb.append((char)('a' + ran.nextInt(26)));
+		}
+		return sb.toString();
 	}
 
 }

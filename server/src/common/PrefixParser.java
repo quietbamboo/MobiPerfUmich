@@ -12,20 +12,26 @@ package common;
  */
 public class PrefixParser {
 
+	
+	/**
+	 * modified to support more rich prefix
+	 * @param prefix
+	 * @return null if prefix contains < 3 fields
+	 */
 	public String[] parsePrefix(String prefix){
-		String[] prefix_array = prefix.trim().split("><");
+		String[] prefix_array = prefix.trim().split("<");
 		//<aaa><aaa><aaa>
-		//<aaa  aaa  aaa>
+		//"" "aaa>" "aaa>"  "aaa>"
 		
-		if(prefix_array.length == 3){
-			if(prefix_array[0].startsWith("<") && prefix_array[2].endsWith(">")){
-				prefix_array[0] = prefix_array[0].substring(1);
-				prefix_array[2] = prefix_array[2].substring(0, prefix_array[2].length() - 1);
-				return prefix_array;
-			}
+		String[] result = new String[prefix_array.length - 1];
+		for(int i = 0; i < prefix_array.length - 1; i++){
+			result[i] = prefix_array[i + 1].split(">")[0];
 		}
-
-		return null;
+		
+		if(result.length >= 3)
+			return result;
+		else
+			return null;
 	}
 
 }

@@ -59,6 +59,7 @@ public class TcpdumpWorker extends BaseTcpWorker {
 			System.out.println("prefix:" + prefix);
 
 			// String prefix = "<iPhone><device_id><run_id>";
+			// (Optional) String prefix = "<iPhone><device_id><run_id><extra_string>";
 
 			if(!readPrefix(prefix))
 				return;
@@ -68,21 +69,23 @@ public class TcpdumpWorker extends BaseTcpWorker {
 			out.flush();
 
 
+			String path = Definition.DATA_DIR + type_string + "/" + id_string + "/" + rid_string + "_default.pcap";
+			if(extra_string != null){
+				path = Definition.DATA_DIR + type_string + "/" + id_string + "/" + rid_string + "_" + extra_string + ".pcap";
+			}
 			//prepare file writer
-			fos = new FileOutputStream(Definition.DATA_DIR + type_string + "/" + id_string + "/" + rid_string + ".pcap");
+			fos = new FileOutputStream(path);
 			
 			while((bytes_read = in.read(buffer)) > -1){
 				//System.out.println("<Thread " + id + "> received " + bytes_read + " bytes");
 				fos.write(buffer, 0, bytes_read);
 			}
 			
-
 			in.close();
 			out.close();
 			fos.close();
 			client.close();
 			
-
 			log("ends");
 
 		} catch (IOException e) {

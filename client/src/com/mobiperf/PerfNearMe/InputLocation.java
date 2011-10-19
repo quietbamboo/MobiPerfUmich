@@ -22,11 +22,10 @@ public class InputLocation extends MapActivity{
 			public void onClick(View v) {
 				inputLocation = (EditText) findViewById(R.id.entry);
 				startActivity(new Intent("com.mobiperf.PerfNearMe.INPUTMAP"));
-				
 			}
 		});
 	}
-	
+
 	// Get's the user's input
 	static EditText getInputLocation(){
 		return inputLocation;
@@ -34,7 +33,6 @@ public class InputLocation extends MapActivity{
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

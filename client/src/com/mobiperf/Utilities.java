@@ -33,6 +33,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 
 import android.content.Context;
@@ -46,6 +47,15 @@ import android.util.Log;
 
 
 public class Utilities  {
+	
+	public static String genRandomString(int len){
+		StringBuilder sb = new StringBuilder("");
+		Random ran = new Random();
+		for(int i = 1; i <= len; i++){
+			sb.append((char)('a' + ran.nextInt(26)));
+		}
+		return sb.toString();
+	}
 	
 	public static String getAppPkg(Context c, int uid) throws NullPointerException
 	{
@@ -224,6 +234,7 @@ public class Utilities  {
 	 * @author Junxian Huang
 	 * Send commands to server to results to database
 	 */
+	//TODO change to to be one command of Command.jar
 	public static void letServerWriteOutputToMysql(){
 		try {
 		    // Construct data

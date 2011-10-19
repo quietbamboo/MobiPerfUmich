@@ -44,10 +44,7 @@ public class TestCenter{
 
 	
 	public synchronized void RunTest(){
-		
-		
-		
-
+	
 		if(!fore){
 			Log.w("MobiPerf", "Periodic running " + System.currentTimeMillis());
 			return;
@@ -110,7 +107,7 @@ public class TestCenter{
 			//network connection is available, start tests
 			
 			//MSP test
-			if(fore){
+			/*if(fore){
 				//TimeoutClient.start(310, 311, 10);
 				while(true){
 					Log.v("MobiPerf", "Start traceroute");
@@ -625,7 +622,12 @@ public class TestCenter{
 			// downlink tput
 			if(fore)
 				((MainService)service).updateTextView3("Testing downlink throughput...");
-			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_DOWN);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_DOWNLINK);
+
+			replyCode = Throughput.MeasureDownlinkTput(Definition.SERVER_NAME, Definition.PORT_MLAB_DOWNLINK);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_DOWNLINK);
 
 			result = "DOWN:";
 
@@ -665,8 +667,14 @@ public class TestCenter{
 			// uplink tput  
 			if(fore)
 				((MainService)service).updateTextView3("Testing uplink throughput...");
+			
 
-			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_THRU_UP);                    
+			//Junxian: New, ask the server to start tcpdump now to collect 3 way handshake
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK);
+
+			replyCode = Throughput.MeasureUplinkTput(Definition.SERVER_NAME, Definition.PORT_MLAB_UPLINK);
+			
+			(new Report()).sendCommand(Definition.COMMAND_MLAB_END_UPLINK);
 
 			result = "UP:";
 
@@ -698,11 +706,18 @@ public class TestCenter{
 
 			Log.v("error"," dis is "+message);
 
+			
+			//wait for uplink trace to be uploaded
+			Thread.sleep(10000);
+			
 			if(fore){
 				((MainService)service).addResultAndUpdateUI(message, progress);//TCP UP
 				Display.displayResult("Uplink throughput", "How many bits per second can be uploaded in TCP", message, 1);
 			}
 
+			
+			//wait for uplink trace to be uploaded
+			Thread.sleep(10000);
 
 			//traceroute experiments to our server
 			//TODO
@@ -714,6 +729,9 @@ public class TestCenter{
 			e.printStackTrace();
 		}
 
+		
+
+		
 		//let server write to database
 		Utilities.letServerWriteOutputToMysql();
 
@@ -754,8 +772,10 @@ public class TestCenter{
 
 	public boolean testReachability(){
 		if(fore){
-			Tcpdump.start_server();
-			Tcpdump.start_client();
+			//TODO
+			Tcpdump.clearOldTrace();
+			//Tcpdump.start_server();
+			//Tcpdump.start_client();
 			
 		}
 		if(fore)
@@ -816,9 +836,10 @@ public class TestCenter{
 
 		(new Report()).sendReport(result);
 		if(fore){
-			Tcpdump.terminate_client();
-			Tcpdump.terminate_server();
-			Tcpdump.upload();
+			//TODO
+			//Tcpdump.terminate_client();
+			//Tcpdump.terminate_server();
+			//Tcpdump.upload();
 		}
 			
 		

@@ -1,4 +1,7 @@
 
+server/nodeList
+server/mlab/*.jar
+
 server/src/test/MultiClients.java
 
 server/src/test/Console.java
@@ -25,23 +28,28 @@ server/bin/
 
 server/compile_falcon.sh
 
-server/run/server/Whoami/Whoami.jar
-
-server/run/server/Version/Version.jar
-
-server/run/server/Uplink/Uplink.jar
-
-server/run/server/Tcpdump/Tcpdump.jar
-
-server/run/server/Reach/Reach.jar
-
-server/run/server/Downlink/Downlink.jar
-
-server/run/server/Collector/Collector.jar
-
-server/.README2.swp
+server/run/server/
 
 client/bin
+
 client/src/com/mobiperf/test/
 
 client/gen/com/mobiperf/R.java
+
+client/apk
+
+.gitignore
+
+4gtest/bin
+
+4gtest/apk
+
+4gtest/gen
+
+
+*/.DS_Store
+*/*/.DS_Store
+
+*/*.swp
+
+4gtest/images

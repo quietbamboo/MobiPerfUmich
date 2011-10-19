@@ -36,14 +36,14 @@ public class Timeout_Test_Thread extends Thread{
 
 	private Context service;
 	private String deviceid;
-	
+
 	public Timeout_Test_Thread(Context s)
 	{
 		this.service = s;
 		TelephonyManager tm = (TelephonyManager)service.getSystemService(Context.TELEPHONY_SERVICE);
 		deviceid = tm.getDeviceId();
 	}
-	
+
 	// sleepTime in second
 	public Thread test(final int sleepTime)
 	{
@@ -94,54 +94,59 @@ public class Timeout_Test_Thread extends Thread{
 		t.start();
 		return t;
 	}
-	 private void sendResutlsToServer(String finalResult) {
-			//Log.v("3gtest_timeout", "send to server:\n" + finalResult);
-			
-			StringBuffer prefix = new StringBuffer();
-			prefix.append("RUNID: " + InformationCenter.getRunId() +"\n");
-			prefix.append("DEVICEID: "+deviceid+"\n");
-			try {
-				Socket socket = new Socket(this.LOG_SERVER, this.LOG_SERVER_PORT);
-				PrintStream ps = new PrintStream(socket.getOutputStream());
-				ps.print(prefix);
-				ps.print(finalResult);
-				ps.close();
-				socket.close();
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	private void sendResutlsToServer(String finalResult) {
+		//Log.v("3gtest_timeout", "send to server:\n" + finalResult);
+
+		StringBuffer prefix = new StringBuffer();
+		prefix.append("RUNID: " + InformationCenter.getRunId() +"\n");
+		prefix.append("DEVICEID: "+deviceid+"\n");
+		try {
+			Socket socket = new Socket(this.LOG_SERVER, this.LOG_SERVER_PORT);
+			PrintStream ps = new PrintStream(socket.getOutputStream());
+			ps.print(prefix);
+			ps.print(finalResult);
+			ps.close();
+			socket.close();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-	
+	}
+
 	public void run()
 	{	
-		StringBuffer finalResult = new StringBuffer();
-		TelephonyManager tm = (TelephonyManager)service.getSystemService(Context.TELEPHONY_SERVICE);
-		ConnectivityManager cm =(ConnectivityManager)service.getSystemService(Context.CONNECTIVITY_SERVICE);
+		try{
+			StringBuffer finalResult = new StringBuffer();
+			TelephonyManager tm = (TelephonyManager)service.getSystemService(Context.TELEPHONY_SERVICE);
+			ConnectivityManager cm =(ConnectivityManager)service.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-		//finalResult.append("ROOT: " + Utilities.checkRootPrivilege()+"\n");
-		finalResult.append("LOCALIP: " + Phone_IPs.localIP +"\n");
-		finalResult.append("GLOBALIP: " + Phone_IPs.seenIP+"\n");
-		finalResult.append("GPS: " + GPS.latitude +"," + GPS.longitude +"\n");
-		finalResult.append("COUNTRY: " + Utilities.getCountry(service)+"\n");
-		finalResult.append("CITY: " + Utilities.getCity(service)+"\n");
-		finalResult.append("ZIPCODE: "+ Utilities.getZipcode(service)+"\n");
-		finalResult.append("OPERATORNAME: "+tm.getNetworkOperatorName()+"\n");
-		finalResult.append("CELLLOCATION: "+tm.getCellLocation()+"\n");
-		finalResult.append("MCCMNC: " + tm.getNetworkOperator()+"\n");
-		finalResult.append("NETWORKTYPE: " + tm.getNetworkType()+"\n");
-		finalResult.append("PHONETYPE: " + tm.getPhoneType() +"\n");
-		finalResult.append("DATASTATE: " + tm.getDataState() +"\n");
-		finalResult.append("TYPE: " + cm.getActiveNetworkInfo().getType() +"\n");
-		finalResult.append("TYPENAME: " + cm.getActiveNetworkInfo().getTypeName() +"\n");
-		finalResult.append("SUBTYPE: " + cm.getActiveNetworkInfo().getSubtype() +"\n");
-		finalResult.append("SUBTYPENAME: " + cm.getActiveNetworkInfo().getSubtypeName() +"\n");
-		finalResult.append("ISCONNECTED: " + cm.getActiveNetworkInfo().isConnected() +"\n");
-		finalResult.append("BUILD.MODEL: "+ Build.MODEL +"\n");
-		finalResult.append("BUILD.VERSION: "+ Build.VERSION.SDK +"\n");
-		finalResult.append("BUILD.BRAND|DEVICE|DISPLAY|PRODUCT|TYPE|BOARD: " +Build.BRAND+"|"+Build.DEVICE+"|"+Build.DISPLAY+"|"+Build.PRODUCT+"|"+Build.TYPE+"|"+Build.BOARD+"\n");
-		sendResutlsToServer(finalResult.toString());
+			//finalResult.append("ROOT: " + Utilities.checkRootPrivilege()+"\n");
+			finalResult.append("LOCALIP: " + Phone_IPs.localIP +"\n");
+			finalResult.append("GLOBALIP: " + Phone_IPs.seenIP+"\n");
+			finalResult.append("GPS: " + GPS.latitude +"," + GPS.longitude +"\n");
+			finalResult.append("COUNTRY: " + Utilities.getCountry(service)+"\n");
+			finalResult.append("CITY: " + Utilities.getCity(service)+"\n");
+			finalResult.append("ZIPCODE: "+ Utilities.getZipcode(service)+"\n");
+			finalResult.append("OPERATORNAME: "+tm.getNetworkOperatorName()+"\n");
+			finalResult.append("CELLLOCATION: "+tm.getCellLocation()+"\n");
+			finalResult.append("MCCMNC: " + tm.getNetworkOperator()+"\n");
+			finalResult.append("NETWORKTYPE: " + tm.getNetworkType()+"\n");
+			finalResult.append("PHONETYPE: " + tm.getPhoneType() +"\n");
+			finalResult.append("DATASTATE: " + tm.getDataState() +"\n");
+			finalResult.append("TYPE: " + cm.getActiveNetworkInfo().getType() +"\n");
+			finalResult.append("TYPENAME: " + cm.getActiveNetworkInfo().getTypeName() +"\n");
+			finalResult.append("SUBTYPE: " + cm.getActiveNetworkInfo().getSubtype() +"\n");
+			finalResult.append("SUBTYPENAME: " + cm.getActiveNetworkInfo().getSubtypeName() +"\n");
+			finalResult.append("ISCONNECTED: " + cm.getActiveNetworkInfo().isConnected() +"\n");
+			finalResult.append("BUILD.MODEL: "+ Build.MODEL +"\n");
+			finalResult.append("BUILD.VERSION: "+ Build.VERSION.SDK +"\n");
+			finalResult.append("BUILD.BRAND|DEVICE|DISPLAY|PRODUCT|TYPE|BOARD: " +Build.BRAND+"|"+Build.DEVICE+"|"+Build.DISPLAY+"|"+Build.PRODUCT+"|"+Build.TYPE+"|"+Build.BOARD+"\n");
+			sendResutlsToServer(finalResult.toString());
+		}catch(NullPointerException e){
+			e.printStackTrace();
+			return;
+		}
 
 		Thread t0 = test(1);		// 1  s
 		Thread t1 = test(5  * 60);	// 5  min
@@ -175,15 +180,15 @@ public class Timeout_Test_Thread extends Thread{
 		}
 		Log.v("3gtest_timeout", "all tests finished!");
 	}
-	
+
 	/**
 	 * 
 	 * @return "UNKNOWN" if error
 	 */
 	public String getLocalIp()
-    {
-    	Socket socket = null;
-    	String ip = "UNKNOWN";
+	{
+		Socket socket = null;
+		String ip = "UNKNOWN";
 		try {
 			socket = new Socket("www.google.com", 80);
 			ip = socket.getLocalAddress().getHostAddress();
@@ -192,6 +197,6 @@ public class Timeout_Test_Thread extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	return ip;
-    }
+		return ip;
+	}
 }

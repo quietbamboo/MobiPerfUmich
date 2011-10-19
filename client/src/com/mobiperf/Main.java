@@ -16,15 +16,9 @@ package com.mobiperf;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -61,7 +55,6 @@ public class Main extends Activity {
 	// Need handler for callbacks to the UI thread
     static Handler mHandler = new Handler();
     
-
     public void onStart() {
     	
     	Log.w("MobiPerf", "threegtest start begin");

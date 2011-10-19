@@ -20,7 +20,9 @@ public class Definition {
 	//DON'T CHANGE BELOW
 	public static final String DATA_DIR = ROOT_DIR + "data/";
 	
-	public static final String VERSION = "4.1.3";
+	public static final String VERSION = "4.1.4";
+	
+	public static final String MAIN_SERVER = "mobiperf.com";
 	
 	public static final int IP_HEADER_LENGTH = 20;
 	public static final int TCP_HEADER_LENGTH = 32;
@@ -28,16 +30,27 @@ public class Definition {
 	public static final int PREFIX_RECEIVE_BUFFER_LENGTH = 1000;
 	public static final int TCPDUMP_RECEIVE_BUFFER_LENGTH = 1000000;
 	
-	public static final long DURATION_IPERF_MILLISECONDS = 16000;
-	public static final int RECV_TIMEOUT = 30000;
+	public static final int THROUGHPUT_UP_SEGMENT_SIZE = 1300;
+	public static final int THROUGHPUT_DOWN_SEGMENT_SIZE = 2600;
+	
+	public static final long DURATION_IPERF_MILLISECONDS = 20000;
+	public static final int RECV_TIMEOUT = 15000;
+	public static final int TCP_TIMEOUT_IN_MILLI = 5000; // 5 seconds for timeout
 
 	public static final int PORT_WHOAMI = 5000;
 	
 	public static final int PORT_BT_RANDOM = 5005;
-	public static final int PORT_DOWN_THRU = 5001;
-	public static final int PORT_UP_THRU = 5002;
+	
+	public static final int PORT_DOWNLINK = 5001;
+	public static final int PORT_UPLINK = 5002;
+	//MLab nodes, the above two ports are already occupied = =!
+	public static final int PORT_MLAB_DOWNLINK = 6001;
+	public static final int PORT_MLAB_UPLINK = 6002;
+	
+	
 	public static final int PORT_REPORT = 5004;
 	public static final int PORT_TCPDUMP_REPORT = 5006;
+	public static final int PORT_COMMAND = 5010;
 	
 	public static final int PORT_USER_STAT = 5500;
 	public static final int PORT_VERSION = 3000;
@@ -72,8 +85,13 @@ public class Definition {
 	//command 
 	public static final String COMMAND_TCP_UPLINK = "COMMAND:TCP:UPLINK";
 	public static final String COMMAND_TCP_DOWNLINK = "COMMAND:TCP:DOWNLINK";
-	public static final String COMMAND_REACH_START = "COMMAND:REACH:START";
 	
+	public static final String COMMAND_MLAB_INIT_UPLINK = "COMMAND:MLAB:INIT:UPLINK";
+	public static final String COMMAND_MLAB_INIT_DOWNLINK = "COMMAND:MLAB:INIT:DOWNLINK";
+	public static final String COMMAND_MLAB_END_UPLINK = "COMMAND:MLAB:END:UPLINK";
+	public static final String COMMAND_MLAB_END_DOWNLINK = "COMMAND:MLAB:END:DOWNLINK";
+	
+	public static final String COMMAND_REACH_START = "COMMAND:REACH:START";
 	public static final String COMMAND_REACH_STOP = "COMMAND:REACH:STOP";
 	
 

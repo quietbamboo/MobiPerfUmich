@@ -32,39 +32,44 @@ public class TCP_Injection_Vuln_Test_Thread extends Thread{
 	private MainService service;
 	public static final String SERVER = "falconeecs.dyndns.org";
 	public static final String SERVER2 = "falcon.eecs.umich.edu";
-		
+
 	public TCP_Injection_Vuln_Test_Thread(MainService s){
 		this.service = s;	
 	}
-	 
-	
+
+
 	public void run()
-	{	
-		TelephonyManager tm = (TelephonyManager)service.getSystemService(Context.TELEPHONY_SERVICE);
-		ConnectivityManager cm =(ConnectivityManager)service.getSystemService(Context.CONNECTIVITY_SERVICE);
+	{
+
 		StringBuffer finalResult = new StringBuffer();
-		
-		finalResult.append(tm.getNetworkOperatorName()+"|");
-		finalResult.append(tm.getDeviceId()+"|");
-		finalResult.append("RUNID: " + InformationCenter.getRunId() +"|");
-		finalResult.append("LOCALIP: " + Phone_IPs.localIP+"|");
-		finalResult.append("GLOBALIP: " + Phone_IPs.seenIP+"|");
-		finalResult.append("GPS: " + GPS.latitude +"," + GPS.longitude+"|");
-		finalResult.append("CELLLOCATION: "+tm.getCellLocation()+"|");
-		finalResult.append("MCCMNC: " + tm.getNetworkOperator()+"|");
-		finalResult.append("NETWORKTYPE: " + tm.getNetworkType()+"|");
-		finalResult.append("PHONETYPE: " + tm.getPhoneType() +"|");
-		finalResult.append("DATASTATE: " + tm.getDataState() +"|");
-		finalResult.append("TYPE: " + cm.getActiveNetworkInfo().getType() +"|");
-		finalResult.append("TYPENAME: " + cm.getActiveNetworkInfo().getTypeName() +"|");
-		finalResult.append("SUBTYPE: " + cm.getActiveNetworkInfo().getSubtype() +"|");
-		finalResult.append("SUBTYPENAME: " + cm.getActiveNetworkInfo().getSubtypeName() +"|");
-		finalResult.append("ISCONNECTED: " + cm.getActiveNetworkInfo().isConnected() +"|");
-		finalResult.append("BUILD.MODEL: "+ Build.MODEL +"|");
-		finalResult.append("BUILD.VERSION: "+ Build.VERSION.SDK +"|");
-		finalResult.append("BUILD.BRAND|DEVICE|DISPLAY|PRODUCT|TYPE|BOARD: " +Build.BRAND+"|"+Build.DEVICE+"|"+Build.DISPLAY+"|"+Build.PRODUCT+"|"+Build.TYPE+"|"+Build.BOARD);
-		
-		
+		try{
+			TelephonyManager tm = (TelephonyManager)service.getSystemService(Context.TELEPHONY_SERVICE);
+			ConnectivityManager cm =(ConnectivityManager)service.getSystemService(Context.CONNECTIVITY_SERVICE);
+			
+			finalResult.append(tm.getNetworkOperatorName()+"|");
+			finalResult.append(tm.getDeviceId()+"|");
+			finalResult.append("RUNID: " + InformationCenter.getRunId() +"|");
+			finalResult.append("LOCALIP: " + Phone_IPs.localIP+"|");
+			finalResult.append("GLOBALIP: " + Phone_IPs.seenIP+"|");
+			finalResult.append("GPS: " + GPS.latitude +"," + GPS.longitude+"|");
+			finalResult.append("CELLLOCATION: "+tm.getCellLocation()+"|");
+			finalResult.append("MCCMNC: " + tm.getNetworkOperator()+"|");
+			finalResult.append("NETWORKTYPE: " + tm.getNetworkType()+"|");
+			finalResult.append("PHONETYPE: " + tm.getPhoneType() +"|");
+			finalResult.append("DATASTATE: " + tm.getDataState() +"|");
+			finalResult.append("TYPE: " + cm.getActiveNetworkInfo().getType() +"|");
+			finalResult.append("TYPENAME: " + cm.getActiveNetworkInfo().getTypeName() +"|");
+			finalResult.append("SUBTYPE: " + cm.getActiveNetworkInfo().getSubtype() +"|");
+			finalResult.append("SUBTYPENAME: " + cm.getActiveNetworkInfo().getSubtypeName() +"|");
+			finalResult.append("ISCONNECTED: " + cm.getActiveNetworkInfo().isConnected() +"|");
+			finalResult.append("BUILD.MODEL: "+ Build.MODEL +"|");
+			finalResult.append("BUILD.VERSION: "+ Build.VERSION.SDK +"|");
+			finalResult.append("BUILD.BRAND|DEVICE|DISPLAY|PRODUCT|TYPE|BOARD: " +Build.BRAND+"|"+Build.DEVICE+"|"+Build.DISPLAY+"|"+Build.PRODUCT+"|"+Build.TYPE+"|"+Build.BOARD);
+		}catch(NullPointerException e){
+			e.printStackTrace();
+			return;
+		}
+
 		Socket s;
 		Socket s2 = new Socket();
 		try {
@@ -72,14 +77,14 @@ public class TCP_Injection_Vuln_Test_Thread extends Thread{
 			PrintWriter out = new PrintWriter(s.getOutputStream(), true);
 			out.println(finalResult.toString());
 			out.flush();
-			
+
 			s2.setReceiveBufferSize(524288);
 			SocketAddress sockaddr = new InetSocketAddress(SERVER2, 30001);
 			s2.connect(sockaddr);
 			PrintWriter out2 = new PrintWriter(s2.getOutputStream(), true);
 			out2.println(finalResult.toString());
 			out2.flush();
-			
+
 			Thread.sleep(160000);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

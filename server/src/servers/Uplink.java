@@ -18,10 +18,15 @@ import common.Definition;
 public class Uplink extends BaseServer {
 	
 	public static void main(String[] argv){
+		int port = Definition.PORT_UPLINK;
+		if(argv.length >= 1){
+			if(argv[0].equals("mlab"))
+				port = Definition.PORT_MLAB_UPLINK;
+		}
 		while(true){
-			System.out.println("Uplink server starts");
+			System.out.println("Uplink server starts on port " + port);
 			Uplink server = new Uplink();
-			server.listenSocket(Definition.PORT_UP_THRU);
+			server.listenSocket(port);
 		}
 	}
 }

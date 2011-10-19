@@ -19,6 +19,20 @@ public class Tcpdump {
 		return "/data/local/client_" + InformationCenter.getRunId() + ".pcap";
 		//return "/data/local/client.pcap";
 	}
+	
+	public static void clearOldTrace(){
+		try{
+			process = Runtime.getRuntime().exec("su");
+			DataOutputStream os = new DataOutputStream(process.getOutputStream());
+			//String command = "tcpdump -s 2000 -w " + file + "";
+			String command = "rm /data/local/client_*.pcap";
+			os.writeBytes(command + "\n");
+			os.flush();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
 	public static void start_client(){
 		try{
 			//check preferences

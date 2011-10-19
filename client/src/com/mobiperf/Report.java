@@ -18,7 +18,6 @@ import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 
 import android.util.Log;
 
@@ -28,16 +27,26 @@ class Report  {
 	public void sendReport(String result) {
 
 		//try twice
-		if(!trySendReport(result))
-			trySendReport(result);
+		if(!trySend(result, Definition.PORT_CONTROL, Definition.SERVER_NAME))
+			trySend(result, Definition.PORT_CONTROL, Definition.SERVER_NAME);
+	}
+	
+	public void sendCommand(String result) {
+
+		//try twice
+		if(!trySend(result, Definition.PORT_COMMAND, Definition.SERVER_NAME))
+			trySend(result, Definition.PORT_COMMAND, Definition.SERVER_NAME);
+	}
+	
+	public void sendCommand(String result, String host) {
+
+		//try twice
+		if(!trySend(result, Definition.PORT_COMMAND, host))
+			trySend(result, Definition.PORT_COMMAND, host);
 	}
 
-	/**
-	 * 
-	 * @param result
-	 * @return false if fails in any form
-	 */
-	public boolean trySendReport(String result){
+	
+	public boolean trySend(String result, int port, String host){
 
 		Socket remoteTCPSocket; 
 		DataOutputStream remoteOutputStream; 
@@ -47,7 +56,7 @@ class Report  {
 
 		try {
 			remoteTCPSocket = new Socket();
-			SocketAddress remoteAddr = new InetSocketAddress(Definition.SERVER_NAME, Definition.PORT_CONTROL);
+			SocketAddress remoteAddr = new InetSocketAddress(host, port);
 			remoteTCPSocket.connect( remoteAddr, Definition.TCP_TIMEOUT_IN_MILLI );
 			remoteOutputStream = new DataOutputStream( remoteTCPSocket.getOutputStream() );
 			remoteInputStream = new DataInputStream( remoteTCPSocket.getInputStream() );
