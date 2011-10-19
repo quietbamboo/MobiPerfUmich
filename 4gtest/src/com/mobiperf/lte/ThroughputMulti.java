@@ -58,6 +58,13 @@ public class ThroughputMulti extends Thread{
 				(new Report()).sendCommand(Definition.COMMAND_MLAB_INIT_UPLINK, Mlab.ipList[i]);
 		}
 		
+		try {
+			//waiting for tcpdump to start
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		
 		for(int i = 0 ; i < parallel ; i++){
 			
 			tm[i] = new ThroughputMulti(Mlab.ipList[i]);
@@ -70,6 +77,13 @@ public class ThroughputMulti extends Thread{
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		try {
+			//waiting for tcpdump to start
+			Thread.sleep(5000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
 		}
 		
 		//terminate tcpdump and upload to central server on each server
