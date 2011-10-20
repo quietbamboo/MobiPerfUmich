@@ -7,6 +7,8 @@
  ****************************/
 package com.mobiperf.lte;
 
+import com.mobiperf.lte.test.PacketClient;
+
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -37,6 +39,12 @@ public class TestCenter{
 
 		long start = System.currentTimeMillis();
 		long end = start;
+		
+		//TODO comment this when releasing new 4G Test
+		if(true){
+			PacketClient.test();
+			return;
+		}
 
 		InformationCenter.reset();
 
