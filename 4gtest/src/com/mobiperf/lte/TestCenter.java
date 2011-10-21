@@ -41,10 +41,11 @@ public class TestCenter{
 		long end = start;
 		
 		//TODO comment this when releasing new 4G Test
-		if(true){
-			PacketClient.test();
+		/*if(true){
+			//PacketClient.testTcp();
+			PacketClient.testUdp();
 			return;
-		}
+		}//*/
 
 		InformationCenter.reset();
 
