@@ -16,11 +16,13 @@ package com.mobiperf.lte;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -28,6 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -139,7 +142,9 @@ public class Main extends Activity {
 							updateTextView("Starting tests...");
 							updateButton("Please wait");
 							button.setClickable(false);
-
+							
+							networkToggle();
+							
 							updateProgress(0); // clear progress
 							updateListView(new ArrayList<String>());// empty listview
 							Intent svc = new Intent(getApplicationContext(), MainService.class);
@@ -153,6 +158,35 @@ public class Main extends Activity {
 		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
+	public void networkToggle()
+	{
+		//Create the dialog window to give user instructions
+		Dialog dialog = new Dialog(Main.this);
+		dialog.setContentView(R.layout.dialog);
+        dialog.setTitle("How to toggle 4g");
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+
+        //set up text
+        TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+        text.setText("Switch network to X\n");  
+        dialog.show();
+        
+        //Create the button 
+        Button button = (Button) dialog.findViewById(R.id.Button01);
+        button.setOnClickListener(new OnClickListener() {
+
+        //When the button is clicked, call up android test menu
+		@Override
+		public void onClick(View v) {
+			String url = "tel:*#*#4636#*#*";
+			Intent callint = new Intent();
+			callint.setAction(Intent.ACTION_DIAL);
+			callint.setData(Uri.parse("tel:" + Uri.encode(url)));
+			startActivity(callint);
+		}
+        });
+	}
 	
 	public void updateChart(final double[] rtt, final double[] tp_down, final double[] tp_up)
 	{
