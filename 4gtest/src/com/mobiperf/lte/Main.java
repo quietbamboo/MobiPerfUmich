@@ -143,7 +143,7 @@ public class Main extends Activity {
 							updateButton("Please wait");
 							button.setClickable(false);
 							
-							networkToggle();
+							//networkToggle();
 							
 							updateProgress(0); // clear progress
 							updateListView(new ArrayList<String>());// empty listview
