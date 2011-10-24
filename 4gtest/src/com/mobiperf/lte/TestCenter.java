@@ -200,7 +200,7 @@ public class TestCenter{
 			
 
 			progress = 100;
-			((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
+			((MainService)service).addResultAndUpdateUI("Test finishes " + InformationCenter.getRunId(), progress);//TCP UP
 
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");
