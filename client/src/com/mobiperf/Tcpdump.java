@@ -18,7 +18,7 @@ public class Tcpdump {
 	private static Process process;
 	
 	public static String currentFile(){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//set date format
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");//set date format
 		return "/data/local/client_" + df.format(new Date()) + ".pcap";
 		//return "/data/local/client.pcap";
 	}
