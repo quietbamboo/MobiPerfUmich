@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import android.util.Log;
 
@@ -16,7 +18,8 @@ public class Tcpdump {
 	private static Process process;
 	
 	public static String currentFile(){
-		return "/data/local/client_" + InformationCenter.getRunId() + ".pcap";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//set date format
+		return "/data/local/client_" + df.format(new Date()) + ".pcap";
 		//return "/data/local/client.pcap";
 	}
 	
