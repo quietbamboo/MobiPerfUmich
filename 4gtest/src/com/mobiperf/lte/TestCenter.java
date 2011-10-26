@@ -7,6 +7,8 @@
  ****************************/
 package com.mobiperf.lte;
 
+import com.mobiperf.lte.test.PacketClient;
+
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -37,6 +39,13 @@ public class TestCenter{
 
 		long start = System.currentTimeMillis();
 		long end = start;
+		
+		//TODO comment this when releasing new 4G Test
+		/*if(true){
+			//PacketClient.testTcp();
+			PacketClient.testUdp();
+			return;
+		}//*/
 
 		InformationCenter.reset();
 
@@ -191,7 +200,7 @@ public class TestCenter{
 			
 
 			progress = 100;
-			((MainService)service).addResultAndUpdateUI("Test finishes", progress);//TCP UP
+			((MainService)service).addResultAndUpdateUI("Test finishes " + InformationCenter.getRunId(), progress);//TCP UP
 
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");
