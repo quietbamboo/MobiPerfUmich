@@ -16,43 +16,48 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+import com.mobiperf.lte.Utilities;
+
 public class PacketClient{
 
 	public static String server = "141.212.113.211";
 	public static int port = 20001;
+	public static int packet_size = 1472;
 	//public static String server = "mobiperf.com";
 
-	public static void testUdp(){
+	public static void testUdpDown(){
 
 		try{
 
 			DatagramSocket socket = new DatagramSocket();
-			byte[] buf = "t".getBytes();
 
 			InetAddress address = InetAddress.getByName(server);//should this be IP? no..
-			DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
 
-			socket.setSoTimeout(500000);
+
+			socket.setSoTimeout(10000);
 			//prepare to receive request
-			byte[] buf2 = new byte[10];
+			byte[] buf2 = new byte[packet_size];
 			DatagramPacket p2 = new DatagramPacket(buf2, buf2.length);
 
+			byte[] buf = Utilities.genRandomString(packet_size).getBytes();
+			DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
 			//send
 			socket.send(packet);
-
 			//receive
-			socket.receive(p2);
-			
-			Thread.sleep(30000);
-			
+			for(int i = 0 ; i < 100000 ; i++){
+				socket.receive(p2);
+			}
+
+
 			socket.close();
 		}catch ( Exception e ) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	public static void testTcp(){
+	public static double testTcp(boolean isDown){
+		double limit = 1000;//100 kbps
 
 		try {
 
@@ -86,22 +91,64 @@ public class PacketClient{
 				os.write(request.getBytes());
 				os.flush();*/
 
-			//read from client
-			int bytes_read = is.read(buffer);
+			if(isDown){
+				//read from client
+				long start = 0;
+				long end;
+				int total = 0;
+				int bytes_read = is.read(buffer);
+				while(bytes_read > -1){
+					if(start == 0)
+						start = System.currentTimeMillis();
+					total += bytes_read;
+					bytes_read = is.read(buffer);
+				}
+				end = System.currentTimeMillis();
+
+				return (double)total * 8.0 / (double)(end - start);
+			}else{
+				System.out.println("sleeping for 5 seconds");
+				Thread.sleep(5 * 1000);
+				System.out.println("send packet");
+
+				long start = System.currentTimeMillis();
+				long end;
+				long duration = 10000; //10 seconds
+				//int tcp_payload = 1500 - 20 - 20; UDP MTU 1500
+				int tcp_payload = 1428 - 20 - 32 ; //TCP MTU 1428, MSS 1376 for 32 TCP HEADER
+				int num_packets = 0;
+				double tp;
+				do{
+					os.write(Utilities.genRandomString(tcp_payload).getBytes());
+					//os.flush();
+					num_packets++;
+					end = System.currentTimeMillis();
+					tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
+					while(tp > limit && end - start < duration){
+						Thread.sleep(1);
+						end = System.currentTimeMillis();
+						tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
+					}
+				}while(end - start < duration);
+				tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
+				System.out.println("TCP Throughput : " + tp + " kbps");
+				
+				//uplink needs to close socket, but not for downlink, since server will close socket
+				tcpSocket.close();
+				return tp;
+
+			}
 
 
-			//sleep long enough to wait for me to kill tcpdump and power traces
-			Thread.sleep(30000);
-
-
-			tcpSocket.close();
+			//tcpSocket.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return 0;
 
 	}
+
 
 
 }
