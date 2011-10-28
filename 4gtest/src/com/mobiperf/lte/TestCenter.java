@@ -77,7 +77,7 @@ public class TestCenter{
 				Thread.sleep(5000);
 				
 				//long a, b;
-				double size = 10000;
+				double size = 1000;
 				//a = System.currentTimeMillis();
 				double tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 				//b = System.currentTimeMillis();
