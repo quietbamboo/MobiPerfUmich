@@ -5,4 +5,5 @@
 	<string name="about">www.mobiperf.com</string>
 	<string name="btn_network_test">Test Network\nSpeed</string>
 	<string name="btn_about">About Us</string>
+	<string name="btn_network_toggle">Network Toggle</string>
 </resources>
