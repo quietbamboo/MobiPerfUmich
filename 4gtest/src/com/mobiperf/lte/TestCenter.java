@@ -8,6 +8,7 @@
 package com.mobiperf.lte;
 
 import com.mobiperf.lte.test.PacketClient;
+import com.mobiperf.lte.test.PacketClient.ServerType;
 
 import android.app.Service;
 import android.content.Context;
@@ -64,22 +65,43 @@ public class TestCenter{
 		wlw.acquire();
 		
 		
-		//TODO comment this when releasing new 4G Test
-		if(true){
-			double tp = PacketClient.testTcp(false);
-			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
-			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
-			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
-			
-			//PacketClient.testUdpDown();
-			Main.stopFlag = false;
-			wakeLock.release();
-			wlw.release();
-			return;
-		}//*/
+		
 
 		//catch any exception here
 		try{
+			
+			//TODO comment this when releasing new 4G Test
+			if(true){
+				//warm up network
+				Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
+				Thread.sleep(5000);
+				
+				//long a, b;
+				double size = 10000;
+				//a = System.currentTimeMillis();
+				double tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				//b = System.currentTimeMillis();
+				
+				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
+				Thread.sleep(15000);
+				
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				
+				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
+				Thread.sleep(15000);
+				
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				
+				Thread.sleep(15000);
+				
+				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
+				//PacketClient.testUdpDown();
+				//*/
+				Main.stopFlag = false;
+				wakeLock.release();
+				wlw.release();
+				return;
+			}//*/
 
 			//checking network connectivity by connecting to google.com
 
