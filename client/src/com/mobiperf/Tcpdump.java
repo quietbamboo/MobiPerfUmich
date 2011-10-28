@@ -42,7 +42,7 @@ public class Tcpdump {
 			process = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
-			String command = "tcpdump -s 200 -w " + currentFile();
+			String command = "tcpdump -s 200 -c 200 -w " + currentFile();
 			os.writeBytes(command + "\n");
 			os.flush();
 		}catch(Exception e){

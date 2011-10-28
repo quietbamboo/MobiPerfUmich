@@ -16,5 +16,5 @@
 	<string name="btn_total_rx">sort by recv</string>
 	<string name="btn_total_tx">sort by sent</string>
 	<string name="btn_about">About Us</string>
-	<string name="btn_perfnearme">About Us</string>
+	<string name="btn_perfnearme">Performance \nNear Me</string>
 </resources>
