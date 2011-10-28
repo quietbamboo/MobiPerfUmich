@@ -33,7 +33,7 @@
 	<LinearLayout android:id="@+id/chart"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal" android:layout_weight="0.90"/>
+		android:orientation="horizontal" android:layout_weight="0.80"/>
 
 	<ListView android:id="@+id/list" android:paddingTop="0px"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"

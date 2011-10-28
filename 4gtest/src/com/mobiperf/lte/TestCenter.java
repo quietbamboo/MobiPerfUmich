@@ -40,12 +40,6 @@ public class TestCenter{
 		long start = System.currentTimeMillis();
 		long end = start;
 		
-		//TODO comment this when releasing new 4G Test
-		/*if(true){
-			//PacketClient.testTcp();
-			PacketClient.testUdp();
-			return;
-		}//*/
 
 		InformationCenter.reset();
 
@@ -68,6 +62,21 @@ public class TestCenter{
 		WifiManager wm = ( WifiManager ) service.getSystemService( Context.WIFI_SERVICE );
 		wlw = wm.createWifiLock( "WIFI LOCK TAG" );
 		wlw.acquire();
+		
+		
+		//TODO comment this when releasing new 4G Test
+		if(true){
+			double tp = PacketClient.testTcp(false);
+			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
+			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
+			((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps", 100);
+			
+			//PacketClient.testUdpDown();
+			Main.stopFlag = false;
+			wakeLock.release();
+			wlw.release();
+			return;
+		}//*/
 
 		//catch any exception here
 		try{
