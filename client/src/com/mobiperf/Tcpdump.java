@@ -18,8 +18,8 @@ public class Tcpdump {
 	private static Process process;
 	
 	public static String currentFile(){
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");//set date format
-		return "/data/local/client_" + df.format(new Date()) + ".pcap";
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");//set date format
+		return "/sdcard/mobiperf/client_" + df.format(new Date()) + ".pcap";
 		//return "/data/local/client.pcap";
 	}
 	
@@ -42,7 +42,7 @@ public class Tcpdump {
 			process = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
-			String command = "tcpdump -s 200 -c 200 -w " + currentFile();
+			String command = "tcpdump -s 200 -c 50 -w " + currentFile();
 			os.writeBytes(command + "\n");
 			os.flush();
 		}catch(Exception e){

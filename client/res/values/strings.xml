@@ -17,4 +17,5 @@
 	<string name="btn_total_tx">sort by sent</string>
 	<string name="btn_about">About Us</string>
 	<string name="btn_perfnearme">Performance \nNear Me</string>
+	<string name="btn_lock">Advanced \nFeature</string>
 </resources>

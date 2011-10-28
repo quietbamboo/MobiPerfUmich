@@ -595,7 +595,7 @@ public class TestCenter{
 
 	public boolean testReachability()
 	{
-		Tcpdump.start_client();
+
 		if(fore)
 			((MainService)service).updateTextView3("Testing port blocking...");
 		PortScan.finishedPorts = 0;

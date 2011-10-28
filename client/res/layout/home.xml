@@ -20,6 +20,11 @@
 	<Button android:id="@+id/home_btn_perfnearme" 
 		style="@style/DashboardButton"
 		android:text="@string/btn_perfnearme" 
-		android:drawableTop="@drawable/home_btn_performance" />		
+		android:drawableTop="@drawable/home_btn_performance" />	
+		
+	<Button android:id="@+id/home_btn_advance" 
+		style="@style/DashboardButton"
+		android:text="@string/btn_lock" 
+		android:drawableTop="@drawable/home_btn_lock" />		
 
 </com.mobiperf.ui.widget.DashboardLayout>

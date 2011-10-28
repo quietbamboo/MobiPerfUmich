@@ -3,6 +3,7 @@ package com.mobiperf.ui;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,7 @@ public class Home extends Activity {
 		protected static final int PAST_RECORD = Menu.FIRST +5;
 		//protected static final int VOTE = Menu.FIRST +6;
 		protected static final int PERF_ME =Menu.FIRST+7;
+		protected static final int ADVANCE =Menu.FIRST+8;
 		// Create menu
 		@Override
 		public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,12 +137,20 @@ public class Home extends Activity {
 								TrafficMonitorActivity.class));
 					}
 				});
-		findViewById(R.id.home_btn_perfnearme).setOnClickListener(
+		findViewById(R.id.home_btn_advance).setOnClickListener(
 				new View.OnClickListener() {
 					// @Override
 					public void onClick(View v) {
-						startActivity(new Intent(getActivity(),
-								com.mobiperf.PerfNearMe.Buttons.class));
+						SharedPreferences settings = getSharedPreferences(
+								"pref", 0);
+						boolean canUpload = settings.getBoolean("canUpload",
+								false);
+						if (!canUpload)
+							startActivity(new Intent(getActivity(),
+									com.mobiperf.ui.Warning.class));
+						else
+							startActivity(new Intent(getActivity(),
+									com.mobiperf.ui.TrafficPerApplication.class));
 					}
 				});
 

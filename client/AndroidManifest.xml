@@ -30,7 +30,7 @@
 
 		<service android:name="MainService" />
 		<service android:name="MainServicePeriodic" />
-
+		<service android:name=".service.CollectData" />
 		<receiver android:name=".Periodic" />
 		<receiver android:name="com.mobiperf.Reregister">
 			<intent-filter>
@@ -48,7 +48,10 @@
 		<activity android:name=".ui.Preferences"></activity>
 		<activity android:name="com.mobiperf.ui.About"></activity>
 		<activity android:name=".ui.Vote"></activity>
+		<activity android:name=".ui.Warning"></activity>
 		<activity android:name=".ui.HistoricalList"></activity>
+		<activity android:name=".ui.TrafficPerApplication"></activity>
+		
 		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
 			android:name=".PerfNearMe.Buttons">
 
