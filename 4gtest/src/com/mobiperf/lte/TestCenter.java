@@ -74,23 +74,31 @@ public class TestCenter{
 			if(true){
 				//warm up network
 				Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
-				Thread.sleep(5000);
+				Thread.sleep(15000);
 				
 				//long a, b;
-				double size = 1000;
+				double size = 10;
 				//a = System.currentTimeMillis();
-				double tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				double tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
 				//b = System.currentTimeMillis();
 				
 				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
 				
 				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+			
+				Thread.sleep(15000);
+				
+				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				
+				Thread.sleep(15000);
+				
+				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
 				
 				Thread.sleep(15000);
 				

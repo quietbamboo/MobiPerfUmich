@@ -20,7 +20,8 @@ import com.mobiperf.lte.Utilities;
 
 public class PacketClient{
 
-	public static String server = "141.212.113.211";
+	//public static String server = "141.212.113.211";
+	public static String server = "141.212.108.122"; //koala's IP, falcon is too busy for local experiments
 	public static int port = 20001;
 	public static int packet_size = 1472;
 	//public static String server = "mobiperf.com";
@@ -118,10 +119,6 @@ public class PacketClient{
 
 				return (double)total * 8.0 / (double)(end - start);
 			}else if(type == ServerType.TCP_UP_SPEED){
-				System.out.println("sleeping for 5 seconds");
-				Thread.sleep(5 * 1000);
-				System.out.println("send packet");
-
 				long start = System.currentTimeMillis();
 				long end;
 				long duration = 10000; //10 seconds
