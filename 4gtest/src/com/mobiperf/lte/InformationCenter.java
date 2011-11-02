@@ -339,14 +339,14 @@ public class InformationCenter {
 	public static int getSignalStrength()
 	{
 		long startTime = System.currentTimeMillis();
-		while(signalStrength==-1){
+		while(signalStrength == -1){
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			long endTime = System.currentTimeMillis();
-			if(endTime-startTime>8000)
+			if(endTime - startTime > 10000)
 				break;
 		}
 		return signalStrength;
