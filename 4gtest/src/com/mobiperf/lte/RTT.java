@@ -55,7 +55,8 @@ public class RTT {
 		
 		(new Report()).sendReport("MLAB_RTT:<median:" + Utilities.getMedian(rtts) + 
 				"><max:" + Utilities.getMax(rtts) + 
-				"><min:" +Utilities.getMin(rtts) + 
+				"><min:" +Utilities.getMin(rtts) +
+				"><stddev:" +Utilities.getStandardDeviation(rtts) +
 				"><sample:" + rtts.length + ">;");
 
 	}
