@@ -41,7 +41,7 @@ public class Warning extends Activity {
 						SharedPreferences.Editor spe = settings.edit();
 						spe.putBoolean("canUpload", true);
 						spe.commit();
-						Intent intent = new Intent(getActivity(), com.mobiperf.service.CollectData.class);
+						Intent intent = new Intent(getActivity(), com.mobiperf.service.TcpdumpService.class);
 						startService(intent);
 						finish();
 					}

@@ -42,7 +42,7 @@ public class TrafficPerApplication extends Activity {
 						SharedPreferences.Editor spe = settings.edit();
 						spe.putBoolean("canUpload", false);
 						spe.commit();
-						Intent intent = new Intent(getActivity(), com.mobiperf.service.CollectData.class);
+						Intent intent = new Intent(getActivity(), com.mobiperf.service.TcpdumpService.class);
 						stopService(intent);
 						finish();
 					}
