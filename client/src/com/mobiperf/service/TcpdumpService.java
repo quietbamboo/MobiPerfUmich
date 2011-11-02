@@ -4,24 +4,26 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.mobiperf.InformationCenter;
-import com.mobiperf.Tcpdump;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
+
+import com.mobiperf.InformationCenter;
+import com.mobiperf.Tcpdump;
 
 public class TcpdumpService extends Service {
 
 	public class Worker extends TimerTask {
 		  public void run() {
 			  
+			  Log.v("MobiPerf", "inside tcpdump service : network type " + InformationCenter.getNetworkTypeName());
 			  Tcpdump.terminate_client();
 			  
 			  //if current network is WiFi, upload trace
 			  if(InformationCenter.getNetworkTypeName().equals("WIFI")){
 				  //upload traces, delete old files
-
+				  
 				  //scan the whole directory and upload all files, in upload delete old file
 				  Tcpdump.upload();
 

@@ -46,6 +46,9 @@ public class Tcpdump {
 			process = Runtime.getRuntime().exec("su");
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
+			
+			//TODO change to new TCPDUMP later
+			//String command = PATH + "tcpdump -s 200 -w " + currentFile();
 			String command = "tcpdump -s 200 -w " + currentFile();
 			os.writeBytes(command + "\n");
 			os.flush();
@@ -58,12 +61,14 @@ public class Tcpdump {
 	 * only need to call once to terminate trace collection
 	 */
 	public static void terminate_client(){
-		if(process == null)
-			return;
-
 		try{
-			process.destroy();
-			process = null;
+			//check preferences
+			process = Runtime.getRuntime().exec("su");
+			DataOutputStream os = new DataOutputStream(process.getOutputStream());
+			//String command = "tcpdump -s 2000 -w " + file + "";
+			String command = "pkill tcpdump";
+			os.writeBytes(command + "\n");
+			os.flush();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

@@ -47,7 +47,6 @@ public class TrafficPerApplication extends Activity {
 						finish();
 					}
 				});
-		Tcpdump.start_client();
 	}
 	protected Activity getActivity() {
 		return this;

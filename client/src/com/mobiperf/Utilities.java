@@ -365,7 +365,7 @@ public class Utilities  {
 			    	String []names = {"hping", "ef_client_3", "phone_iptables_drop_packet", "tcpdump"};
 			    	try {
 			    		for(int i = 0; i < names.length; i++){
-			    			String path = NAT_Test_Thread.PATH + names[i];
+			    			String path = Definition.PATH + names[i];
 			    			File file = new File(path);
 			    			if(!file.exists()){
 								InputStream is = context.getAssets().open(names[i]);
@@ -393,7 +393,7 @@ public class Utilities  {
 			    				"chmod 777 " + NAT_Test_Thread.HPING,
 			    				"chmod 777 " + NAT_Test_Thread.EF_CLIENT,
 			    				"chmod 777 " + Firewall_Test_Thread.PIDP,
-			    				"chmod 777"  + Tcpdump.TCPDUMP,
+			    				"chmod 777 " + Tcpdump.TCPDUMP,
 			    				"exit"};		
 			    		for (String single : commands) {
 			    		   os.writeBytes(single + "\n");

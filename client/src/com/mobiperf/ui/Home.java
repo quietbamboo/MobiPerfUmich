@@ -163,6 +163,7 @@ public class Home extends Activity {
 					}
 				});
 
+		InformationCenter.init(this);
 		InformationCenter.reset();
 		Thread binaryThread = Utilities.installBinaries(this);
 		/**** wait till all the binaries are installed ****/

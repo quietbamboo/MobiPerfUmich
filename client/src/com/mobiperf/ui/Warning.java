@@ -15,19 +15,14 @@
 package com.mobiperf.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mobiperf.R;
+import com.mobiperf.service.TcpdumpService;
 
 public class Warning extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +36,8 @@ public class Warning extends Activity {
 						SharedPreferences.Editor spe = settings.edit();
 						spe.putBoolean("canUpload", true);
 						spe.commit();
-						Intent intent = new Intent(getActivity(), com.mobiperf.service.TcpdumpService.class);
+						Log.v("MobiPerf", "Inside warning");
+						Intent intent = new Intent(getActivity(), TcpdumpService.class);
 						startService(intent);
 						finish();
 					}
