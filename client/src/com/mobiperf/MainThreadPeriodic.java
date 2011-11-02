@@ -14,6 +14,8 @@
 
 package com.mobiperf;
 
+import com.mobiperf.service.MainServicePeriodic;
+
 
 public class MainThreadPeriodic extends Thread {
 	

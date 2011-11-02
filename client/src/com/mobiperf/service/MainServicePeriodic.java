@@ -12,7 +12,9 @@
  *
  ****************************/
 
-package com.mobiperf;
+package com.mobiperf.service;
+import com.mobiperf.MainThreadPeriodic;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
