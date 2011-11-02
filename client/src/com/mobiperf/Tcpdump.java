@@ -19,8 +19,9 @@ public class Tcpdump {
 	
 	public static String currentFile(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");//set date format
-		return "/sdcard/mobiperf/client_" + df.format(new Date()) + ".pcap";
+		//return "/sdcard/mobiperf/client_" + df.format(new Date()) + ".pcap";
 		//return "/data/local/client.pcap";
+		return PATH + "client_" + df.format(new Date()) + ".pcap";
 	}
 	
 	public static void clearOldTrace(){

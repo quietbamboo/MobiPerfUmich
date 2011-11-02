@@ -22,7 +22,6 @@ public class CollectData extends Service {
 		}
 	@Override
 	public IBinder onBind(Intent intent) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -35,7 +34,6 @@ public class CollectData extends Service {
 
 	@Override
 	public void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		 Tcpdump.terminate_client();
 	}
