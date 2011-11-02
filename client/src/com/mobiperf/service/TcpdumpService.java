@@ -31,7 +31,7 @@ public class TcpdumpService extends Service {
 			  
 			  Timer timer = new Timer(false);
 			  //timer.schedule(new Worker(), new Date(System.currentTimeMillis() + 4 * 60 * 60 * 1000));
-			  timer.schedule(new Worker(), new Date(System.currentTimeMillis() + 60 * 1000));
+			  timer.schedule(new Worker(), new Date(System.currentTimeMillis() + 10 * 1000));
 		  }
 		}
 	@Override

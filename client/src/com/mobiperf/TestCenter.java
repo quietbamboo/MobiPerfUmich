@@ -57,8 +57,6 @@ public class TestCenter{
 
 		InformationCenter.reset();
 
-		Thread binaryThread = Utilities.installBinaries(service);
-
 		//check airplane mode
 		if(fore)
 			((MainService)service).updateTextView3(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
@@ -259,16 +257,6 @@ public class TestCenter{
 			(new Report()).sendReport(infoS);
 			if(shouldStop())
 				return;
-
-
-			if(fore){
-				/**** wait till all the binaries are installed ****/
-				try {
-					binaryThread.join();
-				} catch (InterruptedException e3) {
-					e3.printStackTrace();
-				}
-			}
 
 			if(fore){
 				/*********** NAT Test Thread **************/

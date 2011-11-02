@@ -21,7 +21,7 @@ public class Tcpdump {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");//set date format
 		//return "/sdcard/mobiperf/client_" + df.format(new Date()) + ".pcap";
 		//return "/data/local/client.pcap";
-		return PATH + "client_" + df.format(new Date()) + ".pcap";
+		return PATH + "bg_" + df.format(new Date()) + ".pcap";
 	}
 	
 	public static void clearOldTrace(){
@@ -70,9 +70,26 @@ public class Tcpdump {
 	}
 	
 	/**
-	 * upload tcpdump file to server per run
+	 *  scan the whole directory and upload all files, remove old files
 	 */
-	public static boolean upload(){
+	public static void upload(){
+		File dir = new File(PATH);
+		for(File file : dir.listFiles()){
+			if(file.isDirectory())
+				continue;
+		
+			if(file.getName().startsWith("bg_") && file.getName().endsWith(".pcap")){
+				//upload this trace
+				if(uploadFile(file.getAbsolutePath())){
+					
+				}
+				//	file.delete();
+			}
+		}
+		
+	}
+	
+	public static boolean uploadFile(String filename){
 		
 		Socket remoteTCPSocket; 
 		DataOutputStream remoteOutputStream; 
@@ -92,7 +109,7 @@ public class Tcpdump {
 
 			byte[] buffer = new byte[Definition.PREFIX_RECEIVE_BUFFER_LENGTH];
 			int read_bytes;
-			byte[] prefix_bytes = InformationCenter.getPrefix().getBytes();
+			byte[] prefix_bytes = (InformationCenter.getPrefix() + "<" + filename.split(PATH)[1].split(".pcap")[0] + ">").getBytes();
 
 			remoteOutputStream.write(prefix_bytes);
 			remoteOutputStream.flush();
@@ -105,7 +122,7 @@ public class Tcpdump {
 			
 			//after making sure server is ok to receive data
 			//verify current trace exists
-			File trace = new File(currentFile());
+			File trace = new File(filename);
 			if(!(trace.exists()))
 				return false;
 			try{

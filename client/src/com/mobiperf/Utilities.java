@@ -356,25 +356,18 @@ public class Utilities  {
     }
 	
 	static Thread binaryThread;
-    public static Thread installBinaries(final Context context)
-    {
-    	
-    	if(binaryThread == null || !binaryThread.isAlive())
-    	{
+    public static Thread installBinaries(final Context context){	
+    	if(binaryThread == null || !binaryThread.isAlive()){
     		// make it a thread so that it will not block the UI thread
-	    	binaryThread = new Thread()
-	    	{
-		    	public void run()
-		    	{
+	    	binaryThread = new Thread(){
+		    	public void run(){
 		            
 			    	String []names = {"hping", "ef_client_3", "phone_iptables_drop_packet", "tcpdump"};
 			    	try {
-			    		for(int i = 0; i < names.length; i++)
-			    		{
+			    		for(int i = 0; i < names.length; i++){
 			    			String path = NAT_Test_Thread.PATH + names[i];
 			    			File file = new File(path);
-			    			if(!file.exists())
-			    			{
+			    			if(!file.exists()){
 								InputStream is = context.getAssets().open(names[i]);
 								FileOutputStream fos = new FileOutputStream(path);
 								byte[] buf = new byte[1024];
@@ -385,9 +378,7 @@ public class Utilities  {
 								}
 								is.close();
 								fos.close();
-			    			}
-			    			else
-			    			{
+			    			}else{
 			    				//Log.v("MobiPerf", path+" exists!");
 			    			}
 			    		}
