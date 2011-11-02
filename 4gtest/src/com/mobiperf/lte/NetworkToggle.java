@@ -26,7 +26,7 @@ public class NetworkToggle extends Activity {
         button.setOnClickListener(new OnClickListener() {
 
         //When the button is clicked, call up android test menu
-		@Override
+		//@Override
 		public void onClick(View v) {
 			String url = "tel:*#*#4636#*#*";
 			Intent callint = new Intent();
