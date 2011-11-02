@@ -144,7 +144,11 @@ public class Main extends Activity {
 							button.setClickable(false);
 							
 <<<<<<< HEAD
+<<<<<<< HEAD
 							//networkToggle();
+=======
+							displayResult();
+>>>>>>> 67f5c957ca4d12851e92d024a4251f2df1e5cdda
 =======
 							displayResult();
 >>>>>>> 67f5c957ca4d12851e92d024a4251f2df1e5cdda
