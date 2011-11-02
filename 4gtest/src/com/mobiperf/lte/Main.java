@@ -143,7 +143,10 @@ public class Main extends Activity {
 							updateButton("Please wait");
 							button.setClickable(false);
 							
+<<<<<<< HEAD
 							//networkToggle();
+=======
+>>>>>>> 67f5c957ca4d12851e92d024a4251f2df1e5cdda
 							displayResult();
 							
 							updateProgress(0); // clear progress
