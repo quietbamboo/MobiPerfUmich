@@ -20,11 +20,18 @@ import com.mobiperf.lte.Utilities;
 
 public class PacketClient{
 
-	public static String server = "141.212.113.211";
+	//public static String server = "141.212.113.211";
+	public static String server = "141.212.108.122"; //koala's IP, falcon is too busy for local experiments
 	public static int port = 20001;
 	public static int packet_size = 1472;
 	//public static String server = "mobiperf.com";
 
+	public enum ServerType{
+		TCP_DOWN_SPEED,	TCP_UP_SPEED,
+		TCP_DOWN_SIZE,	TCP_UP_SIZE,
+		UDP
+	}
+	
 	public static void testUdpDown(){
 
 		try{
@@ -56,8 +63,13 @@ public class PacketClient{
 
 	}
 
-	public static double testTcp(boolean isDown){
-		double limit = 1000;//100 kbps
+	/**
+	 * 
+	 * @param type
+	 * @param limit, either kbps or kB
+	 * @return
+	 */
+	public static double testTcp(ServerType type, double limit){
 
 		try {
 
@@ -91,7 +103,7 @@ public class PacketClient{
 				os.write(request.getBytes());
 				os.flush();*/
 
-			if(isDown){
+			if(type == ServerType.TCP_DOWN_SPEED || type == ServerType.TCP_DOWN_SIZE){
 				//read from client
 				long start = 0;
 				long end;
@@ -106,11 +118,7 @@ public class PacketClient{
 				end = System.currentTimeMillis();
 
 				return (double)total * 8.0 / (double)(end - start);
-			}else{
-				System.out.println("sleeping for 5 seconds");
-				Thread.sleep(5 * 1000);
-				System.out.println("send packet");
-
+			}else if(type == ServerType.TCP_UP_SPEED){
 				long start = System.currentTimeMillis();
 				long end;
 				long duration = 10000; //10 seconds
@@ -137,8 +145,25 @@ public class PacketClient{
 				tcpSocket.close();
 				return tp;
 
+			}else if(type == ServerType.TCP_UP_SIZE){
+				long start = System.currentTimeMillis();
+				long end;
+				//int tcp_payload = 1500 - 20 - 20; UDP MTU 1500
+				int tcp_payload = 1428 - 20 - 32 ; //TCP MTU 1428, MSS 1376 for 32 TCP HEADER
+				int num_packets = 0;
+				double tp;
+				do{
+					os.write(Utilities.genRandomString(tcp_payload).getBytes());
+					//os.flush();
+					num_packets++;
+				}while(num_packets * tcp_payload < limit * 1000);
+				end = System.currentTimeMillis();
+				tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
+				System.out.println("TCP Throughput : " + tp + " kbps; total bytes " + (num_packets * tcp_payload));
+				
+				tcpSocket.close();
+				return tp;
 			}
-
 
 			//tcpSocket.close();
 

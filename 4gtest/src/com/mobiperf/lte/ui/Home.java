@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mobiperf.lte.Main;
+import com.mobiperf.lte.NetworkToggle;
 import com.mobiperf.lte.R;
 
 public class Home extends Activity {
@@ -72,6 +73,13 @@ public class Home extends Activity {
 					// @Override
 					public void onClick(View v) {
 						startActivity(new Intent(getActivity(), Main.class));
+					}
+				});
+		
+		findViewById(R.id.home_btn_networktoggle).setOnClickListener(
+				new View.OnClickListener() {
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(), NetworkToggle.class));
 					}
 				});
 

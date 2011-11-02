@@ -323,6 +323,12 @@ public class Util {
 			if(line.contains("<" + field + ":")){
 				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
 			}
+			
+			//only for RTT
+			field = "stddev";
+			if(line.contains("<" + field + ":")){
+				Util.extractFieldToMysql(type_string, id_string, rid_string, "", line, field);
+			}
 		}
 		
 		//else{
@@ -424,7 +430,10 @@ public class Util {
 		
 		//MLab related
 		if(line.startsWith("MLAB_RTT:")){
-			field = "RTT";
+			if(field.equals("median"))
+				field = "RTT";
+			else if(field.equals("stddev"))
+				field = "UpRTTDev"; 
 		}
 		if(line.startsWith("MLAB_THROUGHPUT_DOWN:")){
 			field = "DownTp";
