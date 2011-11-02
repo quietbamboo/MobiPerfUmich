@@ -14,6 +14,8 @@
 
 package com.mobiperf;
 
+import com.mobiperf.service.MainServicePeriodic;
+
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;

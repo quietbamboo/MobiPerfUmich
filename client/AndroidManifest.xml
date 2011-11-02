@@ -29,7 +29,7 @@
 			android:screenOrientation="portrait"></activity>
 
 		<service android:name=".service.MainService" />
-		<service android:name="MainServicePeriodic" />
+		<service android:name=".service.MainServicePeriodic" />
 		<service android:name=".service.CollectData" />
 		<receiver android:name=".Periodic" />
 		<receiver android:name="com.mobiperf.Reregister">
