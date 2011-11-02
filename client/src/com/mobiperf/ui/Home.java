@@ -137,6 +137,14 @@ public class Home extends Activity {
 								TrafficMonitorActivity.class));
 					}
 				});
+		findViewById(R.id.home_btn_perfnearme).setOnClickListener(
+				new View.OnClickListener() {
+					// @Override
+					public void onClick(View v) {
+						startActivity(new Intent(getActivity(),
+								Performance.class));
+					}
+				});
 		findViewById(R.id.home_btn_advance).setOnClickListener(
 				new View.OnClickListener() {
 					// @Override
