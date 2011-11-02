@@ -143,7 +143,11 @@ public class Main extends Activity {
 							updateButton("Please wait");
 							button.setClickable(false);
 							
+<<<<<<< HEAD
 							//networkToggle();
+=======
+							displayResult();
+>>>>>>> 67f5c957ca4d12851e92d024a4251f2df1e5cdda
 							
 							updateProgress(0); // clear progress
 							updateListView(new ArrayList<String>());// empty listview
@@ -158,18 +162,18 @@ public class Main extends Activity {
 		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
-	public void networkToggle()
+	public void displayResult()
 	{
-		//Create the dialog window to give user instructions
-		Dialog dialog = new Dialog(Main.this);
+		//Create the dialog window to display test results
+		final Dialog dialog = new Dialog(Main.this);
 		dialog.setContentView(R.layout.dialog);
-        dialog.setTitle("How to toggle 4g");
+        dialog.setTitle("Test Results");
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
 
         //set up text
         TextView text = (TextView) dialog.findViewById(R.id.TextView01);
-        text.setText("Switch network to X\n");  
+        text.setText("STUFF TO WRITE\n");  
         dialog.show();
         
         //Create the button 
@@ -179,11 +183,7 @@ public class Main extends Activity {
         //When the button is clicked, call up android test menu
 		//@Override
 		public void onClick(View v) {
-			String url = "tel:*#*#4636#*#*";
-			Intent callint = new Intent();
-			callint.setAction(Intent.ACTION_DIAL);
-			callint.setData(Uri.parse("tel:" + Uri.encode(url)));
-			startActivity(callint);
+			dialog.dismiss();
 		}
         });
 	}
