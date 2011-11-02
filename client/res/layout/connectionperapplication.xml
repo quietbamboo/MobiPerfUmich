@@ -1,0 +1,38 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="500dip"
+
+	android:padding="6dip">
+
+	<LinearLayout android:orientation="vertical"
+
+		android:layout_width="0dip" android:layout_weight="1"
+		android:layout_height="1000dip" android:weightSum="1">
+
+		<TextView android:id="@+id/about1" android:layout_width="fill_parent"
+			android:layout_height="50dip" android:textSize="25px"
+			android:gravity="center_vertical" android:text="Connections of Lightning Bug" />
+
+		<TextView android:background="@drawable/whiteline"
+			android:layout_width="fill_parent" android:layout_height="2dip" />
+
+		<TextView android:text="141.212.113.211:30001: "
+			android:id="@+id/textView1" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_marginTop="10dip"
+			android:layout_marginBottom="10dip"></TextView>
+		<ProgressBar android:layout_height="wrap_content"
+			android:secondaryProgress = "100"		
+			android:max="100" android:progress="60" android:id="@+id/progressBar1"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="match_parent"></ProgressBar>
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:text="209.85.225.120:80 (Advertisement server)"
+			android:id="@+id/textView2" android:layout_marginTop="10dip"
+			android:layout_marginBottom="10dip"></TextView>
+		<ProgressBar android:layout_height="wrap_content"
+			android:secondaryProgress = "100"
+			android:max="100" android:progress="20" android:id="@+id/progressBar1"
+			style="?android:attr/progressBarStyleHorizontal"
+				android:layout_width="match_parent"></ProgressBar>
+
+	</LinearLayout>
+</LinearLayout>

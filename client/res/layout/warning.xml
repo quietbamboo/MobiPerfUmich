@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="500dip"
+    
+    android:padding="6dip">
+
+    <LinearLayout
+        android:orientation="vertical"
+    
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="1000dip">
+
+        <TextView
+        	android:id="@+id/about1"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:textSize = "25px"
+            android:gravity="center_vertical"
+            android:text="Warning" />
+            
+            <TextView  
+			android:background = "@drawable/whiteline"
+			android:layout_width="fill_parent"
+			 android:layout_height="2dip"
+            />
+             <TextView  
+             android:id="@+id/about2"
+            android:layout_width="fill_parent"
+            android:textSize = "20px"
+             android:maxLines = "15"
+            android:scrollbars="vertical" 
+             android:singleLine="false"
+             android:textColor="@android:color/secondary_text_dark_nodisable"
+            android:text="To enable statistic function, we require collecting anonymouns information from user's phone. Once we get these information, we are able to give you detailed feedback about how applications use your network traffic. Do you want to continue?" 
+            android:layout_height="98dp"/>
+                <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+             <Button android:text="Yes, please." android:layout_alignParentLeft="true" android:id="@+id/warning_btn_yes" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+             <Button android:text="No, thanks."  android:layout_alignParentRight="true" android:id="@+id/warning_btn_no" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+    </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
