@@ -71,7 +71,7 @@ public class TestCenter{
 		try{
 			
 			//TODO comment this when releasing new 4G Test
-			if(true){
+			if(false){
 				//warm up network
 				Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
 				Thread.sleep(15000);
@@ -79,26 +79,26 @@ public class TestCenter{
 				//long a, b;
 				double size = 10;
 				//a = System.currentTimeMillis();
-				double tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				double tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 				//b = System.currentTimeMillis();
 				
 				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 				
 				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 			
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 				
 				Thread.sleep(15000);
 				
-				tp = PacketClient.testTcp(ServerType.TCP_DOWN_SIZE, size);
+				tp = PacketClient.testTcp(ServerType.TCP_UP_SIZE, size);
 				
 				Thread.sleep(15000);
 				
