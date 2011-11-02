@@ -15,6 +15,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.mobiperf.service.MainService;
 import com.mobiperf.ui.Display;
 
 public class TestCenter{

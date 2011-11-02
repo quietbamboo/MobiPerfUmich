@@ -21,7 +21,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-class GPS {
+public class GPS {
 	private static LocationManager lm = null;
 	private static LocationListener locationListener;
 	public static Location location;

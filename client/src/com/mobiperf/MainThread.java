@@ -14,6 +14,8 @@
 
 package com.mobiperf;
 
+import com.mobiperf.service.MainService;
+
 
 public class MainThread extends Thread {
 	

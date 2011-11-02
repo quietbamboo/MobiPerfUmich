@@ -13,6 +13,8 @@
  ****************************/
 
 package com.mobiperf;
+import com.mobiperf.service.MainService;
+
 import android.app.Service;
 import android.util.Log;
 

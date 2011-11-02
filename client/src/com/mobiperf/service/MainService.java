@@ -12,14 +12,21 @@
  *
  ****************************/
 
-package com.mobiperf;
+package com.mobiperf.service;
 
 import java.util.ArrayList;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.mobiperf.GPS;
+import com.mobiperf.Main;
+import com.mobiperf.MainThread;
+import com.mobiperf.Utilities;
+
 
 
 public class MainService extends Service {
@@ -30,7 +37,7 @@ public class MainService extends Service {
      * IPC.
      */
     public class Threegtest_Binder extends Binder {
-        MainService getService() {
+        public MainService getService() {
             return MainService.this;
         }
     }

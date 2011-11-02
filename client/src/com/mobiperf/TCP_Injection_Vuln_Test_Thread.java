@@ -21,6 +21,8 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
+import com.mobiperf.service.MainService;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;

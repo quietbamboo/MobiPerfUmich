@@ -25,6 +25,8 @@ import java.net.UnknownHostException;
 import java.util.Hashtable;
 import java.util.Random;
 
+import com.mobiperf.service.MainService;
+
 import android.util.Log;
 
 public class Spoof_Test_Thread extends Thread {

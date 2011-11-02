@@ -24,6 +24,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import com.mobiperf.service.MainService;
+
 import android.util.Log;
 
 public class Firewall_Test_Thread extends Thread {

@@ -29,6 +29,8 @@ import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Random;
 
+import com.mobiperf.service.MainService;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Build;

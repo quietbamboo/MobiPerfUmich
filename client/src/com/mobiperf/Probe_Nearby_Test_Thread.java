@@ -30,6 +30,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
 
+import com.mobiperf.service.MainService;
+
 import android.util.Log;
 
 public class Probe_Nearby_Test_Thread extends Thread {

@@ -35,6 +35,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobiperf.service.MainService;
 import com.mobiperf.ui.Display;
 import com.mobiperf.ui.Preferences;
 
