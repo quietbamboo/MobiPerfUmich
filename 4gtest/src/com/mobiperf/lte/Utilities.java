@@ -104,6 +104,31 @@ public class Utilities  {
 		}
 		return median;
 	}
+	
+	public static double getAverage(double[] a){
+		if(a == null || a.length == 0){
+			System.err.println("getAverage invalid array");
+			return Double.MIN_VALUE;
+		}
+		double total = 0;
+		for(int i = 0 ; i < a.length ; i++){
+			total += a[i];
+		}
+		return total / (double)a.length;
+	}
+	
+	public static double getStandardDeviation(double[] a){
+		if(a == null || a.length == 0){
+			System.err.println("getStandardDeviation invalid array");
+			return Double.MIN_VALUE;
+		}
+		double std = 0;
+		double avg = Utilities.getAverage(a);
+		for(int i = 0 ; i < a.length ; i++){
+			std += (a[i] - avg) * (a[i] - avg);
+		}
+		return Math.sqrt(std / (double)(a.length - 1));
+	}
 
 
 	/**

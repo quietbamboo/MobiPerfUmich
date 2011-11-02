@@ -71,7 +71,7 @@ public class TestCenter{
 		try{
 			
 			//TODO comment this when releasing new 4G Test
-			if(false){
+			/*if(false){
 				//warm up network
 				Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
 				Thread.sleep(15000);
@@ -104,7 +104,7 @@ public class TestCenter{
 				
 				//((MainService)service).addResultAndUpdateUI("Throughput " + tp + " kbps, time " + (b - a), 100);
 				//PacketClient.testUdpDown();
-				//*/
+
 				Main.stopFlag = false;
 				wakeLock.release();
 				wlw.release();
