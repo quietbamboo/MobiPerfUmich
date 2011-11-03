@@ -7,9 +7,6 @@
  ****************************/
 package com.mobiperf.lte;
 
-import com.mobiperf.lte.test.PacketClient;
-import com.mobiperf.lte.test.PacketClient.ServerType;
-
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -248,6 +245,9 @@ public class TestCenter{
 
 		//let server write to database
 		Utilities.letServerWriteOutputToMysql();
+		
+		((MainService)service).displayResult(Utilities.getMedian(ThroughputMulti.tps_down),
+				Utilities.getMedian(ThroughputMulti.tps_up), Utilities.getMedian(RTT.rtts));
 
 		wakeLock.release();
 		wlw.release();

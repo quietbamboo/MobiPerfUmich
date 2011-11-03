@@ -12,7 +12,6 @@ import java.io.DataOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.Arrays;
 
 import android.app.Service;
 import android.util.Log;

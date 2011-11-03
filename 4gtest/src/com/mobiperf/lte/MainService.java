@@ -124,6 +124,11 @@ public class MainService extends Service {
     	if(activity != null)
     		activity.updateChart(rtt, tp_down, tp_up);
     }
+    
+    public void displayResult(double down, double up, double rtt){
+    	if(activity != null)
+    		activity.displayResult(down, up, rtt);
+    }
 
     /**
      * 

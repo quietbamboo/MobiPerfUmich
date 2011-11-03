@@ -22,7 +22,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -144,7 +143,7 @@ public class Main extends Activity {
 							button.setClickable(false);
 							
 							//networkToggle();
-							displayResult();
+							//displayResult();
 							
 							updateProgress(0); // clear progress
 							updateListView(new ArrayList<String>());// empty listview
@@ -159,30 +158,35 @@ public class Main extends Activity {
 		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
-	public void displayResult()
+	public void displayResult(final double down, final double up, final double rtt)
 	{
-		//Create the dialog window to display test results
-		final Dialog dialog = new Dialog(Main.this);
-		dialog.setContentView(R.layout.dialog);
-        dialog.setTitle("Test Results");
-        dialog.setCancelable(true);
-        dialog.setCanceledOnTouchOutside(true);
+        mHandler.post(new Runnable() {
+			public void run() {
+				//Create the dialog window to display test results
+				final Dialog dialog = new Dialog(Main.this);
+				dialog.setContentView(R.layout.dialog);
+		        dialog.setTitle("Test completes!");
+		        dialog.setCancelable(true);
+		        dialog.setCanceledOnTouchOutside(true);
 
-        //set up text
-        TextView text = (TextView) dialog.findViewById(R.id.TextView01);
-        text.setText("STUFF TO WRITE\n");  
-        dialog.show();
-        
-        //Create the button 
-        Button button = (Button) dialog.findViewById(R.id.Button01);
-        button.setOnClickListener(new OnClickListener() {
+		        //set up text
+		        TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+		        text.setText("Average downlink speed\n"+ down + " kbps\n\nAverage uplink speed\n" + up + " kbps\n\nLatency\n" + rtt + " ms");  
+		        dialog.show();
+		        
+		        //Create the button 
+		        Button button = (Button) dialog.findViewById(R.id.Button01);
+		        button.setOnClickListener(new OnClickListener() {
 
-        //When the button is clicked, call up android test menu
-		//@Override
-		public void onClick(View v) {
-			dialog.dismiss();
-		}
-        });
+		        //When the button is clicked, call up android test menu
+				//@Override
+				public void onClick(View v) {
+					dialog.dismiss();
+				}
+		        });
+				
+			}
+		});
 	}
 	
 	public void updateChart(final double[] rtt, final double[] tp_down, final double[] tp_up)
