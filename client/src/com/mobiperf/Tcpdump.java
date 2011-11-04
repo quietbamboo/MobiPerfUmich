@@ -86,7 +86,7 @@ public class Tcpdump {
 			if(file.getName().startsWith("bg_") && file.getName().endsWith(".pcap")){
 				//upload this trace
 				if(uploadFile(file.getAbsolutePath())){
-					
+					file.delete();
 				}
 				//	file.delete();
 			}

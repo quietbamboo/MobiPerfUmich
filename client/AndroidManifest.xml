@@ -30,7 +30,7 @@
 
 		<service android:name=".service.MainService" />
 		<service android:name=".service.MainServicePeriodic" />
-		<service android:name=".service.CollectData" />
+		<service android:name=".service.TcpdumpService" />
 		<receiver android:name=".Periodic" />
 		<receiver android:name="com.mobiperf.Reregister">
 			<intent-filter>
