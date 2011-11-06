@@ -160,7 +160,9 @@ public class ThroughputMulti extends Thread{
 				tps_up = Utilities.pushResult(tps_up, throughput);
 			}
 			
-			((MainService)service).updateChart(RTT.rtts, ThroughputMulti.tps_down, ThroughputMulti.tps_up);
+			//does not handle UI for test mode
+			if(!Definition.TEST)
+				((MainService)service).updateChart(RTT.rtts, ThroughputMulti.tps_down, ThroughputMulti.tps_up);
 			
 			size = 0;
 			startTime = System.currentTimeMillis();

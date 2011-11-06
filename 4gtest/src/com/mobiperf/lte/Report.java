@@ -23,7 +23,7 @@ import java.net.SocketAddress;
 import android.util.Log;
 
 
-class Report  {
+public class Report  {
 
 	public void sendReport(String result) {
 

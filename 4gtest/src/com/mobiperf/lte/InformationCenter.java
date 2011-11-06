@@ -22,6 +22,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.ConnectivityManager;
 import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
+import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
 import android.telephony.gsm.GsmCellLocation;
 
@@ -53,6 +54,7 @@ public class InformationCenter {
 	private static String deviceId;
 	private static String prefix;
 	private static int signalStrength;
+	private static int signalEcIo;
 	private static boolean networkStatus;
 
 
@@ -79,6 +81,7 @@ public class InformationCenter {
 		deviceId = null;
 		prefix = null;
 		signalStrength = -1;
+		signalEcIo = -1;
 		networkStatus = false;
 
 		cellLocation = telephonyManager.getCellLocation();
@@ -86,7 +89,7 @@ public class InformationCenter {
 		//unregister listener first, otherwise, callback will call null function
 		if(telephonyManager != null && phoneStateListener != null)
 			telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-		telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTH);
+		telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
 	}
 	
 	/**
@@ -351,6 +354,22 @@ public class InformationCenter {
 		}
 		return signalStrength;
 	}
+	
+	public static int getSignalEcIo()
+	{
+		long startTime = System.currentTimeMillis();
+		while(signalEcIo == -1){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			long endTime = System.currentTimeMillis();
+			if(endTime - startTime > 10000)
+				break;
+		}
+		return signalEcIo;
+	}
 
 	//determines if currently connected to the internet
 	//if user is not connected, he/she is asked to connect to the internet via an alert
@@ -379,10 +398,21 @@ public class InformationCenter {
 		 * 0 means "-113 dBm or less" and 31 means "-51 dBm or greater" 
 		 * For UMTS, it is the Level index of CPICH RSCP defined in TS 25.125
 		 */
+		//@Override
+		//public void onSignalStrengthChanged(int asu) { //Since: API Level 1
+		//	signalStrength = asu;
+			//getTelephoneMamager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		//}
+		
 		@Override
-		public void onSignalStrengthChanged(int asu) { //Since: API Level 1
-			signalStrength = asu;
-			getTelephoneMamager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		public void onSignalStrengthsChanged (SignalStrength signalStrength){ //Since: API Level 7
+			InformationCenter.signalStrength = signalStrength.getCdmaDbm();
+			InformationCenter.signalEcIo = signalStrength.getCdmaEcio();
+			System.out.println("SignalChange CDMADBM:" + signalStrength.getCdmaDbm() + " CDMAECIO:" + signalStrength.getCdmaEcio() + " EVDODBM:" + 
+					signalStrength.getEvdoDbm() + " EVDOECIO:" + signalStrength.getEvdoEcio() + " EVDOSNR:" + signalStrength.getEvdoSnr() + " GSMber:" + signalStrength.getGsmBitErrorRate() +
+					" GSMss:" +	signalStrength.getGsmSignalStrength() + " ");
+			
+			//getTelephoneMamager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
 		}
 	};
 	
