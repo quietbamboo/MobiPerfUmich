@@ -169,8 +169,16 @@ public class TestCenter{
 
 			//Version information
 			//AppId 1 for 4G Test, 0 for MobiPerf
+			
+			//String periodicType;
+			//if(period)
+			//	periodicType = "Periodic";
+			//else
+			//	periodicType = "Normal
+			
 			(new Report()).sendReport("PACKAGE:<AppId:1><VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
-					InformationCenter.getPackageVersionName() + ">");
+					InformationCenter.getPackageVersionName());
+			//+ "><Type:" + periodicType + ">");
 
 			//Build information
 			(new Report()).sendReport("BUILD:<BOARD:" + Build.BOARD + "><BRAND:" + Build.BRAND + ">" +
