@@ -50,9 +50,9 @@ public class MainService extends Service {
     
     @Override
     public void onCreate() {
-    	Log.v("MobiPerf", "Threegtest_Service, onCreate()");
+    	//Log.v("MobiPerf", "Threegtest_Service, onCreate()");
     	resultList = new ArrayList<String>();
-		Log.v("MobiPerf", "Threegtest_Service, onCreate() finished");
+		//Log.v("MobiPerf", "Threegtest_Service, onCreate() finished");
     }
     
     @Override
@@ -70,7 +70,7 @@ public class MainService extends Service {
 	        testThread = new MainThread(this);
 	        testThread.start();
 	        updateUI();
-	        Log.i("MobiPerf", "Service thread starts");
+	        Log.i("4G Test", "Service thread starts");
 	        isRoot = (Utilities.checkRootPrivilege());
 	        
 	        Thread t = new Thread()
@@ -100,12 +100,12 @@ public class MainService extends Service {
 
     @Override
     public void onDestroy() {
-    	Log.v("MobiPerf", "ThreegtestService, onDestroy()");
+    	//Log.v("MobiPerf", "ThreegtestService, onDestroy()");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-    	Log.v("MobiPerf", "return mBinder");
+    	//Log.v("MobiPerf", "return mBinder");
         return mBinder;
     }
 

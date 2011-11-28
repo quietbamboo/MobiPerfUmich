@@ -18,10 +18,11 @@ import java.net.SocketAddress;
 
 import com.mobiperf.lte.Utilities;
 
-public class PacketClient{
+public class PacketClient extends Thread{
 
-	//public static String server = "141.212.113.211";
 	public static String server = "141.212.108.122"; //koala's IP, falcon is too busy for local experiments
+	public static String server2 = "141.212.113.211";
+	
 	public static int port = 20001;
 	public static int packet_size = 1472;
 	//public static String server = "mobiperf.com";
@@ -31,7 +32,7 @@ public class PacketClient{
 		TCP_DOWN_SIZE,	TCP_UP_SIZE,
 		UDP
 	}
-	
+
 	public static void testUdpDown(){
 
 		try{
@@ -62,6 +63,58 @@ public class PacketClient{
 		}
 
 	}
+
+
+	@Override
+	public void run(){
+		try {
+
+			Socket tcpSocket = new Socket();
+			tcpSocket.setSoTimeout(500 * 1000);
+
+			SocketAddress remoteAddr;
+
+			remoteAddr = new InetSocketAddress(server2, port);
+
+			DataOutputStream os = null;
+			DataInputStream is = null;
+
+			// String line = "";
+			byte buffer[] = new byte[2048];
+
+			tcpSocket.connect( remoteAddr, 20 * 1000);
+
+			os = new DataOutputStream( tcpSocket.getOutputStream() );
+			is = new DataInputStream( tcpSocket.getInputStream() );
+			//sleep long enough to wait for lte to go to RRC_IDLE
+			//Thread.sleep(30);
+
+			//send to client
+			/*String request = "";
+				while(request.length() < 1000){
+					request += " " + System.currentTimeMillis();
+				}
+				os.write(request.getBytes());
+				os.flush();*/
+			//read from client, DOWNLINK SPEED OR SIZE
+			long start = 0;
+			long end;
+			int total = 0;
+			int bytes_read = is.read(buffer);
+			while(bytes_read > -1){
+				if(start == 0)
+					start = System.currentTimeMillis();
+				total += bytes_read;
+				bytes_read = is.read(buffer);
+			}
+			end = System.currentTimeMillis();
+			tcpSocket.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * 
@@ -128,7 +181,7 @@ public class PacketClient{
 				double tp;
 				do{
 					os.write(Utilities.genRandomString(tcp_payload).getBytes());
-					//os.flush();
+					os.flush();
 					num_packets++;
 					end = System.currentTimeMillis();
 					tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
@@ -140,7 +193,7 @@ public class PacketClient{
 				}while(end - start < duration);
 				tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
 				System.out.println("TCP Throughput : " + tp + " kbps");
-				
+
 				//uplink needs to close socket, but not for downlink, since server will close socket
 				tcpSocket.close();
 				return tp;
@@ -154,13 +207,13 @@ public class PacketClient{
 				double tp;
 				do{
 					os.write(Utilities.genRandomString(tcp_payload).getBytes());
-					//os.flush();
+					os.flush();
 					num_packets++;
 				}while(num_packets * tcp_payload < limit * 1000);
 				end = System.currentTimeMillis();
 				tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
 				System.out.println("TCP Throughput : " + tp + " kbps; total bytes " + (num_packets * tcp_payload));
-				
+
 				tcpSocket.close();
 				return tp;
 			}

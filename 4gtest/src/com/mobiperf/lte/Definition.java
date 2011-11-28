@@ -31,6 +31,8 @@ public class Definition {
 
 	//change this to be the server you will connect to, either IP or domain name is fine
 	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
+	public static boolean DEBUG = false;
+	public static boolean TEST = false;
 
 	//DON'T CHANGE BELOW
 	//port definitions
@@ -103,7 +105,4 @@ public class Definition {
 	public static final String COMMAND_MLAB_END_UPLINK = "COMMAND:MLAB:END:UPLINK";
 	public static final String COMMAND_MLAB_END_DOWNLINK = "COMMAND:MLAB:END:DOWNLINK";
 	
-	
-	//ENABLE DEBUG MODE
-	public static boolean DEBUG = true;
 }

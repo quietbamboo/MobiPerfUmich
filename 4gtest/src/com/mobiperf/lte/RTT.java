@@ -50,7 +50,10 @@ public class RTT {
 				e.printStackTrace();
 			}
 			rtts = Utilities.pushResult(rtts, unitTest(Mlab.ipList[0]));
-			((MainService)service).updateChart(RTT.rtts, ThroughputMulti.tps_down, ThroughputMulti.tps_up);
+			
+			//does not handle UI for test mode
+			if(!Definition.TEST)
+				((MainService)service).updateChart(RTT.rtts, ThroughputMulti.tps_down, ThroughputMulti.tps_up);
 		}
 		
 		(new Report()).sendReport("MLAB_RTT:<median:" + Utilities.getMedian(rtts) + 
