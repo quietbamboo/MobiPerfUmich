@@ -15,6 +15,7 @@ import com.mobiperf.InformationCenter;
 import com.mobiperf.Main;
 import com.mobiperf.R;
 import com.mobiperf.Utilities;
+import com.mobiperf.PerfNearMe.Buttons;
 
 public class Home extends Activity {
 
@@ -143,7 +144,7 @@ public class Home extends Activity {
 					// @Override
 					public void onClick(View v) {
 						startActivity(new Intent(getActivity(),
-								Performance.class));
+								Buttons.class));
 					}
 				});
 		findViewById(R.id.home_btn_advance).setOnClickListener(
@@ -159,7 +160,7 @@ public class Home extends Activity {
 									com.mobiperf.ui.Warning.class));
 						else
 							startActivity(new Intent(getActivity(),
-									com.mobiperf.ui.TrafficPerApplication.class));
+									com.mobiperf.ui.Thanks.class));
 					}
 				});
 

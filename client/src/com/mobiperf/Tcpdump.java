@@ -3,6 +3,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -17,6 +18,12 @@ public class Tcpdump {
 	
 	private static Process process;
 	
+	private static Process getRootProcess() throws IOException
+	{
+		if (process != null)
+			return process;
+		return Runtime.getRuntime().exec("su");
+	}
 	public static String currentFile(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");//set date format
 		//return "/sdcard/mobiperf/client_" + df.format(new Date()) + ".pcap";
@@ -26,7 +33,7 @@ public class Tcpdump {
 	
 	public static void clearOldTrace(){
 		try{
-			process = Runtime.getRuntime().exec("su");
+			process = getRootProcess();
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
 			String command = "rm /data/local/client_*.pcap";
@@ -41,15 +48,19 @@ public class Tcpdump {
 	 * start new tcpdump
 	 */
 	public static void start_client(){
+		Log.v("Mobiperf", "start client");
+		//no network connection
+		if(InformationCenter.getNetworkTypeName().equals(""))
+			return;
 		try{
 			//check preferences
-			process = Runtime.getRuntime().exec("su");
+			process = getRootProcess();
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
 			
 			//TODO change to new TCPDUMP later
 			//String command = PATH + "tcpdump -s 200 -w " + currentFile();
-			String command = "tcpdump -s 200 -w " + currentFile();
+			String command = "/data/data/com.mobiperf/tcpdump";
 			os.writeBytes(command + "\n");
 			os.flush();
 		}catch(Exception e){
@@ -62,8 +73,7 @@ public class Tcpdump {
 	 */
 	public static void terminate_client(){
 		try{
-			//check preferences
-			process = Runtime.getRuntime().exec("su");
+			process = getRootProcess();
 			DataOutputStream os = new DataOutputStream(process.getOutputStream());
 			//String command = "tcpdump -s 2000 -w " + file + "";
 			String command = "pkill tcpdump";

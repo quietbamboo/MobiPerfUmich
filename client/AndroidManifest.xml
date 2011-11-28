@@ -51,7 +51,7 @@
 		<activity android:name=".ui.Warning"></activity>
 		<activity android:name=".ui.HistoricalList"></activity>
 		<activity android:name=".ui.TrafficPerApplication"></activity>
-		
+		<activity android:name=".ui.Thanks"></activity>
 		<activity android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar"
 			android:name=".PerfNearMe.Buttons">
 
@@ -83,7 +83,12 @@
 		<uses-library android:name="com.google.android.maps" />
 		<activity android:name=".pushNotify.PushActivity"></activity>
 		<service android:name=".pushNotify.PushService"></service>
-
+		
+	    <receiver android:name=".service.StartupReceiver">
+      		<intent-filter>
+        		<action android:name="android.intent.action.BOOT_COMPLETED" />
+    	  	</intent-filter>
+    	</receiver>
 	</application>
 	<uses-sdk android:minSdkVersion="8" />
 	<uses-library android:name="com.google.android.maps" />

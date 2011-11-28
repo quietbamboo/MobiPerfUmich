@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="500dip"
+
+	android:padding="6dip">
+
+	<LinearLayout android:layout_width="0dip"
+		android:layout_weight="1" android:layout_height="1000dip"
+		android:weightSum="1" android:orientation="vertical">
+
+		<TextView android:id="@+id/thanks" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:textSize="25px"
+			android:gravity="center_vertical" android:text="Thanks! \n\nWe are now collecting network data from applications on your phone.(It is anonymous with little overhead)\n 
+									\nData collecting can be stopped at any time." />
+		<Button android:id="@+id/tpa_btn_stop"
+			android:layout_marginTop="10dip" android:text="Stop Data Collection"
+			android:layout_width="match_parent" android:layout_height="wrap_content"></Button>
+	</LinearLayout>
+</LinearLayout>

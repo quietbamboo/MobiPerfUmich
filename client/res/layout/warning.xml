@@ -32,7 +32,7 @@
             android:scrollbars="vertical" 
              android:singleLine="false"
              android:textColor="@android:color/secondary_text_dark_nodisable"
-            android:text="To enable statistic function, we require collecting anonymouns information from user's phone. Once we get these information, we are able to give you detailed feedback about how applications use your network traffic. Do you want to continue?" 
+            android:text="To enable statistic function, we require collecting anonymouns information from user's phone. Once we get these information(probably in next release), we are able to give you detailed feedback about how applications use your network traffic. Do you want to continue?" 
             android:layout_height="98dp"/>
                 <RelativeLayout
     android:layout_width="wrap_content"
