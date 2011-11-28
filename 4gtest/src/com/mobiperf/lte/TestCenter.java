@@ -23,15 +23,16 @@ public class TestCenter{
 	public String infoS;
 
 	public Service service;
-
+	public boolean fore; //true for user-triggered running at the foreground, with ui
 
 	private PowerManager.WakeLock wakeLock;
 	private WifiManager.WifiLock wlw;
 
 
-	public TestCenter(Service s){
+	public TestCenter(Service s, boolean f){
 		service = s;
 		progress = 0;
+		fore = f;
 	}
 
 
@@ -40,15 +41,19 @@ public class TestCenter{
 		long start = System.currentTimeMillis();
 		long end = start;
 
-
+		if (!fore)
+		Log.w("4G Test", "periodic test running!");
+		
 		InformationCenter.reset();
 
 		//check airplane mode
-		((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
+		if(fore)
+			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_CHECKING, null));
 		boolean isEnabled = Settings.System.getInt( service.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0 ) == 1;
 		if(isEnabled){
 			progress = 0;
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_ENABLED, null), progress);
+			if (fore)
+				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.AIRPLANE_MODE_ENABLED, null), progress);
 			return;
 		}
 		//ok, now airplane mode is not enabled and we are good to go
@@ -144,8 +149,8 @@ public class TestCenter{
 			}//*/
 
 			//checking network connectivity by connecting to google.com
-
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
+			if (fore) 
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_CHECKING, null));
 			if (Utilities.checkConnection()){
 				InformationCenter.setNetworkStatus(true);
 			}else{
@@ -155,8 +160,8 @@ public class TestCenter{
 			//if no network connection
 			if(!InformationCenter.getNetworkStatus()){ 
 				progress = 0;
-
-				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_DOWN, null), progress);
+				if (fore) 
+					((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_CONNECTION_DOWN, null), progress);
 				wakeLock.release();
 				wlw.release();
 				return;
@@ -170,15 +175,14 @@ public class TestCenter{
 			//Version information
 			//AppId 1 for 4G Test, 0 for MobiPerf
 			
-			//String periodicType;
-			//if(period)
-			//	periodicType = "Periodic";
-			//else
-			//	periodicType = "Normal
+			String periodicType;
+			if(fore)
+				periodicType = "Periodic";
+			else
+				periodicType = "Normal";
 			
 			(new Report()).sendReport("PACKAGE:<AppId:1><VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
-					InformationCenter.getPackageVersionName());
-			//+ "><Type:" + periodicType + ">");
+					InformationCenter.getPackageVersionName()+ "><Type:" + periodicType + ">");
 
 			//Build information
 			(new Report()).sendReport("BUILD:<BOARD:" + Build.BOARD + "><BRAND:" + Build.BRAND + ">" +
@@ -200,7 +204,8 @@ public class TestCenter{
 			"><LAC:" + InformationCenter.getLAC() +
 			"><Signal:" + InformationCenter.getSignalStrength() + ">;";
 
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
+			if (fore)
+				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
 			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.CELL_ID, new String[]{"" + cellid}), progress += 1);
 			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.LAC, new String[]{"" + lac}), progress += 1);
 			//((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.SIGNAL_STRENGTH, new String[]{"" + signal}), progress += 1);
@@ -212,7 +217,8 @@ public class TestCenter{
 
 
 			//checking GPS info
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
+			if (fore)
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.GPS_CHECKING, null));
 
 			while(GPS.location == null){
 				end = System.currentTimeMillis();
@@ -229,50 +235,62 @@ public class TestCenter{
 					e.printStackTrace();
 				}
 			}
-
+			
 			progress += 5;
-			((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
-
+			if (fore) 
+				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
+			
 			infoS = Utilities.Info(service);
 			// set report prefix
 			(new Report()).sendReport(infoS);
 			if(shouldStop())
 				return;
-
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_LOADING_SERVER_LIST, null));
+			
 			progress += 15;
-			((MainService)service).updateProgress(progress);
-
+			if (fore) {
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_LOADING_SERVER_LIST, null));
+				
+				((MainService)service).updateProgress(progress);
+			}
+			
 			Mlab.loadServerList();
-
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_TESTING_RTT, null));
+			
 			progress += 15;
-			((MainService)service).updateProgress(progress);
-
+			if (fore) {
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_TESTING_RTT, null));
+				
+				((MainService)service).updateProgress(progress);
+			}
+			
 			RTT.reset();
 			RTT.test(service);
 
 
 			//DOWNLINK
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_DOWNLINK, null));
 			progress += 15;
-			((MainService)service).updateProgress(progress);
+			if (fore) {
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_DOWNLINK, null));
 
-			ThroughputMulti.reset(true);
-			ThroughputMulti.startTest(true, 3, service);
+				((MainService)service).updateProgress(progress);
+			
+			
+				ThroughputMulti.reset(true);
+				ThroughputMulti.startTest(true, 3, service);
 
-			//UPLINK
-			((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
-			progress += 15;
-			((MainService)service).updateProgress(progress);
+				//UPLINK
+				progress += 15;
+				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
 
-			ThroughputMulti.reset(false);
-			ThroughputMulti.startTest(false, 3, service);
-
+				((MainService)service).updateProgress(progress);
+				
+				ThroughputMulti.reset(false);
+				ThroughputMulti.startTest(false, 3, service);
+			}
 
 			progress = 100;
-			((MainService)service).addResultAndUpdateUI("Test finishes " + InformationCenter.getRunId(), progress);//TCP UP
-
+			if (fore) 
+				((MainService)service).addResultAndUpdateUI("Test finishes " + InformationCenter.getRunId(), progress);//TCP UP
+			
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");
 			e.printStackTrace();
@@ -281,6 +299,7 @@ public class TestCenter{
 		//let server write to database
 		Utilities.letServerWriteOutputToMysql();
 
+		if (fore)
 		((MainService)service).displayResult(Utilities.getMedian(ThroughputMulti.tps_down),
 				Utilities.getMedian(ThroughputMulti.tps_up), Utilities.getMedian(RTT.rtts));
 

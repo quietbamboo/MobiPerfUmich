@@ -15,7 +15,7 @@
 	<uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
 	<uses-permission android:name="android.permission.CALL_PRIVILEGED"></uses-permission>
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:permission="android.permission.CALL_PHONE" android:debuggable="false">
+		android:permission="android.permission.CALL_PHONE" android:debuggable="true">
 		<activity android:name=".ui.Home" android:launchMode="singleTask"
 			android:screenOrientation="portrait" android:label="@string/app_name">
 			<intent-filter>
@@ -30,11 +30,13 @@
 		<service android:name="MainService" />
 
 		<activity android:name="com.mobiperf.lte.ui.About"></activity>
-		<activity android:name=".NetworkToggle"></activity>
+		<activity android:name="NetworkToggle"></activity>
 		<activity android:name="org.achartengine.GraphicalActivity" />
 
 		<uses-library android:name="com.google.android.maps" />
-
+		<activity android:name="Preferences"></activity>
+		<receiver android:name=".Periodic" />
+		<service android:name="MainServicePeriodic"></service>
 	</application>
 	<uses-sdk android:minSdkVersion="7" />
 	<uses-library android:name="com.google.android.maps" />

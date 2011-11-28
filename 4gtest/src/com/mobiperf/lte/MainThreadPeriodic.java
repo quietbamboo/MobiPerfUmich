@@ -14,13 +14,16 @@
 
 package com.mobiperf.lte;
 
+import com.mobiperf.lte.MainServicePeriodic;
+import com.mobiperf.lte.TestCenter;
 
-public class MainThread extends Thread {
+
+public class MainThreadPeriodic extends Thread {
 	
 	private TestCenter tc;
 
-	public MainThread(MainService s){
-		tc = new TestCenter(s, true);
+	public MainThreadPeriodic(MainServicePeriodic s){
+		tc = new TestCenter(s, false);
 	}
 	
 	public int getProgress(){
