@@ -92,7 +92,7 @@ public class Home extends Activity {
 								com.mobiperf.lte.ui.About.class));
 					}
 				});
-		
+
 		findViewById(R.id.home_btn_settings).setOnClickListener(
 				new View.OnClickListener() {
 					// @Override

@@ -14,12 +14,9 @@
 
 package com.mobiperf.lte;
 
-import com.mobiperf.lte.ui.TimeSetting;
-
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -33,6 +30,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.mobiperf.lte.ui.TimeSetting;
 
  
 public class Preferences extends PreferenceActivity {
