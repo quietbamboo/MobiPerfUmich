@@ -6,4 +6,5 @@
 	<string name="btn_network_test">Test Network\nSpeed</string>
 	<string name="btn_about">About Us</string>
 	<string name="btn_network_toggle">Switch 3G/4G</string>
+	<string name="btn_settings">Settings</string>
 </resources>
