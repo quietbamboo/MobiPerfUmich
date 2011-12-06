@@ -49,7 +49,10 @@ client/apk
 
 */.DS_Store
 */*/.DS_Store
+.DS_Store
 
 */*.swp
 
 4gtest/images
+
+
