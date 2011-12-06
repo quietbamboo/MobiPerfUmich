@@ -1,0 +1,12 @@
+12/6/2011 V1.0.4
++ Fix NullPointerException crashing bug
++ Fix NumberFormatException crashing bug
++ Periodic runs defaults increased
++ Fix downlink/uplink throughput unit error
+
+
+11/2/2011  V1.0.3
+
++ Add network switch functions to change network type between 4G and 3G
++ Measure network latency standard deviation
++ Add result summary

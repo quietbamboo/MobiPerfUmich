@@ -40,11 +40,9 @@ public class UplinkWorker extends BaseTcpWorker {
 			this.id = this.getId();
 			System.out.println("Uplink worker<" + id + "> Uplink Thread starts");
 
-			StringBuilder prefix_sb = new StringBuilder("");
 			int bytes_read = in.read(buffer);
-			prefix_sb.append(buffer, 0, bytes_read);
-			String prefix = prefix_sb.toString();
-			System.out.println("prefix:" + prefix);
+			String prefix = new String(buffer).substring(0, bytes_read);
+			System.out.println("prefix:|" + prefix + "|");
 			// String prefix = "<iPhone><device_id><run_id>";
 			if(!readPrefix(prefix))
 				return;

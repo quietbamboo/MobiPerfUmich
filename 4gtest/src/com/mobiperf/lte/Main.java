@@ -13,6 +13,7 @@
  ****************************/
 
 package com.mobiperf.lte;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -171,7 +172,8 @@ public class Main extends Activity {
 
 		        //set up text
 		        TextView text = (TextView) dialog.findViewById(R.id.TextView01);
-		        text.setText("Average downlink speed\n"+ down + " kbps\n\nAverage uplink speed\n" + up + " kbps\n\nLatency\n" + rtt + " ms");  
+		        DecimalFormat df = new DecimalFormat("#.##");
+		        text.setText("Average downlink speed\n"+ df.format(down) + " kbps\n\nAverage uplink speed\n" + df.format(up) + " kbps\n\nLatency\n" + df.format(rtt) + " ms");  
 		        dialog.show();
 		        
 		        //Create the button 

@@ -6,14 +6,14 @@
                 android:id="@+id/periodic"
                 android:title="Periodic Running"
                 android:defaultValue="false"
-                android:summary="enable periodic running"
+                android:summary="enable periodic running, no throughput tests included"
                 android:key="PeriodicPref" />
             <com.mobiperf.lte.ui.TimeSetting
                 android:key="duration"
         		android:title="Test period "
         		android:summary="Set specific time for periodic running"
         		android:dialogMessage="Period"
-        		android:defaultValue="5"
+        		android:defaultValue="80"
         		android:text=" Hours"
         		android:max="97"
          		android:dependency="PeriodicPref"/>
@@ -21,7 +21,7 @@
         	    android:id = "@+id/notification"
         	    android:dependency="PeriodicPref"
                 android:title="Notification"
-                android:summary="enable notification"
+                android:summary="enable notification (under construction)"
                 android:key="NotificationPref" />
               
         </PreferenceCategory>

@@ -75,7 +75,7 @@ public class TestCenter{
 		try{
 
 			//TODO comment this when releasing new 4G Test
-			if(Definition.TEST){
+			/*if(Definition.TEST){
 				//warm up network
 				//Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
 				//Thread.sleep(20000);
@@ -253,7 +253,12 @@ public class TestCenter{
 				((MainService)service).updateProgress(progress);
 			}
 			
+			//Junxian: Don't modify the following 4 lines, they have to be called!
 			Mlab.loadServerList();
+			RTT.reset();
+			ThroughputMulti.reset(true);
+			ThroughputMulti.reset(false);
+			//////////////////////////DON'T MODIFY ABOVE 4 LINES
 			
 			progress += 15;
 			if (fore) {

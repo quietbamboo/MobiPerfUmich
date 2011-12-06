@@ -30,39 +30,57 @@ import com.mobiperf.lte.Utilities;
  * Average temperature demo chart.
  */
 public class CubicChart extends AbstractChart {
-	
+
 	public static double[] index = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 	public double[] rtt;
 	public double[] tp_down;
 	public double[] tp_up;
-	
-	
+
+
 	public CubicChart(double[] rtt, double[] tp_down, double[] tp_up){
 		this.rtt = new double[index.length];
 		this.tp_down = new double[index.length];
 		this.tp_up = new double[index.length];
-		
-		DecimalFormat df = new DecimalFormat("###.##");
-		
+
+		DecimalFormat df = new DecimalFormat("#.##");
+
 		for(int i = 0; i < index.length; i++){
 			this.rtt[i] = 0;
 			this.tp_down[i] = 0;
 			this.tp_up[i] = 0;
 		}
+
 		
-		for(int i = 1; i <= rtt.length && i <= index.length; i++){
-			this.rtt[index.length - i] = Double.parseDouble(df.format(rtt[rtt.length - i]));
-		}
+			for(int i = 1; i <= rtt.length && i <= index.length; i++){
+				
+				try{
+					this.rtt[index.length - i] = Double.parseDouble(df.format(rtt[rtt.length - i]));
+				}catch(NumberFormatException e){
+					this.rtt[index.length - i] = 0;
+					e.printStackTrace();
+				}
+			}
+
+			for(int i = 1; i <= tp_down.length && i <= index.length; i++){
+				try{
+					this.tp_down[index.length - i] = Double.parseDouble(df.format(tp_down[tp_down.length - i] / 1000.0)); //turn into Mbps
+				}catch(NumberFormatException e){
+					this.tp_down[index.length - i] = 0;
+					e.printStackTrace();
+				}
+			}
+
+			for(int i = 1; i <= tp_up.length && i <= index.length; i++){
+				try{
+					this.tp_up[index.length - i] = Double.parseDouble(df.format(tp_up[tp_up.length - i] / 1000.0)); //turn into Mbps
+				}catch(NumberFormatException e){
+					this.tp_up[index.length - i] = 0;
+					e.printStackTrace();
+				}	
+			}
 		
-		for(int i = 1; i <= tp_down.length && i <= index.length; i++){
-			this.tp_down[index.length - i] = Double.parseDouble(df.format(tp_down[tp_down.length - i] / 1000.0)); //turn into Mbps
-		}
-		
-		for(int i = 1; i <= tp_up.length && i <= index.length; i++){
-			this.tp_up[index.length - i] = Double.parseDouble(df.format(tp_up[tp_up.length - i] / 1000.0)); //turn into Mbps
-		}
 	}
-	
+
 	/**
 	 * Returns the chart name.
 	 * 
@@ -86,14 +104,14 @@ public class CubicChart extends AbstractChart {
 	}
 
 	public GraphicalView getGraphView(Context context) {
-		
+
 		double rtt_max = Utilities.getMax(rtt) + 5;
 		double tp_down_max = Utilities.getMax(tp_down) + 0.5;
 		double tp_up_max = Utilities.getMax(tp_up) + 0.5;
 		double tp_max = Math.max(tp_down_max, tp_up_max);
 		if(rtt_max > 5000)
 			rtt_max = 5000;
-		
+
 		String[] titles = new String[] { "Downlink speed (Mbps)", "Uplink speed (Mbps)"};
 		List<double[]> x = new ArrayList<double[]>();
 		for (int i = 0; i < titles.length; i++) {
