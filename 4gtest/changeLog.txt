@@ -1,7 +1,7 @@
 12/6/2011 V1.0.4
 + Fix NullPointerException crashing bug
 + Fix NumberFormatException crashing bug
-+ Periodic runs defaults increased
++ Periodic runs (defaults increased)
 + Fix downlink/uplink throughput unit error
 
 
