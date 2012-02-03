@@ -7,8 +7,6 @@
  ****************************/
 package com.mobiperf.lte;
 
-import com.mobiperf.lte.test.Signal;
-
 import android.app.Service;
 import android.content.Context;
 import android.net.wifi.WifiManager;
@@ -16,6 +14,9 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.util.Log;
+
+import com.mobiperf.lte.test.PacketClient;
+import com.mobiperf.lte.test.PacketClient.ServerType;
 
 public class TestCenter{
 	public int progress;
@@ -42,8 +43,8 @@ public class TestCenter{
 		long end = start;
 
 		if (!fore)
-		Log.w("4G Test", "periodic test running!");
-		
+			Log.w("4G Test", "periodic test running!");
+
 		InformationCenter.reset();
 
 		//check airplane mode
@@ -75,25 +76,26 @@ public class TestCenter{
 		try{
 
 			//TODO comment this when releasing new 4G Test
-			/*if(Definition.TEST){
+			if(Definition.TEST){
 				//warm up network
-				//Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
-				//Thread.sleep(20000);
+				Utilities.executeCmd("ping -c 1 -w 1 google.com", false);
+				Thread.sleep(20000);
 
-				//long a, b;
-				//double speed = 1000;
-				//a = System.currentTimeMillis();
-				//double tp;
+				long a, b;
+				double speed = 10000;
+				a = System.currentTimeMillis();
+				double tp;
 
-				//for(int i = 1 ; i <= 5 ; i++){
-				//PacketClient pc = new PacketClient();
-				//pc.start();
-				//tp = PacketClient.testTcp(ServerType.TCP_UP_SPEED, speed);
-				//pc.join();
-				//Thread.sleep(15000);
-				//}
+				for(int i = 1 ; i <= 5 ; i++){
+					PacketClient pc = new PacketClient();
+					pc.start();
+					tp = PacketClient.testTcp(ServerType.TCP_DOWN_SPEED, speed);
+					pc.join();
+					Thread.sleep(15000);
+				}
 
 
+				/*//Time of day experiments
 				Mlab.loadServerList();
 
 				long a = System.currentTimeMillis();
@@ -111,7 +113,7 @@ public class TestCenter{
 					"><LAC:" + InformationCenter.getLAC() +
 					"><Signal:" + InformationCenter.getSignalStrength() + ">;";
 					(new Report()).sendReport(netInfoS);
-					
+
 					Signal.reportToServer();
 
 					//RTT jitter
@@ -135,7 +137,8 @@ public class TestCenter{
 					(new Report()).sendReport("========================================================================");
 					b = System.currentTimeMillis();
 					Thread.sleep(30 * 60 * 1000); //half an hour
-				}
+
+				}*/
 
 
 
@@ -174,13 +177,13 @@ public class TestCenter{
 
 			//Version information
 			//AppId 1 for 4G Test, 0 for MobiPerf
-			
+
 			String periodicType;
 			if(fore)
 				periodicType = "Periodic";
 			else
 				periodicType = "Normal";
-			
+
 			(new Report()).sendReport("PACKAGE:<AppId:1><VersionCode:" + InformationCenter.getPackageVersionCode() + "><VersionName:" + 
 					InformationCenter.getPackageVersionName()+ "><Type:" + periodicType + ">");
 
@@ -197,12 +200,12 @@ public class TestCenter{
 			//carrier info, network type, signal strength, cellID
 			String[] networkType = InformationCenter.getTypeNameAndId();
 			String netInfoS = "NETWORK:" + 
-			"<Carrier:" + InformationCenter.getNetworkOperator() +
-			"><Type:" + networkType[0] + 
-			"><TypeID:" + networkType[1] + 
-			"><CellId:" + InformationCenter.getCellId() +
-			"><LAC:" + InformationCenter.getLAC() +
-			"><Signal:" + InformationCenter.getSignalStrength() + ">;";
+					"<Carrier:" + InformationCenter.getNetworkOperator() +
+					"><Type:" + networkType[0] + 
+					"><TypeID:" + networkType[1] + 
+					"><CellId:" + InformationCenter.getCellId() +
+					"><LAC:" + InformationCenter.getLAC() +
+					"><Signal:" + InformationCenter.getSignalStrength() + ">;";
 
 			if (fore)
 				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.NETWORK_TYPE, networkType), progress += 1);
@@ -235,38 +238,38 @@ public class TestCenter{
 					e.printStackTrace();
 				}
 			}
-			
+
 			progress += 5;
 			if (fore) 
 				((MainService)service).addResultAndUpdateUI(Feedback.getMessage(Feedback.TYPE.GPS_VALUE, null), progress);
-			
+
 			infoS = Utilities.Info(service);
 			// set report prefix
 			(new Report()).sendReport(infoS);
 			if(shouldStop())
 				return;
-			
+
 			progress += 15;
 			if (fore) {
 				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_LOADING_SERVER_LIST, null));
-				
+
 				((MainService)service).updateProgress(progress);
 			}
-			
+
 			//Junxian: Don't modify the following 4 lines, they have to be called!
 			Mlab.loadServerList();
 			RTT.reset();
 			ThroughputMulti.reset(true);
 			ThroughputMulti.reset(false);
 			//////////////////////////DON'T MODIFY ABOVE 4 LINES
-			
+
 			progress += 15;
 			if (fore) {
 				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_TESTING_RTT, null));
-				
+
 				((MainService)service).updateProgress(progress);
 			}
-			
+
 			RTT.reset();
 			RTT.test(service);
 
@@ -277,8 +280,8 @@ public class TestCenter{
 				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_DOWNLINK, null));
 
 				((MainService)service).updateProgress(progress);
-			
-			
+
+
 				ThroughputMulti.reset(true);
 				ThroughputMulti.startTest(true, 3, service);
 
@@ -287,7 +290,7 @@ public class TestCenter{
 				((MainService)service).updateTextView(Feedback.getMessage(Feedback.TYPE.MLAB_THROUGHPUT_UPLINK, null));
 
 				((MainService)service).updateProgress(progress);
-				
+
 				ThroughputMulti.reset(false);
 				ThroughputMulti.startTest(false, 3, service);
 			}
@@ -295,7 +298,7 @@ public class TestCenter{
 			progress = 100;
 			if (fore) 
 				((MainService)service).addResultAndUpdateUI("Test finishes " + InformationCenter.getRunId(), progress);//TCP UP
-			
+
 		}catch(Exception e){
 			System.out.println("The outer big try in Service_Thread.java");
 			e.printStackTrace();
@@ -305,8 +308,8 @@ public class TestCenter{
 		Utilities.letServerWriteOutputToMysql();
 
 		if (fore)
-		((MainService)service).displayResult(Utilities.getMedian(ThroughputMulti.tps_down),
-				Utilities.getMedian(ThroughputMulti.tps_up), Utilities.getMedian(RTT.rtts));
+			((MainService)service).displayResult(Utilities.getMedian(ThroughputMulti.tps_down),
+					Utilities.getMedian(ThroughputMulti.tps_up), Utilities.getMedian(RTT.rtts));
 
 		wakeLock.release();
 		wlw.release();

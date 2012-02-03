@@ -32,7 +32,7 @@ public class Definition {
 	//change this to be the server you will connect to, either IP or domain name is fine
 	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
 	public static boolean DEBUG = false;
-	public static boolean TEST = false;
+	public static boolean TEST = true;
 
 	//DON'T CHANGE BELOW
 	//port definitions
@@ -52,7 +52,6 @@ public class Definition {
 	public static final int PORT_BT = 6881;
 	public static final int PORT_BT_RAND = 5005;
 	public static final int PORT_HTTP = 80;
-
 
 	public static final int TP_DURATION_IN_MILLI = 16000; // 16 seconds for throughput tests
 	public static final int TCP_TIMEOUT_IN_MILLI = 10000; // 5 seconds for timeout
