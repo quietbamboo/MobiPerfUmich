@@ -56,7 +56,7 @@ public class Main extends Activity {
 	Button button;
 	LinearLayout layout;
 	//Button button1,button2;
-	
+
 	// Need handler for callbacks to the UI thread
 	static Handler mHandler = new Handler();
 
@@ -65,7 +65,7 @@ public class Main extends Activity {
 		Log.w("4G Test", "threegtest start begin");
 
 		super.onStart();
-		
+
 		InformationCenter.init(this);
 
 		doBindService();
@@ -102,13 +102,13 @@ public class Main extends Activity {
 		setContentView( R.layout.main1 );
 
 		button = ( Button ) findViewById( R.id.Button01 );
-		
+
 		layout = (LinearLayout) findViewById(R.id.chart);
 		CubicChart chart = new CubicChart(new double[]{}, new double[]{}, new double[]{});
 		layout.addView(chart.getGraphView(this), new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT));
-		
-		
+
+
 		//button2 = ( Button ) findViewById( R.id.button2 );
 		t = (TextView)findViewById(R.id.textview);
 		mProgress = ( ProgressBar ) findViewById( R.id.progress_bar );
@@ -142,10 +142,10 @@ public class Main extends Activity {
 							updateTextView("Starting tests...");
 							updateButton("Please wait");
 							button.setClickable(false);
-							
+
 							//networkToggle();
 							//displayResult();
-							
+
 							updateProgress(0); // clear progress
 							updateListView(new ArrayList<String>());// empty listview
 							Intent svc = new Intent(getApplicationContext(), MainService.class);
@@ -154,43 +154,45 @@ public class Main extends Activity {
 						}
 					}
 				}
-		);
+				);
 
 		Log.v("4G Test", "create finish in "+ (System.currentTimeMillis() - start));
 	}
 
 	public void displayResult(final double down, final double up, final double rtt)
 	{
-        mHandler.post(new Runnable() {
+		mHandler.post(new Runnable() {
 			public void run() {
 				//Create the dialog window to display test results
 				final Dialog dialog = new Dialog(Main.this);
 				dialog.setContentView(R.layout.dialog);
-		        dialog.setTitle("Test completes!");
-		        dialog.setCancelable(true);
-		        dialog.setCanceledOnTouchOutside(true);
+				dialog.setTitle("Test completes!");
+				dialog.setCancelable(true);
+				dialog.setCanceledOnTouchOutside(true);
 
-		        //set up text
-		        TextView text = (TextView) dialog.findViewById(R.id.TextView01);
-		        DecimalFormat df = new DecimalFormat("#.##");
-		        text.setText("Average downlink speed\n"+ df.format(down) + " kbps\n\nAverage uplink speed\n" + df.format(up) + " kbps\n\nLatency\n" + df.format(rtt) + " ms");  
-		        dialog.show();
-		        
-		        //Create the button 
-		        Button button = (Button) dialog.findViewById(R.id.Button01);
-		        button.setOnClickListener(new OnClickListener() {
+				//set up text
+				TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+				DecimalFormat df = new DecimalFormat("#.##");
+				text.setText("Average downlink speed\n"+ df.format(down) + " kbps\n\nAverage uplink speed\n" + 
+						df.format(up) + " kbps\n\nLatency\n" + df.format(rtt) + " ms");  
 
-		        //When the button is clicked, call up android test menu
-				//@Override
-				public void onClick(View v) {
-					dialog.dismiss();
-				}
-		        });
-				
+
+				//Create the button 
+				Button button = (Button) dialog.findViewById(R.id.Button01);
+				button.setOnClickListener(new OnClickListener() {
+					//When the button is clicked, call up android test menu
+					//@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+
+				dialog.show();
+
 			}
 		});
 	}
-	
+
 	public void updateChart(final double[] rtt, final double[] tp_down, final double[] tp_up)
 	{
 		mHandler.post(new Runnable() {
@@ -199,12 +201,12 @@ public class Main extends Activity {
 				CubicChart chart = new CubicChart(rtt, tp_down, tp_up);
 				layout.addView(chart.getGraphView(InformationCenter.activity), new LayoutParams(LayoutParams.FILL_PARENT,
 						LayoutParams.FILL_PARENT));
-				
+
 			}
 		});
 	}
-	
-	
+
+
 	/****** methods for updating UI ******/
 	public void updateTextView(final String text)
 	{
@@ -223,7 +225,7 @@ public class Main extends Activity {
 			}
 		});
 	}
-	
+
 	public void updateButton(final String text)
 	{
 		mHandler.post(new Runnable() {
@@ -258,7 +260,7 @@ public class Main extends Activity {
 			button.setClickable(true);
 			updateButton( "Stop" );
 			updateTextView("Tests are running.");
-			
+
 		}
 	}
 	/*************************************************/
@@ -301,7 +303,7 @@ public class Main extends Activity {
 		case MENU_ABOUT:
 			try
 			{
-				
+
 				Intent in1 = new Intent(this, com.mobiperf.lte.ui.About.class);
 				startActivityForResult(in1, 0);
 			}

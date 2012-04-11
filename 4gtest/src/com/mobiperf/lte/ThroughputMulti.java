@@ -43,7 +43,10 @@ public class ThroughputMulti extends Thread{
 		ThroughputMulti.isDown = isDown;
 		ThroughputMulti.service = service;
 		Mlab.prepareServer();
-		assert(Mlab.ipList.length > parallel);
+		if(Mlab.ipList.length < parallel){
+			//not so many servers available, so just use as many as possible
+			parallel = Mlab.ipList.length;
+		}
 		
 		reset(isDown);
 		

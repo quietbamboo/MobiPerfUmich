@@ -84,12 +84,12 @@ public class InformationCenter {
 		signalEcIo = -1;
 		networkStatus = false;
 
-		cellLocation = telephonyManager.getCellLocation();
+		cellLocation = getTelephoneMamager().getCellLocation();
 
 		//unregister listener first, otherwise, callback will call null function
-		if(telephonyManager != null && phoneStateListener != null)
-			telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
-		telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
+		if(phoneStateListener != null)
+			getTelephoneMamager().listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+		getTelephoneMamager().listen(phoneStateListener, PhoneStateListener.LISTEN_SIGNAL_STRENGTHS);
 	}
 	
 	/**

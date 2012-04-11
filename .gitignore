@@ -32,6 +32,8 @@ server/run/server/
 
 client/bin
 
+client/gen
+
 client/src/com/mobiperf/test/
 
 client/gen/com/mobiperf/R.java
