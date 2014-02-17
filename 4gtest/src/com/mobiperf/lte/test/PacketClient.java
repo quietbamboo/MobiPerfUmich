@@ -20,9 +20,10 @@ import com.mobiperf.lte.Utilities;
 
 public class PacketClient extends Thread{
 
-	public static String server = "141.212.108.122"; //koala's IP, falcon is too busy for local experiments
-	public static String server2 = "141.212.113.211";
-	
+	//public static String server = "141.212.108.122"; //koala's IP, falcon is too busy for local experiments
+	//public static String server2 = "141.212.113.211";
+	public static String server = "141.212.113.211";
+
 	public static int port = 20001;
 	public static int packet_size = 1472;
 	//public static String server = "mobiperf.com";
@@ -30,7 +31,32 @@ public class PacketClient extends Thread{
 	public enum ServerType{
 		TCP_DOWN_SPEED,	TCP_UP_SPEED,
 		TCP_DOWN_SIZE,	TCP_UP_SIZE,
-		UDP
+		UDP_DOWN, UDP_RTT
+	}
+
+	public static double testUdpRTT(){
+		double rtt = 0;
+		try{
+			DatagramSocket socket = new DatagramSocket();
+			InetAddress address = InetAddress.getByName(server);//should this be IP? no..
+			socket.setSoTimeout(5000);
+			//prepare to receive request
+			byte[] buf2 = new byte[1];
+			DatagramPacket p2 = new DatagramPacket(buf2, buf2.length);
+			byte[] buf = Utilities.genRandomString(1).getBytes();
+			DatagramPacket packet = new DatagramPacket(buf, buf.length, address, port);
+			//send
+			rtt -= System.currentTimeMillis();
+			socket.send(packet);
+			//receive
+			socket.receive(p2);
+			rtt += System.currentTimeMillis();
+			socket.close();
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return rtt;
+
 	}
 
 	public static void testUdpDown(){
@@ -38,10 +64,7 @@ public class PacketClient extends Thread{
 		try{
 
 			DatagramSocket socket = new DatagramSocket();
-
 			InetAddress address = InetAddress.getByName(server);//should this be IP? no..
-
-
 			socket.setSoTimeout(10000);
 			//prepare to receive request
 			byte[] buf2 = new byte[packet_size];
@@ -74,7 +97,7 @@ public class PacketClient extends Thread{
 
 			SocketAddress remoteAddr;
 
-			remoteAddr = new InetSocketAddress(server2, port);
+			remoteAddr = new InetSocketAddress(server, port);
 
 			DataOutputStream os = null;
 			DataInputStream is = null;
@@ -179,7 +202,7 @@ public class PacketClient extends Thread{
 				int tcp_payload = 1428 - 20 - 32 ; //TCP MTU 1428, MSS 1376 for 32 TCP HEADER
 				int num_packets = 0;
 				double tp;
-				do{
+				do {
 					os.write(Utilities.genRandomString(tcp_payload).getBytes());
 					os.flush();
 					num_packets++;
@@ -190,7 +213,7 @@ public class PacketClient extends Thread{
 						end = System.currentTimeMillis();
 						tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
 					}
-				}while(end - start < duration);
+				} while (end - start < duration);
 				tp = ((double)(num_packets * tcp_payload * 8.0) / (double)(end - start));
 				System.out.println("TCP Throughput : " + tp + " kbps");
 

@@ -82,15 +82,20 @@ public class TestCenter{
 				Thread.sleep(20000);
 
 				long a, b;
-				double speed = 10000;
+				double speed = 15000;
 				a = System.currentTimeMillis();
 				double tp;
 
 				for(int i = 1 ; i <= 5 ; i++){
-					PacketClient pc = new PacketClient();
-					pc.start();
-					tp = PacketClient.testTcp(ServerType.TCP_DOWN_SPEED, speed);
-					pc.join();
+					//PacketClient pc = new PacketClient();
+					//pc.start();
+					//tp = PacketClient.testTcp(ServerType.TCP_DOWN_SPEED, speed);
+					tp = PacketClient.testTcp(ServerType.TCP_UP_SPEED, speed);
+					Log.i("4GTest", "throughput " + tp);
+					//double rtt1 = PacketClient.testUdpRTT();
+					//double rtt2 = PacketClient.testUdpRTT();
+					//Log.i("4GTest", "Promotion delay " + rtt1 + "-" + rtt2 + " = " + (rtt1 - rtt2));
+					//pc.join();
 					Thread.sleep(15000);
 				}
 

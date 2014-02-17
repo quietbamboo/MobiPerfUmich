@@ -17,7 +17,6 @@ package com.mobiperf.ui;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -32,11 +31,8 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.mobiperf.Definition;
-import com.mobiperf.History;
-import com.mobiperf.Main;
 import com.mobiperf.Periodic;
 import com.mobiperf.R;
-import com.mobiperf.Tcpdump;
 import com.mobiperf.Utilities;
 
  

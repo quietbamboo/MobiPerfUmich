@@ -12,7 +12,6 @@ import java.io.OutputStreamWriter;
 
 import common.BaseTcpWorker;
 import common.Definition;
-import common.Util;
 
 /**
  * @author Junxian Huang

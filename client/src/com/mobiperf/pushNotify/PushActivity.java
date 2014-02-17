@@ -2,18 +2,17 @@ package com.mobiperf.pushNotify;
 
 
 
-import com.mobiperf.R;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.provider.Settings.Secure;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.mobiperf.InformationCenter;
+import com.mobiperf.R;
 
 public class PushActivity extends Activity {
 	private String mDeviceID;

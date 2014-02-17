@@ -1,6 +1,12 @@
 #!/bin/bash
+# Author: Junxian Huang (hjx@eecs.umich.edu) 
 #Compile and deploy for MLab servers
 node=nodeList
+
+#update nodeList
+#wget http://ks.measurementlab.net/mlab-host-ips.txt
+#cat mlab-host-ips.txt | grep "^mlab" | awk -F, '{print $1}' > nodeList
+
 if [ $1 = "-c" ]; then
 	mkdir mlab
 
@@ -49,7 +55,7 @@ elif [ $1 = "-d" ]; then
 		if [ $2 = "-e" ]; then
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $ip 'bash ~/mobiperf/end.sh'
 		elif [ $2 = "-i" ]; then
-			ssh -o "StrictHostKeyChecking no" -p $port -l $user $ip 'sudo yum -y install java' &
+			ssh -o "StrictHostKeyChecking no" -p $port -l $user $ip 'sudo yum -y install java'
 		else
 			ssh -o "StrictHostKeyChecking no" -p $port -l $user $n 'mkdir ~/mobiperf'
 			scp -o "StrictHostKeyChecking no" -P $port  -r mlab/* $user@$ip:~/mobiperf

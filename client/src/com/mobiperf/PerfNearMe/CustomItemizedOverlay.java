@@ -3,23 +3,15 @@ package com.mobiperf.PerfNearMe;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
-import android.util.Log;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
-import com.mobiperf.Definition;
-import com.mobiperf.R;
-import android.location.LocationManager;
-import com.mobiperf.R.string;
-import com.mobiperf.Utilities;
 import com.mobiperf.ui.Display;
 
 public class CustomItemizedOverlay extends ItemizedOverlay<OverlayItem> {

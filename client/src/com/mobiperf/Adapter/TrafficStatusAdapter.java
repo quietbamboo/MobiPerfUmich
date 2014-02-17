@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mobiperf.ConnectionInfo;
 import com.mobiperf.R;
 import com.mobiperf.TrafficInfo;
 

@@ -27,7 +27,6 @@ import android.widget.ListView;
 import com.mobiperf.Definition;
 import com.mobiperf.R;
 import com.mobiperf.Utilities;
-import com.mobiperf.Main;
 
 public class HistoricalList extends ListActivity {
 

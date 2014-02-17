@@ -18,16 +18,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mobiperf.R;
-import com.mobiperf.Tcpdump;
 
 public class TrafficPerApplication extends Activity {
 	public void onCreate(Bundle savedInstanceState) {

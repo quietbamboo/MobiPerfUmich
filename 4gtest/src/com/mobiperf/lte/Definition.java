@@ -32,7 +32,7 @@ public class Definition {
 	//change this to be the server you will connect to, either IP or domain name is fine
 	public static final String SERVER_NAME = "falcon.eecs.umich.edu";
 	public static boolean DEBUG = false;
-	public static boolean TEST = false;
+	public static boolean TEST = true;
 
 	//DON'T CHANGE BELOW
 	//port definitions
